@@ -23,13 +23,13 @@ metadata:
 spec:
   containers:
   - name: indus-matchmaker-frontend
-    image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/indus-matchmaker-frontend:latest
+    # image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/indus-matchmaker-frontend:latest
+    image: indus-matchmaker-frontend:latest
     imagePullPolicy: IfNotPresent
     ports:
     - containerPort: 51504
       name: indus-mm
   hostname: indus-matchmaker-frontend
-
 ---
 
 kind: Service
