@@ -31,7 +31,7 @@ metadata:
   generateName: "indus-gameserver-" # generate a unique name, with the given prefix
 spec:
   # if there is more than one container, specify which one is the game server
-  container: indus-gameserver
+  # container: indus-gameserver
   # Array of ports that can be exposed as direct connections to the game server container
   ports:
     # name is a descriptive name for the port
