@@ -107,11 +107,11 @@ spec:
         - name: MODE
           value: "agones"
         - name: TEAM
-          value: 4
+          value: "4"
         - name: BOTS
-          value: 0
+          value: "0"
         - name: PORT
-          value: 7654
+          value: "7654"
       # nodeSelector is a label that can be used to tell Kubernetes which host
       # OS to use. For Windows game servers uncomment the nodeSelector
       # definition below.
