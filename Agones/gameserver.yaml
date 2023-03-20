@@ -105,7 +105,7 @@ spec:
         - name: LOBBY
           value: "empty"
         - name: MODE
-          value: "headless"
+          value: "agones"
         - name: TEAM
           value: "4"
         - name: BOTS
