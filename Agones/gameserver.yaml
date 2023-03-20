@@ -95,11 +95,11 @@ spec:
     spec:
       containers:
       - name: indus-gameserver
-        image:  asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0_23_47_649
+        image:  asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0_23_47_650
         imagePullPolicy: Always
         env:
         - name: SESSION
-          value: "empty"
+          value: "ok"
         - name: REGION
           value: "empty"
         - name: LOBBY
