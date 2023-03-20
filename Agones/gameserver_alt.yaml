@@ -46,11 +46,11 @@ spec:
     # The name of the container to open the port on. Defaults to the game server container if omitted or empty.
     container: indus-gameserver
     # # the port that is being opened on the game server process
-    containerPort: 7654
+#     containerPort: 7654
     # the port exposed on the host, only required when `portPolicy` is "Static". Overwritten when portPolicy is "Dynamic".
 #     hostPort: 7777
     # protocol being used. Defaults to UDP. TCP and TCPUDP are other options
-#     protocol: UDP
+    protocol: UDP
   # Health checking for the running game server
   health:
     # Disable health checking. defaults to false, but can be set to true
