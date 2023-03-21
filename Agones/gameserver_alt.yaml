@@ -46,9 +46,9 @@ spec:
     # The name of the container to open the port on. Defaults to the game server container if omitted or empty.
     container: indus-gameserver
     # # the port that is being opened on the game server process
-    containerPort: 7779
+    containerPort: 7375
     # the port exposed on the host, only required when `portPolicy` is "Static". Overwritten when portPolicy is "Dynamic".
-    hostPort: 7779
+    hostPort: 7375
     # protocol being used. Defaults to UDP. TCP and TCPUDP are other options
     protocol: UDP
   # Health checking for the running game server
@@ -111,7 +111,7 @@ spec:
         - name: BOTS
           value: "0"
         - name: PORT
-          value: "7779"
+          value: "7375"
       # nodeSelector is a label that can be used to tell Kubernetes which host
       # OS to use. For Windows game servers uncomment the nodeSelector
       # definition below.
