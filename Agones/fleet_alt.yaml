@@ -103,7 +103,7 @@ spec:
               imagePullPolicy: Always
               env:
               - name: SESSION
-                value: "lol"
+                value: "empty"
               - name: REGION
                 value: "empty"
               - name: LOBBY
