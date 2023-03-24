@@ -101,6 +101,21 @@ spec:
             - name: indus-gameserver
               image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0_24_7_649
               imagePullPolicy: Always
+              env:
+              - name: SESSION
+                value: "lol"
+              - name: REGION
+                value: "empty"
+              - name: LOBBY
+                value: "empty"
+              - name: MODE
+                value: "agones"
+              - name: TEAM
+                value: "4"
+              - name: BOTS
+                value: "0"
+              - name: PORT
+                value: "27015"
           # nodeSelector is a label that can be used to tell Kubernetes which host
           # OS to use. For Windows game servers uncomment the nodeSelector
           # definition below.
