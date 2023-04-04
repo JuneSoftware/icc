@@ -95,13 +95,13 @@ spec:
     spec:
       containers:
       - name: indus-gameserver
-        image:  asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0_24_7_649
+        image:  asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0_24_15_746
         imagePullPolicy: Always
         env:
         - name: SESSION
-          value: "lol"
-        - name: REGION
           value: "empty"
+        - name: REGION
+          value: "asia"
         - name: LOBBY
           value: "empty"
         - name: MODE
@@ -109,7 +109,7 @@ spec:
         - name: TEAM
           value: "4"
         - name: BOTS
-          value: "0"
+          value: "8"
         - name: PORT
           value: "27015"
       # nodeSelector is a label that can be used to tell Kubernetes which host
