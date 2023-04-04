@@ -42,13 +42,13 @@ spec:
     # port is available. When static is the policy specified, `hostPort` is required to be populated
     # - "Passthrough" dynamically sets the `containerPort` to the same value as the dynamically selected hostPort.
     #      This will mean that users will need to lookup what port has been opened through the server side SDK.
-    portPolicy: Static
+    portPolicy: Passthrough
     # The name of the container to open the port on. Defaults to the game server container if omitted or empty.
     container: indus-gameserver
     # # the port that is being opened on the game server process
-    containerPort: 27015
+#     containerPort: 27015
     # the port exposed on the host, only required when `portPolicy` is "Static". Overwritten when portPolicy is "Dynamic".
-    hostPort: 27015
+#     hostPort: 27015
     # protocol being used. Defaults to UDP. TCP and TCPUDP are other options
     protocol: UDP
   # Health checking for the running game server
@@ -95,13 +95,13 @@ spec:
     spec:
       containers:
       - name: indus-gameserver
-        image:  asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0_24_7_649
+        image:  asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0_24_15_746
         imagePullPolicy: Always
         env:
         - name: SESSION
-          value: "lol"
-        - name: REGION
           value: "empty"
+        - name: REGION
+          value: "asia"
         - name: LOBBY
           value: "empty"
         - name: MODE
@@ -109,7 +109,7 @@ spec:
         - name: TEAM
           value: "4"
         - name: BOTS
-          value: "0"
+          value: "8"
         - name: PORT
           value: "27015"
       # nodeSelector is a label that can be used to tell Kubernetes which host
