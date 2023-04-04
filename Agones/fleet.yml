@@ -6,7 +6,7 @@ metadata:
   name: indus-gameserver-fleet
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
-  replicas: 2
+  replicas: 1
   # defines how GameServers are organised across the cluster.
   # Options include:
   # "Packed" (default) is aimed at dynamic Kubernetes clusters, such as cloud providers, wherein we want to bin pack
@@ -99,13 +99,13 @@ spec:
         spec:
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0_24_7_649
+              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0_24_15_746
               imagePullPolicy: Always
               env:
               - name: SESSION
                 value: "empty"
               - name: REGION
-                value: "empty"
+                value: "asia"
               - name: LOBBY
                 value: "empty"
               - name: MODE
@@ -113,7 +113,7 @@ spec:
               - name: TEAM
                 value: "4"
               - name: BOTS
-                value: "0"
+                value: "5"
               - name: PORT
                 value: "27015"
           # nodeSelector is a label that can be used to tell Kubernetes which host
