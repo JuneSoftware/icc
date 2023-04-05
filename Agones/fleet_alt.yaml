@@ -113,7 +113,7 @@ spec:
               - name: TEAM
                 value: "4"
               - name: BOTS
-                value: "5"
+                value: "9"
               - name: PORT
                 value: "27015"
           # nodeSelector is a label that can be used to tell Kubernetes which host
