@@ -18,6 +18,8 @@ metadata:
   name: grafana-indus
 spec:
   type: LoadBalancer
+  selector:
+    name: grafana
   ports:
     - protocol: TCP
       port: 3000
