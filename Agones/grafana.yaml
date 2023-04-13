@@ -12,8 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-service:
-  port: 3000
+apiVersion: v1
+kind: Service
+spec:
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  loadBalancerSourceRanges:
+    - 0.0.0.0/0
 tolerations:
 - key: "agones.dev/agones-metrics"
   operator: "Equal"
