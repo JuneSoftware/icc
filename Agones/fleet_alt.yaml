@@ -103,7 +103,7 @@ spec:
               imagePullPolicy: Always
               env:
               - name: SESSION
-                value: "one"
+                value: "empty"
               - name: REGION
                 value: "asia"
               - name: LOBBY
@@ -113,7 +113,7 @@ spec:
               - name: TEAM
                 value: "2"
               - name: BOTS
-                value: "9"
+                value: "0"
               - name: PORT
                 value: "27015"
           # nodeSelector is a label that can be used to tell Kubernetes which host
