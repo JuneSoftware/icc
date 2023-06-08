@@ -99,7 +99,7 @@ spec:
         spec:
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0_26.28_1049
+              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.26.28_1049
               imagePullPolicy: Always
               env:
               - name: SESSION
