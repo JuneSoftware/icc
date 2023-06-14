@@ -116,7 +116,7 @@ spec:
                 value: "0"
               - name: PORT
                 value: "27015"
-              - name: DEFAULT_MASTER_CLIENT
+              - name: MASTER_CLIENT
                 value: "1"
           # nodeSelector is a label that can be used to tell Kubernetes which host
           # OS to use. For Windows game servers uncomment the nodeSelector
