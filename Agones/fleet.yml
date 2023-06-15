@@ -99,7 +99,7 @@ spec:
         spec:
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.26.46_1098
+              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.26.56_1108
               imagePullPolicy: Always
               env:
               - name: SESSION
@@ -111,7 +111,7 @@ spec:
               - name: MODE
                 value: "agones"
               - name: TEAM
-                value: "2"
+                value: "0"
               - name: BOTS
                 value: "0"
               - name: PORT
