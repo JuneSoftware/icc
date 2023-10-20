@@ -3,7 +3,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gameserver-fleet-quad
+  name: indus-gameserver-fleet-quad-v_VERSION_
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 1
