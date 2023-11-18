@@ -11,7 +11,7 @@ on:
 jobs:
   update_yaml:
     name: Yaml Updater
-    runs-on: common
+    runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
