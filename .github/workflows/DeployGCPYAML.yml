@@ -15,18 +15,15 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-        
+
       - name: List top-level directory
         run: ls -l
 
-      - name: List contents of main directory
-        run: ls -l main/
-
       - name: List contents of main/Agones directory
-        run: ls -l main/Agones/
+        run: ls -l Agones/
 
       - name: Replace _BUILD_NUMBER_ in fleet.yaml
-        run: sed -i "s/_BUILD_NUMBER_/${{github.event.inputs.Version}}/g" main/Agones/fleet_quad.yaml
+        run: sed -i "s/_BUILD_NUMBER_/${{github.event.inputs.Version}}/g" Agones/fleet_quad.yaml
 
       - name: Commit and push changes
         run: |
