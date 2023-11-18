@@ -11,13 +11,13 @@ on:
 jobs:
   update_yaml:
     name: Yaml Updater
-    runs-on: common
+    runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
 
       - name: Replace _BUILD_NUMBER_ in fleet.yaml
-        run: sed -i "s/_BUILD_NUMBER_/${{github.event.inputs.Version}}/g" fleet.yaml
+        run: sed -i "s/_BUILD_NUMBER_/${{github.event.inputs.Version}}/g" main/Agones/fleet_quad.yaml
 
       - name: Commit and push changes
         run: |
