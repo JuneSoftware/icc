@@ -19,13 +19,13 @@ jobs:
         run: ls -l main/Agones/
         
       - name: Replace _BUILD_NUMBER_ in fleet.yaml
-        run: sed -i "s/_BUILD_NUMBER_/${{github.event.inputs.Version}}/g" fleet.yaml
+        run: sed -i "s/_BUILD_NUMBER_/${{github.event.inputs.Version}}/g" Agones/fleet_quad.yaml
 
       - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add fleet.yaml
+          git add Agones/fleet_quad.yaml
           git commit -m "Update build number in fleet.yaml" -a
           git push
         
