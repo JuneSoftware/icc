@@ -16,12 +16,6 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: List top-level directory
-        run: ls -l
-
-      - name: List contents of main/Agones directory
-        run: ls -l Agones/
-
       - name: Replace _BUILD_NUMBER_ in fleet.yaml
         run: sed -i "s/_BUILD_NUMBER_/${{github.event.inputs.Version}}/g" Agones/fleet_quad.yaml
 
@@ -29,7 +23,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add fleet.yaml
+          git add Agones/fleet_quad.yaml
           git commit -m "Update build number in fleet.yaml" -a
           git push
         
