@@ -1,0 +1,57 @@
+﻿name: Deploy Server Config
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version for the release. Eg: 0.31.0_1735'
+        required: true
+      teamSize:
+        description: 'Max Team Size'
+        required: true
+        type: choice
+        options:
+          - unassigned
+          - Solos
+          - Duos
+          - Quads
+      enableBots:
+        description: 'Enable Bots Backfill'
+        required: false
+        type: boolean
+        default: false
+      botsBackfillLimit:
+        description: 'Add Bots Backfill Limit'
+        required: true
+        default: '60'
+
+jobs:
+  update_yaml:
+    name: Yaml Updater
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: List files in main/Agones directory
+        run: ls -l main/Agones/
+        
+      - name: Replace _BUILD_NUMBER_ in fleet.yaml
+        run: sed -i "s/_BUILD_NUMBER_/${{github.event.inputs.Version}}/g" Agones/ActionRunnerConfig.yaml
+        
+      - name: Replace _TEAMSIZE_ in fleet.yaml
+        run: sed -i "s/_TEAMSIZE_/${{github.event.inputs.teamSize}}/g" Agones/ActionRunnerConfig.yaml
+
+      - name: Replace _BACKFILLSIZE_ in fleet.yaml
+        run: sed -i "s/_BACKFILLSIZE_/${{github.event.inputs.Version}}/g" Agones/ActionRunnerConfig.yaml
+
+      - name: Replace _BOTSBACKFILLENABLE_ in fleet.yaml
+        run: sed -i "s/_BOTSBACKFILLENABLE_/${{github.event.inputs.Version}}/g" Agones/ActionRunnerConfig.yaml
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add Agones/fleet_quad.yaml
+          git commit -m "Update Actions Github in fleet.yaml" -a
+          git push
+  
