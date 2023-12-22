@@ -30,28 +30,21 @@ jobs:
     name: Yaml Updater
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
-      - name: List files in main/Agones directory
-        run: ls -l main/Agones/
-        
-      - name: Replace _BUILD_NUMBER_ in fleet.yaml
-        run: sed -i "s/_BUILD_NUMBER_/${{github.event.inputs.Version}}/g" Agones/ActionRunnerConfig.yaml
-        
-      - name: Replace _TEAMSIZE_ in fleet.yaml
-        run: sed -i "s/_TEAMSIZE_/${{github.event.inputs.teamSize}}/g" Agones/ActionRunnerConfig.yaml
+    - name: Set up Kubectl
+      uses: azure/setup-kubectl@v1
+      with:
+        version: 'v1.20.0' # Specify the kubectl version you need
+    - name: Update YAML file
+      run: |
+        python -c "import yaml; \
+                   data = yaml.safe_load(open('Agones/actionRunnerConfig.yaml')); \
+                   data['_BUILD_NUMBER_'] = '${{ github.event.inputs.version }}'; \
+                   data['_TEAMSIZE_'] = '${{ github.event.inputs.teamSize }}'; \
+                   data['_BOTSBACKFILLENABLE_'] = '${{ github.event.inputs.enableBots }}'; \
+                   data['_BACKFILLSIZE_'] = '${{ github.event.inputs.botsBackfillLimit }}'; \
+                   yaml.dump(data, open('Agones/actionRunnerConfig.yaml', 'w'))"
 
-      - name: Replace _BACKFILLSIZE_ in fleet.yaml
-        run: sed -i "s/_BACKFILLSIZE_/${{github.event.inputs.Version}}/g" Agones/ActionRunnerConfig.yaml
-
-      - name: Replace _BOTSBACKFILLENABLE_ in fleet.yaml
-        run: sed -i "s/_BOTSBACKFILLENABLE_/${{github.event.inputs.Version}}/g" Agones/ActionRunnerConfig.yaml
-
-      - name: Commit and push changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add Agones/fleet_quad.yaml
-          git commit -m "Update Actions Github in fleet.yaml" -a
-          git push
-  
+    - name: Apply the Configuration
+      run: kubectl create -f https://raw.githubusercontent.com/JuneSoftware/icc/main/Agones/actionRunnerConfig.yaml
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
