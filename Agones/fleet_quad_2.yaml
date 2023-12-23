@@ -104,7 +104,7 @@ spec:
               imagePullPolicy: Always
               env:
               - name: SESSION
-                value: "158"
+                value: "empty"
               - name: REGION
                 value: "asia"
               - name: LOBBY
