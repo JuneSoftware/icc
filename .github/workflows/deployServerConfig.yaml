@@ -34,8 +34,8 @@ jobs:
       uses: actions/checkout@v2
       
     - name: List files in main/Agones directory
-      run: ls -l main/Agones/
-        
+      run: ls -l Agones
+      
     - name: Replace _BUILD_NUMBER_ in fleet.yaml
       run: sed -i "s/_BUILD_NUMBER_/${{github.event.inputs.version}}/g" Agones/actionRunnerConfig.yaml
 
