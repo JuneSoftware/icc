@@ -30,12 +30,8 @@ jobs:
     name: Yaml Updater
     runs-on: ubuntu-latest
     steps:
-    - name: Set up Kubectl
-      uses: azure/setup-kubectl@v1
-      with:
-        version: 'v1.20.0' # Specify the kubectl version you need
     - name: List Files in Repo
-      run: ls
+      run: cd Agones
     - name: Update YAML file
       run: |
         python -c "import yaml; \
