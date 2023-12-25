@@ -11,10 +11,9 @@ on:
         required: true
         type: choice
         options:
-          - unassigned
-          - Solos
-          - Duos
           - Quads
+          - Duos
+          - Solos
       enableBots:
         description: 'Enable Bots Backfill'
         required: false
@@ -30,21 +29,46 @@ jobs:
     name: Yaml Updater
     runs-on: ubuntu-latest
     steps:
-    - name: Set up Kubectl
-      uses: azure/setup-kubectl@v1
-      with:
-        version: 'v1.20.0' # Specify the kubectl version you need
-    - name: List Files in Repo
-      run: ls -R
-    - name: Update YAML file
+    - name: Check out repository
+      uses: actions/checkout@v2
+      
+    - name: Replace _BUILD_NUMBER_ in yaml template
+      run: sed -i "s/_BUILD_NUMBER_/${{github.event.inputs.version}}/g" Agones/actionRunnerConfigTemplate.yaml
+
+    - name: Replace _TEAM_SIZE_ in yaml template if QUADS
+      if: ${{ github.event.inputs.teamSize == 'Quads' }}
+      run: sed -i "s/_TEAM_SIZE_/2/g" Agones/actionRunnerConfigTemplate.yaml
+      
+    - name: Replace _TEAM_SIZE_ in yaml template if DUOS
+      if: ${{ github.event.inputs.teamSize == 'Duos' }}
+      run: sed -i "s/_TEAM_SIZE_/1/g" Agones/actionRunnerConfigTemplate.yaml
+
+    - name: Replace _TEAM_SIZE_ in yaml template if SOLOs
+      if: ${{ github.event.inputs.teamSize == 'Solos' }}
+      run: sed -i "s/_TEAM_SIZE_/0/g" Agones/actionRunnerConfigTemplate.yaml
+
+    - name: Replace _BOTS_BACKFILL_ENABLE_ in yaml template if False
+      if: ${{ github.event.inputs.enableBots == 'false' }}
+      run: sed -i "s/_BOTS_BACKFILL_ENABLE_/0/g" Agones/actionRunnerConfigTemplate.yaml
+
+    - name: Replace _BOTS_BACKFILL_ENABLE_ in yaml template if True
+      if: ${{ github.event.inputs.enableBots == 'true' }}
+      run: sed -i "s/_BOTS_BACKFILL_ENABLE_/1/g" Agones/actionRunnerConfigTemplate.yaml
+
+    - name: Replace _BACKFILL_SIZE_ in yaml template
+      if: ${{ github.event.inputs.enableBots == 'true' }}
+      run: sed -i "s/_BACKFILL_SIZE_/${{github.event.inputs.botsBackfillLimit}}/g" Agones/actionRunnerConfigTemplate.yaml
+
+    - name: Copy File Content
+      run: cp Agones/actionRunnerConfigTemplate.yaml Agones/actionRunnerConfig.yaml
+
+    - name: Commit and push changes
       run: |
-        python -c "import yaml; \
-                   data = yaml.safe_load(open('Agones/actionRunnerConfig.yaml')); \
-                   data['_BUILD_NUMBER_'] = '${{ github.event.inputs.version }}'; \
-                   data['_TEAMSIZE_'] = '${{ github.event.inputs.teamSize }}'; \
-                   data['_BOTSBACKFILLENABLE_'] = '${{ github.event.inputs.enableBots }}'; \
-                   data['_BACKFILLSIZE_'] = '${{ github.event.inputs.botsBackfillLimit }}'; \
-                   yaml.dump(data, open('Agones/actionRunnerConfig.yaml', 'w'))"
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add Agones/actionRunnerConfig.yaml
+        git commit -m "Update config in actionRunnerConfig.yaml" -a
+        git push
 
     - name: Apply the Configuration
       run: kubectl create -f https://raw.githubusercontent.com/JuneSoftware/icc/main/Agones/actionRunnerConfig.yaml
