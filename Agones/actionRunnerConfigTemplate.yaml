@@ -112,15 +112,15 @@ spec:
               - name: MODE
                 value: "agones"
               - name: TEAM
-                value: "_TEAMSIZE_"
+                value: "_TEAM_SIZE_"
               - name: BOTS
-                value: "_BACKFILLSIZE_"
+                value: "_BACKFILL_SIZE_"
               - name: PORT
                 value: "27015"
               - name: MASTER_CLIENT
                 value: "1"
               - name: BOTS_FILLMODE
-                value: "_BOTSBACKFILLENABLE_"
+                value: "_BOTSB_ACKFILL_ENABLE_"
           # nodeSelector is a label that can be used to tell Kubernetes which host
           # OS to use. For Windows game servers uncomment the nodeSelector
           # definition below.
