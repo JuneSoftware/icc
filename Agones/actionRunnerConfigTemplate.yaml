@@ -4,7 +4,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gameserver-fleet-quad-1958-nobots
+  name: indus-gameserver-fleet-quad-1958-
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 1
@@ -112,15 +112,15 @@ spec:
               - name: MODE
                 value: "agones"
               - name: TEAM
-                value: "_TEAMSIZE_"
+                value: "_TEAM_SIZE_"
               - name: BOTS
-                value: "_BACKFILLSIZE_"
+                value: "_BACKFILL_SIZE_"
               - name: PORT
                 value: "27015"
               - name: MASTER_CLIENT
                 value: "1"
               - name: BOTS_FILLMODE
-                value: "_BOTSBACKFILLENABLE_"
+                value: "_BOTS_BACKFILL_ENABLE_"
           # nodeSelector is a label that can be used to tell Kubernetes which host
           # OS to use. For Windows game servers uncomment the nodeSelector
           # definition below.
