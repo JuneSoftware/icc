@@ -34,6 +34,8 @@ jobs:
       uses: azure/setup-kubectl@v1
       with:
         version: 'v1.20.0' # Specify the kubectl version you need
+    - name: List Files in Repo
+      run: ls -R
     - name: Update YAML file
       run: |
         python -c "import yaml; \
