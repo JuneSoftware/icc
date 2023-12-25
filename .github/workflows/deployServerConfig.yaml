@@ -39,7 +39,12 @@ jobs:
       run: cp Agones/actionRunnerConfigTemplate.yaml Agones/actionRunnerConfig.yaml
       
     - name: Replace _BUILD_NUMBER_ in yaml template
-      run: sed -i "s/_BUILD_NUMBER_/${{github.event.inputs.version}}/g" Agones/actionRunnerConfig.yaml
+      run: |
+          VERSION=$(echo "${{ github.event.inputs.version }}" | rev | cut -c 1-4 | rev)
+          sed -i "s/_BUILD_NUMBER_/$VERSION/g" Agones/actionRunnerConfig.yaml
+      
+    - name: Replace _VERSION_ in yaml template
+      run: sed -i "s/_VERSION_/${{github.event.inputs.version}}/g" Agones/actionRunnerConfig.yaml
 
     - name: Replace _TEAM_SIZE_ in yaml template if QUADS
       if: ${{ github.event.inputs.teamSize == 'Quads' }}
