@@ -112,7 +112,7 @@ spec:
               - name: MODE
                 value: "agones"
               - name: TEAM
-                value: "1"
+                value: "0"
               - name: BOTS
                 value: "_BACKFILL_SIZE_"
               - name: PORT
