@@ -62,6 +62,14 @@ jobs:
     - name: Copy File Content
       run: cp Agones/actionRunnerConfigTemplate.yaml Agones/actionRunnerConfig.yaml
 
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add Agones/actionRunnerConfig.yaml
+        git commit -m "Update config in actionRunnerConfig.yaml" -a
+        git push
+
     - name: Apply the Configuration
       run: kubectl create -f https://raw.githubusercontent.com/JuneSoftware/icc/main/Agones/actionRunnerConfig.yaml
       env:
