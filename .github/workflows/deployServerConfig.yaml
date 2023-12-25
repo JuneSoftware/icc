@@ -35,7 +35,7 @@ jobs:
       with:
         version: 'v1.20.0' # Specify the kubectl version you need
     - name: List Files in Repo
-      run: pwd
+      run: ls
     - name: Update YAML file
       run: |
         python -c "import yaml; \
