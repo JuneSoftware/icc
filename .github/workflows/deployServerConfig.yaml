@@ -62,7 +62,6 @@ jobs:
       run: sed -i "s/_BOTS_BACKFILL_ENABLE_/1/g" Agones/actionRunnerConfig.yaml
 
     - name: Replace _BACKFILL_SIZE_ in yaml template
-      if: ${{ github.event.inputs.enableBots == 'true' }}
       run: sed -i "s/_BACKFILL_SIZE_/${{github.event.inputs.botsBackfillLimit}}/g" Agones/actionRunnerConfig.yaml
 
     - name: Commit and push changes
