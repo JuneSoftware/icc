@@ -27,7 +27,7 @@ on:
 jobs:
   update_yaml:
     permissions:
-      contents: 'read'
+      contents: 'write'
       id-token: 'write'
     name: Yaml Updater
     runs-on: ubuntu-latest
@@ -74,13 +74,11 @@ jobs:
 
     - name: Commit and push changes
       run: |
-        git config --local user.email "gurnoor@supergaming.com"
-        git config --local user.name "Gurnoor Rana"
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
         git add Agones/actionRunnerConfig.yaml
         git commit -m "Update config in actionRunnerConfig.yaml"
         git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.ICC_AUTH_TOKEN }}
     - name: GCP Cloud Auth
       id: 'gcp-cloud-auth'
       uses: 'google-github-actions/auth@v1'
