@@ -96,7 +96,6 @@ jobs:
       with:
         cluster_name: 'agones-cluster'
         location: 'asia-south1-a'
-        use_auth_provider : 'true'
       env:
           GOOGLE_APPLICATION_CREDENTIALS: 'GCP_SA.json'
     - id: 'get-pods'
