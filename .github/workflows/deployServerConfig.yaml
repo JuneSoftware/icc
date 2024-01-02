@@ -79,6 +79,8 @@ jobs:
         git add Agones/actionRunnerConfig.yaml
         git commit -m "Update config in actionRunnerConfig.yaml"
         git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.ICC_AUTH_TOKEN }}
     - name: GCP Cloud Auth
       id: 'gcp-cloud-auth'
       uses: 'google-github-actions/auth@v1'
