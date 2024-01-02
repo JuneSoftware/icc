@@ -74,8 +74,8 @@ jobs:
 
     - name: Commit and push changes
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git config --local user.email "gurnoor@supergaming.com"
+        git config --local user.name "Gurnoor Rana"
         git add Agones/actionRunnerConfig.yaml
         git commit -m "Update config in actionRunnerConfig.yaml"
         git push
