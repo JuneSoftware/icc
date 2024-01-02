@@ -26,6 +26,9 @@ on:
 
 jobs:
   update_yaml:
+    permissions:
+      contents: 'write'
+      id-token: 'write'
     name: Yaml Updater
     runs-on: ubuntu-latest
     steps:
@@ -76,7 +79,27 @@ jobs:
         git add Agones/actionRunnerConfig.yaml
         git commit -m "Update config in actionRunnerConfig.yaml"
         git push
-
+    - name: GCP Cloud Auth
+      id: 'gcp-cloud-auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+        service_account: ${{ secrets.SERVICE_ACCOUNT }}
+    - name: Create Service Account File
+      uses: 'fertrig/create-file-action@1.0.2'
+      with:
+        file: 'GCP_SA.json'
+        content: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+    - name: GKE Auth
+      id: 'get-credentials'
+      uses: 'google-github-actions/get-gke-credentials@v2'
+      with:
+        cluster_name: 'agones-cluster'
+        location: 'asia-south1-a'
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: 'GCP_SA.json'
+    - id: 'get-pods'
+      run: 'kubectl get fleets'
     - name: Apply the Configuration
       run: kubectl create -f https://raw.githubusercontent.com/JuneSoftware/icc/main/Agones/actionRunnerConfig.yaml
       env:
