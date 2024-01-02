@@ -113,9 +113,9 @@ spec:
               - name: MODE
                 value: "agones"
               - name: TEAM
-                value: "0"
+                value: "1"
               - name: BOTS
-                value: "33"
+                value: "25"
               - name: PORT
                 value: "27015"
               - name: MASTER_CLIENT
