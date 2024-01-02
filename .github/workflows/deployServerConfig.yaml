@@ -26,6 +26,9 @@ on:
 
 jobs:
   update_yaml:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     name: Yaml Updater
     runs-on: ubuntu-latest
     steps:
