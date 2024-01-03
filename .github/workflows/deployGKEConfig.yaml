@@ -32,6 +32,15 @@ jobs:
     name: Yaml Updater
     runs-on: ubuntu-latest
     steps:
+    - name: Validate Version Format
+      run: |
+        VERSION_INPUT="${{ github.event.inputs.version }}"
+        VERSION_REGEX="^[0-9]+\.[0-9]+\.[0-9]+_[0-9]+$"
+        if [[ ! $VERSION_INPUT =~ $VERSION_REGEX ]]; then
+          echo "Version format is invalid. Expected format: [number].[number].[number]_[number] (e.g., 0.31.0_1735)."
+          exit 1
+        fi
+      shell: bash
     - name: Check out repository
       uses: actions/checkout@v3
 
