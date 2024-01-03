@@ -1,4 +1,4 @@
-﻿name: Deploy Server Config
+﻿name: E
 
 on:
   workflow_dispatch:
