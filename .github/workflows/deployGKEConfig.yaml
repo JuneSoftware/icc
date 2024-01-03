@@ -11,9 +11,9 @@ on:
         required: true
         type: choice
         options:
-          - Quads
-          - Duos
-          - Solos
+          - quads
+          - duos
+          - solos
       enableBots:
         description: 'Enable Bots Backfill'
         required: false
