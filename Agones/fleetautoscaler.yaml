@@ -28,7 +28,7 @@ metadata:
 spec:
   # The name of the fleet to attach to and control. Must be an existing Fleet in the same namespace
   # as this FleetAutoscaler
-  fleetName: fleet-example
+  fleetName: indus-gameserver-fleet-solo-1977
   # The autoscaling policy
   policy:
     # type of the policy. Buffer or Webhook types are available
@@ -56,4 +56,4 @@ spec:
     # parameters of the fixedInterval sync
     fixedInterval:
       # the time in seconds between each auto scaling
-      seconds: 30
+      seconds: 1
