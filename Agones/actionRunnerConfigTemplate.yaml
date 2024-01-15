@@ -119,7 +119,7 @@ spec:
               - name: PORT
                 value: "27015"
               - name: MASTER_CLIENT
-                value: "1"
+                value: "0"
               - name: BOTS_FILLMODE
                 value: "_BOTS_BACKFILL_ENABLE_"
           # nodeSelector is a label that can be used to tell Kubernetes which host
