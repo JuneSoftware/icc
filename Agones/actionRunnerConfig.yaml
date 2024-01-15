@@ -113,7 +113,7 @@ spec:
               - name: MODE
                 value: "agones"
               - name: TEAM
-                value: "2"
+                value: "0"
               - name: BOTS
                 value: "60"
               - name: PORT
