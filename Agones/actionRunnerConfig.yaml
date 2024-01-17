@@ -5,7 +5,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gameserver-fleet-duos-2070
+  name: indus-gameserver-fleet-quads-2070
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 1
@@ -113,7 +113,7 @@ spec:
               - name: MODE
                 value: "agones"
               - name: TEAM
-                value: "1"
+                value: "2"
               - name: BOTS
                 value: "60"
               - name: PORT
