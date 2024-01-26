@@ -71,7 +71,7 @@ jobs:
       run: sed -i "s/_TEAM_SIZE_/0/g" Development/Agones/actionRunnerConfig.yaml
       
     - name: Replace _TEAM_NAME_ in yaml gamefleet name
-      run: sed -i "s/_TEAM_NAME_/${{github.event.inputs.teamSize}}/g" Development/Development/Agones/actionRunnerConfig.yaml
+      run: sed -i "s/_TEAM_NAME_/${{github.event.inputs.teamSize}}/g" Development/Agones/actionRunnerConfig.yaml
 
     - name: Replace _BOTS_BACKFILL_ENABLE_ in yaml template if False
       if: ${{ github.event.inputs.enableBots == 'false' }}
@@ -82,7 +82,7 @@ jobs:
       run: sed -i "s/_BOTS_BACKFILL_ENABLE_/1/g" Development/Agones/actionRunnerConfig.yaml
 
     - name: Replace _BACKFILL_SIZE_ in yaml template
-      run: sed -i "s/_BACKFILL_SIZE_/${{github.event.inputs.botsBackfillLimit}}/g" Development/Development/Agones/actionRunnerConfig.yaml
+      run: sed -i "s/_BACKFILL_SIZE_/${{github.event.inputs.botsBackfillLimit}}/g" Development/Agones/actionRunnerConfig.yaml
 
     - name: Commit and push changes
       run: |
