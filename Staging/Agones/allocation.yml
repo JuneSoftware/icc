@@ -1,0 +1,33 @@
+apiVersion: "allocation.agones.dev/v1"
+kind: GameServerAllocation
+spec:
+  # GameServer selector from which to choose GameServers from.
+  # Defaults to all GameServers.
+  # matchLabels, matchExpressions, gameServerState and player filters can be used for filtering.
+  # See: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more details on label selectors.
+  # An ordered list of GameServer label selectors.
+  # If the first selector is not matched, the selection attempts the second selector, and so on.
+  # This is useful for things like smoke testing of new game servers.
+  selectors:
+    - gameServerState: Ready
+      players:
+        minAvailable: 0
+        maxAvailable: 60
+    - gameServerState: Allocated
+      players:
+        minAvailable: 0
+        maxAvailable: 99
+  # defines how GameServers are organised across the cluster.
+  # Options include:
+  # "Packed" (default) is aimed at dynamic Kubernetes clusters, such as cloud providers, wherein we want to bin pack
+  # resources
+  # "Distributed" is aimed at static Kubernetes clusters, wherein we want to distribute resources across the entire
+  # cluster
+  scheduling: Packed
+  # Optional custom metadata that is added to the game server at allocation
+  # You can use this to tell the server necessary session data
+  metadata:
+    labels:
+      mode: BR
+    annotations:
+      map: Lanka
