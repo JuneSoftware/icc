@@ -115,4 +115,4 @@ jobs:
     - name: Apply the Configuration
       run: kubectl create -f https://raw.githubusercontent.com/JuneSoftware/icc/main/Staging/Agones/actionRunnerConfig.yaml
       env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_DEV }}
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_STAGING }}
