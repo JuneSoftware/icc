@@ -95,8 +95,7 @@ jobs:
       id: 'gcp-cloud-auth'
       uses: 'google-github-actions/auth@v1'
       with:
-        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_STAGING }}
-        service_account: ${{ secrets.SERVICE_ACCOUNT_STAGING }}
+        credentials_json: '${{ secrets.SERVICE_ACCOUNT_KEY_STAGING }}'
     - name: Create Service Account File
       uses: 'fertrig/create-file-action@1.0.2'
       with:
