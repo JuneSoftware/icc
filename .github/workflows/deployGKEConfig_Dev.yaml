@@ -93,10 +93,9 @@ jobs:
         git push
     - name: GCP Cloud Auth
       id: 'gcp-cloud-auth'
-      uses: 'google-github-actions/auth@v1'
+      uses: 'google-github-actions/auth@v2'
       with:
-        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_DEV }}
-        service_account: ${{ secrets.SERVICE_ACCOUNT_DEV }}
+        credentials_json: '${{ secrets.SERVICE_ACCOUNT_KEY_DEV }}'
     - name: Create Service Account File
       uses: 'fertrig/create-file-action@1.0.2'
       with:
