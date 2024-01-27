@@ -1,4 +1,4 @@
-﻿name: Edit Config and Deploy to GKE
+﻿name: Edit Config and Deploy to GKE - Staging
 
 on:
   workflow_dispatch:
@@ -45,63 +45,63 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Delete Config
-      run: rm Agones/actionRunnerConfig.yaml
+      run: rm Staging/Agones/actionRunnerConfig.yaml
 
     - name: Copy File Content
-      run: cp Agones/actionRunnerConfigTemplate.yaml Agones/actionRunnerConfig.yaml
+      run: cp Staging/Agones/actionRunnerConfigTemplate.yaml Staging/Agones/actionRunnerConfig.yaml
       
     - name: Replace _BUILD_NUMBER_ in yaml template
       run: |
           VERSION=$(echo "${{ github.event.inputs.version }}" | rev | cut -c 1-4 | rev)
-          sed -i "s/_BUILD_NUMBER_/$VERSION/g" Agones/actionRunnerConfig.yaml
+          sed -i "s/_BUILD_NUMBER_/$VERSION/g" Staging/Agones/actionRunnerConfig.yaml
       
     - name: Replace _VERSION_ in yaml template
-      run: sed -i "s/_VERSION_/${{github.event.inputs.version}}/g" Agones/actionRunnerConfig.yaml
+      run: sed -i "s/_VERSION_/${{github.event.inputs.version}}/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _TEAM_SIZE_ in yaml template if QUADS
       if: ${{ github.event.inputs.teamSize == 'Quads' }}
-      run: sed -i "s/_TEAM_SIZE_/2/g" Agones/actionRunnerConfig.yaml
+      run: sed -i "s/_TEAM_SIZE_/2/g" Staging/Agones/actionRunnerConfig.yaml
       
     - name: Replace _TEAM_SIZE_ in yaml template if DUOS
       if: ${{ github.event.inputs.teamSize == 'Duos' }}
-      run: sed -i "s/_TEAM_SIZE_/1/g" Agones/actionRunnerConfig.yaml
+      run: sed -i "s/_TEAM_SIZE_/1/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _TEAM_SIZE_ in yaml template if SOLOs
       if: ${{ github.event.inputs.teamSize == 'Solos' }}
-      run: sed -i "s/_TEAM_SIZE_/0/g" Agones/actionRunnerConfig.yaml
+      run: sed -i "s/_TEAM_SIZE_/0/g" Staging/Agones/actionRunnerConfig.yaml
       
     - name: Replace _TEAM_NAME_ in yaml gamefleet name
-      run: sed -i "s/_TEAM_NAME_/${{github.event.inputs.teamSize}}/g" Agones/actionRunnerConfig.yaml
+      run: sed -i "s/_TEAM_NAME_/${{github.event.inputs.teamSize}}/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _BOTS_BACKFILL_ENABLE_ in yaml template if False
       if: ${{ github.event.inputs.enableBots == 'false' }}
-      run: sed -i "s/_BOTS_BACKFILL_ENABLE_/0/g" Agones/actionRunnerConfig.yaml
+      run: sed -i "s/_BOTS_BACKFILL_ENABLE_/0/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _BOTS_BACKFILL_ENABLE_ in yaml template if True
       if: ${{ github.event.inputs.enableBots == 'true' }}
-      run: sed -i "s/_BOTS_BACKFILL_ENABLE_/1/g" Agones/actionRunnerConfig.yaml
+      run: sed -i "s/_BOTS_BACKFILL_ENABLE_/1/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _BACKFILL_SIZE_ in yaml template
-      run: sed -i "s/_BACKFILL_SIZE_/${{github.event.inputs.botsBackfillLimit}}/g" Agones/actionRunnerConfig.yaml
+      run: sed -i "s/_BACKFILL_SIZE_/${{github.event.inputs.botsBackfillLimit}}/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Commit and push changes
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add Agones/actionRunnerConfig.yaml
-        git commit -m "Update config in actionRunnerConfig.yaml"
+        git add Staging/Agones/actionRunnerConfig.yaml
+        git commit -m "Update Staging config in actionRunnerConfig.yaml"
         git push
     - name: GCP Cloud Auth
       id: 'gcp-cloud-auth'
       uses: 'google-github-actions/auth@v1'
       with:
-        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
-        service_account: ${{ secrets.SERVICE_ACCOUNT }}
+        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_STAGING }}
+        service_account: ${{ secrets.SERVICE_ACCOUNT_STAGING }}
     - name: Create Service Account File
       uses: 'fertrig/create-file-action@1.0.2'
       with:
         file: 'GCP_SA.json'
-        content: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+        content: ${{ secrets.SERVICE_ACCOUNT_KEY_STAGING }}
     - name: GKE Auth
       id: 'get-credentials'
       uses: 'google-github-actions/get-gke-credentials@v2'
@@ -113,6 +113,6 @@ jobs:
     - id: 'get-pods'
       run: 'kubectl get fleets'
     - name: Apply the Configuration
-      run: kubectl create -f https://raw.githubusercontent.com/JuneSoftware/icc/main/Agones/actionRunnerConfig.yaml
+      run: kubectl create -f https://raw.githubusercontent.com/JuneSoftware/icc/main/Staging/Agones/actionRunnerConfig.yaml
       env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_DEV }}
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_STAGING }}
