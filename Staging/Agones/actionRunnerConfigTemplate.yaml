@@ -122,6 +122,8 @@ spec:
                 value: "1"
               - name: BOTS_FILLMODE
                 value: "_BOTS_BACKFILL_ENABLE_"
+              - name: MM
+                value: "1"
           # nodeSelector is a label that can be used to tell Kubernetes which host
           # OS to use. For Windows game servers uncomment the nodeSelector
           # definition below.
