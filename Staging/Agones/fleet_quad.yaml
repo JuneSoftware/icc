@@ -4,7 +4,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gameserver-fleet-quads-2258
+  name: indus-gameserver-fleet-quads-2302
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 1
@@ -55,7 +55,7 @@ spec:
         # the port exposed on the host, only required when `portPolicy` is "Static". Overwritten when portPolicy is "Dynamic".
 #         hostPort: 27015
         # protocol being used. Defaults to UDP. TCP and TCPUDP are other options
-        protocol: UDP
+        protocol: TCPUDP
       # Health checking for the running game server
       health:
         # Disable health checking. defaults to false, but can be set to true
@@ -100,7 +100,7 @@ spec:
         spec:
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-staging-mp/linux-containers/v0.32.109_2258
+              image: asia-south1-docker.pkg.dev/indus-staging-mp/linux-containers/v0.32.70_2302
               imagePullPolicy: Always
               env:
               - name: SESSION
@@ -121,6 +121,8 @@ spec:
                 value: "1"
               - name: BOTS_FILLMODE
                 value: "0"
+              - name: MM
+                value: "1"
           # nodeSelector is a label that can be used to tell Kubernetes which host
           # OS to use. For Windows game servers uncomment the nodeSelector
           # definition below.
