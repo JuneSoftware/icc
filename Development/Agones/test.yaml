@@ -1,13 +1,15 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx-test
+  name: nginx-test 
+  labels:
+    app: nginx
 spec:
   containers:
-  - name: nginx 
+  - name: nginx
     image: nginx
     ports:
-    - containerPort: 80
+     - containerPort: 80
 
 ---
 
