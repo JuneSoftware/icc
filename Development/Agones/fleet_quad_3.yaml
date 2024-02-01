@@ -117,7 +117,7 @@ spec:
               - name: PORT
                 value: "27015"
               - name: MASTER_CLIENT
-                value: "0"
+                value: "1"
               - name: BOTS_FILLMODE
                 value: "0"
               - name: MM
