@@ -120,6 +120,17 @@ spec:
                 value: "1"
               - name: BOTS_FILLMODE
                 value: "1"
+              volumeMounts:
+              - name: ca-cert-volume
+                mountPath: /etc/ssl/certs/ca-certificates.crt
+                subPath: ca-certificates.crt
+          volumes:
+          - name: ca-cert-volume
+            configMap:
+              name: ca-cert
+              items:
+              - key: ca-certificates.crt
+                path: ca-certificates.crt
           # nodeSelector is a label that can be used to tell Kubernetes which host
           # OS to use. For Windows game servers uncomment the nodeSelector
           # definition below.
