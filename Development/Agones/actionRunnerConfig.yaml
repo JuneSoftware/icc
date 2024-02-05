@@ -5,7 +5,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gameserver-fleet-duos-2316
+  name: indus-gameserver-fleet-quads-2336
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 1
@@ -101,7 +101,7 @@ spec:
         spec:
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.32.118_2316
+              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.32.126_2336
               imagePullPolicy: Always
               env:
               - name: SESSION
@@ -113,7 +113,7 @@ spec:
               - name: MODE
                 value: "agones"
               - name: TEAM
-                value: "1"
+                value: "2"
               - name: BOTS
                 value: "60"
               - name: PORT
@@ -124,7 +124,17 @@ spec:
                 value: "0"
               - name: MM
                 value: "1"
-              
+              volumeMounts:
+              - name: ca-cert-volume
+                mountPath: /etc/ssl/certs/ca-certificates.crt
+                subPath: ca-certificates.crt
+          volumes:
+          - name: ca-cert-volume
+            configMap:
+              name: ca-cert
+              items:
+              - key: ca-certificates.crt
+                path: ca-certificates.crt
           # nodeSelector is a label that can be used to tell Kubernetes which host
           # OS to use. For Windows game servers uncomment the nodeSelector
           # definition below.
