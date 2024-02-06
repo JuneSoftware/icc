@@ -3,7 +3,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gameserver-fleets-quad-2352
+  name: indus-gameserver-fleets-quad-2354
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 0
@@ -99,7 +99,7 @@ spec:
         spec:
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.32.115_2352
+              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.32.115_2354
               imagePullPolicy: Always
               env:
               - name: SESSION
@@ -121,7 +121,7 @@ spec:
               - name: BOTS_FILLMODE
                 value: "1"
               - name: MM
-                value: "1"
+                value: "0"
               volumeMounts:
               - name: ca-cert-volume
                 mountPath: /etc/ssl/certs/ca-certificates.crt
