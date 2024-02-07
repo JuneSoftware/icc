@@ -1,18 +1,5 @@
 apiVersion: "agones.dev/v1"
 kind: Fleet
-metadata:
-  name: indus-gameserver-fleet-quads-2322
-spec:
-  replicas: 1
-  scheduling: Packed
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-  template:
-    metadata:apiVersion: "agones.dev/v1"
-kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
