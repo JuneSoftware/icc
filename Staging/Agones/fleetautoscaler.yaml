@@ -28,7 +28,7 @@ metadata:
 spec:
   # The name of the fleet to attach to and control. Must be an existing Fleet in the same namespace
   # as this FleetAutoscaler
-  fleetName: indus-gameserver-fleet-solos-2322
+  fleetName: indus-gameserver-fleet-solos-2407000
   # The autoscaling policy
   policy:
     # type of the policy. Buffer or Webhook types are available
