@@ -122,7 +122,7 @@ spec:
               - name: TEAM
                 value: "0"
               - name: BOTS
-                value: "22"
+                value: "10"
               - name: PORT
                 value: "27015"
               - name: MASTER_CLIENT
@@ -130,7 +130,7 @@ spec:
               - name: BOTS_FILLMODE
                 value: "1"
               - name: MM
-                value: "0"
+                value: "1"
               volumeMounts:
               - name: ca-cert-volume
                 mountPath: /etc/ssl/certs/ca-certificates.crt
