@@ -130,7 +130,7 @@ spec:
               - name: BOTS_FILLMODE
                 value: "_BOTS_BACKFILL_ENABLE_"
               - name: MM
-                value: "1"
+                value: "_MM_MODE_"
               volumeMounts:
               - name: ca-cert-volume
                 mountPath: /etc/ssl/certs/ca-certificates.crt

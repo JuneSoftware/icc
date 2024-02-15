@@ -23,7 +23,13 @@ on:
         description: 'Add Bots Backfill Limit'
         required: true
         default: '60'
+      mm_mode:
+        description: 'Enable Backend MM'
+        required: true
+        type: boolean
+        default: true
 
+run-name: Edit Config and Deploy to GKE - Stage - ${{ github.event.client_payload.version }}
 jobs:
   update_yaml:
     permissions:
@@ -83,6 +89,14 @@ jobs:
 
     - name: Replace _BACKFILL_SIZE_ in yaml template
       run: sed -i "s/_BACKFILL_SIZE_/${{github.event.inputs.botsBackfillLimit}}/g" Staging/Agones/actionRunnerConfig.yaml
+    
+    - name: Replace _MM_MODE_ in yaml template if False
+      if: ${{ github.event.inputs.mm_mode == 'false' }}
+      run: sed -i "s/_MM_MODE_/0/g" Staging/Agones/actionRunnerConfig.yaml
+
+    - name: Replace _MM_MODE_ in yaml template if True
+      if: ${{ github.event.inputs.mm_mode == 'true' }}
+      run: sed -i "s/_MM_MODE_/1/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Commit and push changes
       run: |
@@ -91,6 +105,7 @@ jobs:
         git add Staging/Agones/actionRunnerConfig.yaml
         git commit -m "Update Staging config in actionRunnerConfig.yaml"
         git push
+
     - name: GCP Cloud Auth
       id: 'gcp-cloud-auth'
       uses: 'google-github-actions/auth@v1'
