@@ -54,7 +54,7 @@ spec:
         # the port exposed on the host, only required when `portPolicy` is "Static". Overwritten when portPolicy is "Dynamic".
 #         hostPort: 27015
         # protocol being used. Defaults to UDP. TCP and TCPUDP are other options
-        protocol: UDP
+        protocol: TCPUDP
       # Health checking for the running game server
       health:
         # Disable health checking. defaults to false, but can be set to true
@@ -101,6 +101,13 @@ spec:
             - name: indus-gameserver
               image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.33.7_2378000
               imagePullPolicy: Always
+              resources: # Resource requests and limits
+                requests:
+                  cpu: "500m"
+                  memory: "1500Mi"
+                limits:
+                  cpu: "850m"
+                  memory: "2000Mi"
               env:
               - name: SESSION
                 value: "empty"

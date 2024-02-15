@@ -103,6 +103,13 @@ spec:
             - name: indus-gameserver
               image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v_VERSION_
               imagePullPolicy: Always
+              resources: # Resource requests and limits
+                requests:
+                  cpu: "500m"
+                  memory: "1500Mi"
+                limits:
+                  cpu: "850m"
+                  memory: "2000Mi"
               env:
               - name: SESSION
                 value: "empty"
