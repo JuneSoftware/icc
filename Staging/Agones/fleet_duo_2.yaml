@@ -99,7 +99,7 @@ spec:
         spec:
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-staging-mp/linux-containers/v0.32.115_2322
+              image: asia-south1-docker.pkg.dev/indus-staging-mp/linux-containers/v0.33.0_2429000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
@@ -126,7 +126,7 @@ spec:
               - name: MASTER_CLIENT
                 value: "1"
               - name: BOTS_FILLMODE
-                value: "0"
+                value: "1"
               - name: MM
                 value: "1"
               volumeMounts:
