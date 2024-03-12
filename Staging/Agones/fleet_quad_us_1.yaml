@@ -112,7 +112,7 @@ spec:
               - name: SESSION
                 value: "empty"
               - name: REGION
-                value: "us"
+                value: "usw"
               - name: LOBBY
                 value: "empty"
               - name: MODE
