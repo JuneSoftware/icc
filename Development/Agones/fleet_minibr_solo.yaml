@@ -99,7 +99,7 @@ spec:
         spec:
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.33.26_2448000
+              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.34.26_2799000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
@@ -117,6 +117,8 @@ spec:
                 value: "empty"
               - name: MODE
                 value: "agones"
+              - name: GAMEMODE
+                value: "1"
               - name: TEAM
                 value: "0"
               - name: BOTS
