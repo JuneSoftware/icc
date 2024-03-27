@@ -119,6 +119,8 @@ spec:
                 value: "agones"
               - name: GAMEMODE
                 value: "1"
+              - name: MAP
+                value: "2"
               - name: TEAM
                 value: "0"
               - name: BOTS
