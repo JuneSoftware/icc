@@ -130,7 +130,7 @@ spec:
               - name: MASTER_CLIENT
                 value: "1"
               - name: BOTS_FILLMODE
-                value: "1"
+                value: "0"
               - name: MM
                 value: "1"     # 0 = Use Photon RandomRoom, 1 = Use IndusGO MM
               volumeMounts:
