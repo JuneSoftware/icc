@@ -6,7 +6,7 @@ metadata:
   name: indus-gameserver-fleet-minibr-foundry-solo-2868000
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
-  replicas: 15
+  replicas: 10
   # defines how GameServers are organised across the cluster.
   # Options include:
   # "Packed" (default) is aimed at dynamic Kubernetes clusters, such as cloud providers, wherein we want to bin pack
