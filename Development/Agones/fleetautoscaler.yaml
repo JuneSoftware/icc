@@ -56,4 +56,4 @@ spec:
     # parameters of the fixedInterval sync
     fixedInterval:
       # the time in seconds between each auto scaling
-      seconds: 1
+      seconds: 30
