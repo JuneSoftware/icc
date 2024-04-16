@@ -6,6 +6,13 @@ on:
       version:
         description: 'Version for the release. Eg: 0.31.0_1735'
         required: true
+      gamemodetype:
+        description: 'Game Mode to Deploy'
+        required: true
+        type: choice
+        options:
+          - br
+          - minibr/frenzy/hotdrop
       teamSize:
         description: 'Max Team Size'
         required: true
