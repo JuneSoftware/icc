@@ -181,27 +181,4 @@ jobs:
 # GCloud CLI Executions
 
 
-    - name: GCP Cloud Auth
-      id: 'gcp-cloud-auth'
-      uses: 'google-github-actions/auth@v2'
-      with:
-        credentials_json: '${{ secrets.SERVICE_ACCOUNT_KEY_DEV }}'
-    - name: Create Service Account File
-      uses: 'fertrig/create-file-action@1.0.2'
-      with:
-        file: 'GCP_SA.json'
-        content: ${{ secrets.SERVICE_ACCOUNT_KEY_DEV }}
-    - name: GKE Auth
-      id: 'get-credentials'
-      uses: 'google-github-actions/get-gke-credentials@v2'
-      with:
-        cluster_name: 'agones-cluster'
-        location: 'asia-south1-a'
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: 'GCP_SA.json'
-    - id: 'get-pods'
-      run: 'kubectl get fleets'
-    - name: Apply the Configuration
-      run: kubectl create -f https://raw.githubusercontent.com/JuneSoftware/icc/main/Development/Agones/actionRunnerConfig.yaml
-      env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_DEV }}
+
