@@ -68,25 +68,38 @@ jobs:
       run: |
           VERSION=$(echo "${{ github.event.inputs.version }}" | rev | cut -c 1-7 | rev)
           sed -i "s/_BUILD_NUMBER_/$VERSION/g" Development/Agones/actionRunnerConfig.yaml
+
+
       
     - name: Replace _VERSION_ in yaml template
       run: sed -i "s/_VERSION_/${{github.event.inputs.version}}/g" Development/Agones/actionRunnerConfig.yaml
 
+
+
     - name: Replace _TEAM_SIZE_ in yaml template if QUADS
-      if: ${{ github.event.inputs.teamSize == 'Quads' }}
+      if: github.event.inputs.teamSize == 'Quads' && github.event.inputs.gamemodetype == 'br'
       run: sed -i "s/_TEAM_SIZE_/2/g" Development/Agones/actionRunnerConfig.yaml
       
     - name: Replace _TEAM_SIZE_ in yaml template if DUOS
-      if: ${{ github.event.inputs.teamSize == 'Duos' }}
+      if: github.event.inputs.teamSize == 'Duos' && github.event.inputs.gamemodetype == 'br'
       run: sed -i "s/_TEAM_SIZE_/1/g" Development/Agones/actionRunnerConfig.yaml
 
     - name: Replace _TEAM_SIZE_ in yaml template if SOLOs
-      if: ${{ github.event.inputs.teamSize == 'Solos' }}
+      if: github.event.inputs.teamSize == 'Solos' && github.event.inputs.gamemodetype == 'br'
       run: sed -i "s/_TEAM_SIZE_/0/g" Development/Agones/actionRunnerConfig.yaml
       
-    - name: Replace _TEAM_NAME_ in yaml gamefleet name
+    - name: Replace _TEAM_NAME_ in yaml gamefleet name if applicable game mode
+      if: github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm'
       run: sed -i "s/_TEAM_NAME_/${{github.event.inputs.teamSize}}/g" Development/Agones/actionRunnerConfig.yaml
 
+
+
+    - name: Replace _TEAM_NAME_ in yaml gamefleet name
+      if: github.event.inputs.gamemodetype == 'br'
+      run: sed -i "s/_TEAM_NAME_/${{github.event.inputs.teamSize}}/g" Development/Agones/actionRunnerConfig.yaml
+
+
+      
     - name: Replace _BOTS_BACKFILL_ENABLE_ in yaml template if False
       if: ${{ github.event.inputs.enableBots == 'false' }}
       run: sed -i "s/_BOTS_BACKFILL_ENABLE_/0/g" Development/Agones/actionRunnerConfig.yaml
@@ -106,6 +119,23 @@ jobs:
       if: ${{ github.event.inputs.mm_mode == 'true' }}
       run: sed -i "s/_MM_MODE_/1/g" Development/Agones/actionRunnerConfig.yaml
 
+
+
+
+    - name: Replace _GAMEMODE_ in yaml template if BR
+      if: github.event.inputs.gamemodetype == 'br'
+      run: sed -i "s/_GAMEMODE_/0/g" Development/Agones/actionRunnerConfig.yaml
+
+    - name: Replace _GAMEMODE_ in yaml template if hotdrop
+      if: github.event.inputs.gamemodetype == 'hotdrop'
+      run: sed -i "s/_GAMEMODE_/1/g" Development/Agones/actionRunnerConfig.yaml
+
+    - name: Replace _GAMEMODE_ in yaml template if tdm
+      if: github.event.inputs.gamemodetype == 'tdm'
+      run: sed -i "s/_GAMEMODE_/2/g" Development/Agones/actionRunnerConfig.yaml
+
+
+
     - name: Commit and push changes
       run: |
         git config --local user.email "action@github.com"
@@ -113,6 +143,9 @@ jobs:
         git add Development/Agones/actionRunnerConfig.yaml
         git commit -m "Update Development config in actionRunnerConfig.yaml"
         git push
+
+# GCloud CLI Executions
+
 
     - name: GCP Cloud Auth
       id: 'gcp-cloud-auth'
