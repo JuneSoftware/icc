@@ -5,7 +5,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gameserver-fleet-hotdrop-solo-2189000
+  name: indus-gameserver-fleet-hotdrop-solo-1803000
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 1
@@ -101,7 +101,7 @@ spec:
         spec:
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.32.85_2189000
+              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.31.32_1803000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
@@ -122,9 +122,9 @@ spec:
               - name: GAMEMODE
                 value: "1"     # 0 = BR, 1 = MiniBR, 2 = TDM
               - name: MAP
-                value: "2"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 3 = TDM Refinery
+                value: "1"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 3 = TDM Refinery
               - name: TEAM
-                value: "_TEAM_SIZE_"
+                value: "0"
               - name: BOTS
                 value: "60"
               - name: PORT
