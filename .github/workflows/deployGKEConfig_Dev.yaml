@@ -14,6 +14,15 @@ on:
           - br
           - hotdrop
           - tdm
+      gamemodemap:
+        description: 'Game Mode Map to Deploy'
+        required: true
+        type: choice
+        options:
+          - br - Virlok
+          - hotdrop - foundry
+          - hotdrop - lok terminal
+          - tdm - refinery 
       teamSize:
         description: 'Max Team Size'
         required: true
