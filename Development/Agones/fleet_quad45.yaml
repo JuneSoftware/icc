@@ -3,7 +3,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gameserver-fleet-minibr-foundry-solo-2987000
+  name: indus-gameserver-fleets-tdm-solo-3027000
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 1
@@ -97,30 +97,27 @@ spec:
             myspeciallabel: myspecialvalue
         # Pod Specification
         spec:
+          terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-staging-mp/linux-containers/v0.35.0_2987000
+              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.35.50_3027000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
-                  cpu: "200m"
-                  memory: "800Mi"
+                  cpu: "500m"
+                  memory: "1500Mi"
                 limits:
-                  cpu: "250m"
-                  memory: "900Mi"
+                  cpu: "850m"
+                  memory: "2000Mi"
               env:
               - name: SESSION
-                value: "empty"
+                value: "111"
               - name: REGION
                 value: "asia"
               - name: LOBBY
                 value: "empty"
               - name: MODE
                 value: "agones"
-              - name: GAMEMODE
-                value: "1"     # 0 = BR, 1 = MiniBR
-              - name: MAP
-                value: "1"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 
               - name: TEAM
                 value: "0"
               - name: BOTS
@@ -128,11 +125,11 @@ spec:
               - name: PORT
                 value: "27015"
               - name: MASTER_CLIENT
-                value: "1"
+                value: "0"
               - name: BOTS_FILLMODE
                 value: "0"
               - name: MM
-                value: "1"     # 0 = Use Photon RandomRoom, 1 = Use IndusGO MM
+                value: "0"
               volumeMounts:
               - name: ca-cert-volume
                 mountPath: /etc/ssl/certs/ca-certificates.crt
