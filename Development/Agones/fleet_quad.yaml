@@ -36,6 +36,7 @@ spec:
     spec:
       # if there is more than one container, specify which one is the game server
       container: indus-gameserver
+      terminationGracePeriodSeconds: 15
       # Array of ports that can be exposed as direct connections to the game server container
       ports:
         # name is a descriptive name for the port
@@ -90,7 +91,6 @@ spec:
       #   initialCapacity: 10
       #
       # Pod template configuration
-        terminationGracePeriodSeconds: 15
       template:
         # pod metadata. Name & Namespace is overwritten
         metadata:
