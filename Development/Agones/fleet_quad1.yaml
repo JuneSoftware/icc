@@ -35,8 +35,8 @@ spec:
     # GameServer specification
     spec:
       # if there is more than one container, specify which one is the game server
-      container: indus-gameserver
       terminationGracePeriodSeconds: 15
+      container: indus-gameserver
       # Array of ports that can be exposed as direct connections to the game server container
       ports:
         # name is a descriptive name for the port
