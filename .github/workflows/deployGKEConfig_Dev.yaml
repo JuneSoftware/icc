@@ -116,19 +116,19 @@ jobs:
       
 
     - name: Replace _MAP_ in yaml template if BR - Virlok
-      if: github.event.inputs.map == 'br - virlok'
+      if: github.event.inputs.gamemodemap == 'br - virlok'
       run: sed -i "s/_MAP_/0/g" Development/Agones/actionRunnerConfig.yaml
 
     - name: Replace _MAP_ in yaml template if hotdrop - foundry
-      if: github.event.inputs.map == 'hotdrop - foundry'
+      if: github.event.inputs.gamemodemap == 'hotdrop - foundry'
       run: sed -i "s/_MAP_/1/g" Development/Agones/actionRunnerConfig.yaml
 
     - name: Replace _MAP_ in yaml template if hotdrop - lok terminal
-      if: github.event.inputs.map == 'hotdrop - lok terminal'
+      if: github.event.inputs.gamemodemap == 'hotdrop - lok terminal'
       run: sed -i "s/_MAP_/2/g" Development/Agones/actionRunnerConfig.yaml
 
     - name: Replace _MAP_ in yaml template if tdm - refinery
-      if: github.event.inputs.map == 'tdm - refinery'
+      if: github.event.inputs.gamemodemap == 'tdm - refinery'
       run: sed -i "s/_MAP_/3/g" Development/Agones/actionRunnerConfig.yaml
 
 
