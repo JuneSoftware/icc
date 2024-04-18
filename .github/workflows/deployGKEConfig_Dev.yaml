@@ -12,7 +12,8 @@ on:
         type: choice
         options:
           - br
-          - minibr/frenzy/hotdrop
+          - hotdrop
+          - tdm
       teamSize:
         description: 'Max Team Size'
         required: true
