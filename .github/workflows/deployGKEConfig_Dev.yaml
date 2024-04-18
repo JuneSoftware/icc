@@ -146,8 +146,8 @@ jobs:
       if: github.event.inputs.teamSize == 'Solos' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm')
       run: sed -i "s/_TEAM_SIZE_/0/g" Development/Agones/actionRunnerConfig.yaml
 
-    - name: Replace _TEAM_SIZE_ in yaml template if Not BR
-      if: github.event.inputs.teamSize == 'Solos' && github.event.inputs.gamemodetype == 'hotdrop'
+    - name: Replace _TEAM_SIZE_ in yaml template if hotdrop
+      if: github.event.inputs.gamemodetype == 'hotdrop'
       run: sed -i "s/_TEAM_SIZE_/0/g" Development/Agones/actionRunnerConfig.yaml
 
       
