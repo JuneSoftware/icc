@@ -35,7 +35,6 @@ spec:
     # GameServer specification
     spec:
       # if there is more than one container, specify which one is the game server
-      terminationGracePeriodSeconds: 15
       container: indus-gameserver
       # Array of ports that can be exposed as direct connections to the game server container
       ports:
@@ -98,6 +97,7 @@ spec:
             myspeciallabel: myspecialvalue
         # Pod Specification
         spec:
+          terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
               image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.35.50_3027000
