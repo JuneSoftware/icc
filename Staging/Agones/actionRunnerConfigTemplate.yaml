@@ -99,6 +99,7 @@ spec:
             myspeciallabel: myspecialvalue
         # Pod Specification
         spec:
+          terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
               image: asia-south1-docker.pkg.dev/indus-staging-mp/linux-containers/v_VERSION_
