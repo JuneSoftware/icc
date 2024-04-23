@@ -6,6 +6,23 @@ on:
       version:
         description: 'Version for the release. Eg: 0.31.0_1735'
         required: true
+      gamemodetype:
+        description: 'Game Mode to Deploy'
+        required: true
+        type: choice
+        options:
+          - br
+          - hotdrop
+          - tdm
+      gamemodemap:
+        description: 'Game Mode - Map to Deploy'
+        required: true
+        type: choice
+        options:
+          - br - virlok
+          - hotdrop - foundry
+          - hotdrop - lok terminal
+          - tdm - refinery
       teamSize:
         description: 'Max Team Size'
         required: true
@@ -29,7 +46,7 @@ on:
         type: boolean
         default: true
 
-run-name: Edit Config and Deploy to GKE - Stage - ${{ github.event.inputs.version }}
+run-name: Edit Config and Deploy to GKE - Stage - ${{ github.event.inputs.gamemodetype }} - ${{ github.event.inputs.version }}
 jobs:
   update_yaml:
     permissions:
@@ -55,30 +72,84 @@ jobs:
 
     - name: Copy File Content
       run: cp Staging/Agones/actionRunnerConfigTemplate.yaml Staging/Agones/actionRunnerConfig.yaml
+
+# Fleet Name Updates
+
+    - name: Replace _GAMEMODENAME_ in Fleet Name
+      run: sed -i "s/_GAMEMODENAME_/${{github.event.inputs.gamemodetype}}/g" Staging/Agones/actionRunnerConfig.yaml
+      
+    - name: Replace _GAMEMODEMAP_ in Fleet Name
+      run: sed -i "s/_GAMEMODEMAP_/${{github.event.inputs.gamemodemap}}/g" Staging/Agones/actionRunnerConfig.yaml
+      
+    - name: Replace _TEAMSIZENAME_ in Fleet Name
+      if: github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm'
+      run: sed -i "s/_TEAMSIZENAME_/${{github.event.inputs.teamSize}}/g" Staging/Agones/actionRunnerConfig.yaml
+
+    - name: Replace _TEAMSIZENAME_ in Fleet Name
+      if: github.event.inputs.gamemodetype == 'hotdrop'
+      run: sed -i "s/_TEAMSIZENAME_/solo/g" Staging/Agones/actionRunnerConfig.yaml
       
     - name: Replace _BUILD_NUMBER_ in yaml template
       run: |
           VERSION=$(echo "${{ github.event.inputs.version }}" | rev | cut -c 1-7 | rev)
           sed -i "s/_BUILD_NUMBER_/$VERSION/g" Staging/Agones/actionRunnerConfig.yaml
+# Build Version
       
     - name: Replace _VERSION_ in yaml template
       run: sed -i "s/_VERSION_/${{github.event.inputs.version}}/g" Staging/Agones/actionRunnerConfig.yaml
 
+# Env Variables
+
+    - name: Replace _GAMEMODE_ in yaml template if BR
+      if: github.event.inputs.gamemodetype == 'br'
+      run: sed -i "s/_GAMEMODE_/0/g" Staging/Agones/actionRunnerConfig.yaml
+
+    - name: Replace _GAMEMODE_ in yaml template if hotdrop
+      if: github.event.inputs.gamemodetype == 'hotdrop'
+      run: sed -i "s/_GAMEMODE_/1/g" Staging/Agones/actionRunnerConfig.yaml
+
+    - name: Replace _GAMEMODE_ in yaml template if tdm
+      if: github.event.inputs.gamemodetype == 'tdm'
+      run: sed -i "s/_GAMEMODE_/2/g" Staging/Agones/actionRunnerConfig.yaml
+
+      
+
+    - name: Replace _MAP_ in yaml template if BR - Virlok
+      if: github.event.inputs.gamemodemap == 'br - virlok'
+      run: sed -i "s/_MAP_/0/g" Staging/Agones/actionRunnerConfig.yaml
+
+    - name: Replace _MAP_ in yaml template if hotdrop - foundry
+      if: github.event.inputs.gamemodemap == 'hotdrop - foundry'
+      run: sed -i "s/_MAP_/1/g" Staging/Agones/actionRunnerConfig.yaml
+
+    - name: Replace _MAP_ in yaml template if hotdrop - lok terminal
+      if: github.event.inputs.gamemodemap == 'hotdrop - lok terminal'
+      run: sed -i "s/_MAP_/2/g" Staging/Agones/actionRunnerConfig.yaml
+
+    - name: Replace _MAP_ in yaml template if tdm - refinery
+      if: github.event.inputs.gamemodemap == 'tdm - refinery'
+      run: sed -i "s/_MAP_/3/g" Staging/Agones/actionRunnerConfig.yaml
+
+
+
+ 
     - name: Replace _TEAM_SIZE_ in yaml template if QUADS
-      if: ${{ github.event.inputs.teamSize == 'Quads' }}
+      if: github.event.inputs.teamSize == 'Quads' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm')
       run: sed -i "s/_TEAM_SIZE_/2/g" Staging/Agones/actionRunnerConfig.yaml
       
     - name: Replace _TEAM_SIZE_ in yaml template if DUOS
-      if: ${{ github.event.inputs.teamSize == 'Duos' }}
+      if: github.event.inputs.teamSize == 'Duos' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm')
       run: sed -i "s/_TEAM_SIZE_/1/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _TEAM_SIZE_ in yaml template if SOLOs
-      if: ${{ github.event.inputs.teamSize == 'Solos' }}
+      if: github.event.inputs.teamSize == 'Solos' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm')
       run: sed -i "s/_TEAM_SIZE_/0/g" Staging/Agones/actionRunnerConfig.yaml
-      
-    - name: Replace _TEAM_NAME_ in yaml gamefleet name
-      run: sed -i "s/_TEAM_NAME_/${{github.event.inputs.teamSize}}/g" Staging/Agones/actionRunnerConfig.yaml
 
+    - name: Replace _TEAM_SIZE_ in yaml template if hotdrop
+      if: github.event.inputs.gamemodetype == 'hotdrop'
+      run: sed -i "s/_TEAM_SIZE_/0/g" Staging/Agones/actionRunnerConfig.yaml
+
+      
     - name: Replace _BOTS_BACKFILL_ENABLE_ in yaml template if False
       if: ${{ github.event.inputs.enableBots == 'false' }}
       run: sed -i "s/_BOTS_BACKFILL_ENABLE_/0/g" Staging/Agones/actionRunnerConfig.yaml
@@ -89,7 +160,9 @@ jobs:
 
     - name: Replace _BACKFILL_SIZE_ in yaml template
       run: sed -i "s/_BACKFILL_SIZE_/${{github.event.inputs.botsBackfillLimit}}/g" Staging/Agones/actionRunnerConfig.yaml
-    
+
+
+
     - name: Replace _MM_MODE_ in yaml template if False
       if: ${{ github.event.inputs.mm_mode == 'false' }}
       run: sed -i "s/_MM_MODE_/0/g" Staging/Agones/actionRunnerConfig.yaml
@@ -105,6 +178,8 @@ jobs:
         git add Staging/Agones/actionRunnerConfig.yaml
         git commit -m "Update Staging config in actionRunnerConfig.yaml"
         git push
+
+# GCloud CLI Executions
 
     - name: GCP Cloud Auth
       id: 'gcp-cloud-auth'
