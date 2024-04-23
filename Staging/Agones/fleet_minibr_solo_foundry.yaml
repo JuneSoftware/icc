@@ -3,10 +3,10 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gameserver-fleet-minibr-foundry-solo-2987000
+  name: indus-gameserver-fleet-minibr-foundry-solo-3056000
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
-  replicas: 10
+  replicas: 0
   # defines how GameServers are organised across the cluster.
   # Options include:
   # "Packed" (default) is aimed at dynamic Kubernetes clusters, such as cloud providers, wherein we want to bin pack
@@ -97,9 +97,10 @@ spec:
             myspeciallabel: myspecialvalue
         # Pod Specification
         spec:
+          terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-staging-mp/linux-containers/v0.35.0_2987000
+              image: asia-south1-docker.pkg.dev/indus-staging-mp/linux-containers/v0.35.0_3056000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
