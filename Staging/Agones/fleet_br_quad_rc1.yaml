@@ -111,7 +111,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "leogoat"
+                value: "empty"
               - name: REGION
                 value: "asia"
               - name: LOBBY
