@@ -46,6 +46,15 @@ on:
         required: true
         type: boolean
         default: true
+      roomname:
+        description: 'Room Name if any'
+        required: false
+        default: 'empty'
+      code_type:
+        description: 'Is tournament room'
+        required: false
+        type: boolean
+        default: false
 
 run-name: Edit Config and Deploy to GKE - Dev - ${{ github.event.inputs.version }}
 jobs:
@@ -102,6 +111,14 @@ jobs:
 
 # Env Variables
 
+    - name: Replace _ROOMNAME_ in yaml template if any Room Name of Tournament Type is provided
+      if: github.event.inputs.code_type == 'true' && github.event.inputs.roomname != 'empty'
+      run: sed -i "s/_ROOMNAME_/${{ github.event.inputs.roomname }}_${{ github.event.inputs.gamemodetype }}_${{ github.event.input.teamSize }}/g" Development/Agones/actionRunnerConfig.yaml
+      
+    - name: Replace _ROOMNAME_ in yaml template if any Room Name not of Tournament Type is provided
+      if: github.event.inputs.code_type == 'false'
+      run: sed -i "s/_ROOMNAME_/${{ github.event.inputs.roomname }}/g" Development/Agones/actionRunnerConfig.yaml
+
     - name: Replace _GAMEMODE_ in yaml template if BR
       if: github.event.inputs.gamemodetype == 'br'
       run: sed -i "s/_GAMEMODE_/0/g" Development/Agones/actionRunnerConfig.yaml
@@ -134,8 +151,6 @@ jobs:
     - name: Replace _MAP_ in yaml template if tdm - refinery
       if: github.event.inputs.gamemodemap == 'tdm - refinery'
       run: sed -i "s/_MAP_/3/g" Development/Agones/actionRunnerConfig.yaml
-
-
 
  
     - name: Replace _TEAM_SIZE_ in yaml template if QUADS
