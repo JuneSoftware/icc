@@ -113,7 +113,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "_ROOMNAME_"
+                value: "empty"
               - name: REGION
                 value: "asia"
               - name: LOBBY
