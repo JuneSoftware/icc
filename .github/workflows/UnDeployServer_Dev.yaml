@@ -1,4 +1,4 @@
-﻿name: Edit Config and Deploy to GKE - Development
+﻿name: Read Config and UnDeploy GameServer - Development
 
 on:
   workflow_dispatch:
