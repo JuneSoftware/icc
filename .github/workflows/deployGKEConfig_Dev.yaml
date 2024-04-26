@@ -46,8 +46,17 @@ on:
         required: true
         type: boolean
         default: true
+      roomname:
+        description: 'Room Name if any'
+        required: false
+        default: 'empty'
+      code_type:
+        description: 'Is tournament room'
+        required: false
+        type: boolean
+        default: false
 
-run-name: Edit Config and Deploy to GKE - Dev - ${{ github.event.inputs.version }}
+run-name: Edit Config and Deploy to GKE - Dev - ${{ github.event.inputs.gamemodetype }} - ${{ github.event.inputs.version }}
 jobs:
   update_yaml:
     permissions:
@@ -95,12 +104,36 @@ jobs:
           VERSION=$(echo "${{ github.event.inputs.version }}" | rev | cut -c 1-7 | rev)
           sed -i "s/_BUILD_NUMBER_/$VERSION/g" Development/Agones/actionRunnerConfig.yaml
 
+    - name: Replace _ROOMTYPE_ in Fleet Name if empty string
+      if: github.event.inputs.roomname == 'empty'
+      run: sed -i "s/_ROOMTYPE_/public/g" Development/Agones/actionRunnerConfig.yaml
+      
+    - name: Replace _ROOMTYPE_ in Fleet Name if server name but not tourney
+      if: github.event.inputs.roomname != 'empty' && github.event.inputs.code_type == 'false'
+      run: sed -i "s/_ROOMTYPE_/custom-dev/g" Development/Agones/actionRunnerConfig.yaml
+
+    - name: Replace _ROOMTYPE_ in Fleet Name if server name and tourney
+      if: github.event.inputs.roomname != 'empty' && github.event.inputs.code_type == 'true'
+      run: sed -i "s/_ROOMTYPE_/custom-tourney/g" Development/Agones/actionRunnerConfig.yaml
+
 # Build Version
       
     - name: Replace _VERSION_ in yaml template
       run: sed -i "s/_VERSION_/${{github.event.inputs.version}}/g" Development/Agones/actionRunnerConfig.yaml
 
 # Env Variables
+
+    - name: Replace _ROOMNAME_ in yaml template if any Room Name of Tournament Type is provided
+      if: github.event.inputs.code_type == 'true' && github.event.inputs.roomname != 'empty'
+      run: sed -i "s/_ROOMNAME_/${{ github.event.inputs.roomname }}_${{ github.event.inputs.gamemodetype }}_${{ github.event.inputs.teamSize }}/g" Development/Agones/actionRunnerConfig.yaml
+      
+    - name: Replace _ROOMNAME_ in yaml template if no Room Name nor of Tournament Type is provided
+      if: github.event.inputs.code_type == 'false'
+      run: sed -i "s/_ROOMNAME_/${{ github.event.inputs.roomname }}/g" Development/Agones/actionRunnerConfig.yaml
+
+    - name: Replace _ROOMNAME_ in yaml template if no Room Name but Tournament Type is provided by mistake
+      if: github.event.inputs.code_type == 'true' && github.event.inputs.roomname == 'empty'
+      run: sed -i "s/_ROOMNAME_/${{ github.event.inputs.roomname }}/g" Development/Agones/actionRunnerConfig.yaml
 
     - name: Replace _GAMEMODE_ in yaml template if BR
       if: github.event.inputs.gamemodetype == 'br'
@@ -134,8 +167,6 @@ jobs:
     - name: Replace _MAP_ in yaml template if tdm - refinery
       if: github.event.inputs.gamemodemap == 'tdm - refinery'
       run: sed -i "s/_MAP_/3/g" Development/Agones/actionRunnerConfig.yaml
-
-
 
  
     - name: Replace _TEAM_SIZE_ in yaml template if QUADS
@@ -175,7 +206,6 @@ jobs:
     - name: Replace _MM_MODE_ in yaml template if True
       if: ${{ github.event.inputs.mm_mode == 'true' }}
       run: sed -i "s/_MM_MODE_/1/g" Development/Agones/actionRunnerConfig.yaml
-      
 
     - name: Commit and push changes
       run: |
