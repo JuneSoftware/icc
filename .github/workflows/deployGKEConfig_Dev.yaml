@@ -127,8 +127,12 @@ jobs:
       if: github.event.inputs.code_type == 'true' && github.event.inputs.roomname != 'empty'
       run: sed -i "s/_ROOMNAME_/${{ github.event.inputs.roomname }}_${{ github.event.inputs.gamemodetype }}_${{ github.event.input.teamSize }}/g" Development/Agones/actionRunnerConfig.yaml
       
-    - name: Replace _ROOMNAME_ in yaml template if any Room Name not of Tournament Type is provided
+    - name: Replace _ROOMNAME_ in yaml template if no Room Name nor of Tournament Type is provided
       if: github.event.inputs.code_type == 'false'
+      run: sed -i "s/_ROOMNAME_/${{ github.event.inputs.roomname }}/g" Development/Agones/actionRunnerConfig.yaml
+
+    - name: Replace _ROOMNAME_ in yaml template if no Room Name but Tournament Type is provided by mistake
+      if: github.event.inputs.code_type == 'true' && github.event.inputs.roomname != 'empty'
       run: sed -i "s/_ROOMNAME_/${{ github.event.inputs.roomname }}/g" Development/Agones/actionRunnerConfig.yaml
 
     - name: Replace _GAMEMODE_ in yaml template if BR
