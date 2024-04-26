@@ -103,6 +103,18 @@ jobs:
       run: |
           VERSION=$(echo "${{ github.event.inputs.version }}" | rev | cut -c 1-7 | rev)
           sed -i "s/_BUILD_NUMBER_/$VERSION/g" Development/Agones/actionRunnerConfig.yaml
+  
+    - name: Replace _ROOMTYPE_ in Fleet Name if empty string
+      if: github.event.inputs.roomname == 'empty'
+      run: sed -i "s/_ROOMTYPE_/public/g" Development/Agones/actionRunnerConfig.yaml
+      
+    - name: Replace _ROOMTYPE_ in Fleet Name if server name but not tourney
+      if: github.event.inputs.roomname != 'empty' && github.event.inputs.code_type == 'false'
+      run: sed -i "s/_ROOMTYPE_/custom-dev/g" Development/Agones/actionRunnerConfig.yaml
+
+    - name: Replace _ROOMTYPE_ in Fleet Name if server name and tourney
+      if: github.event.inputs.roomname != 'empty' && github.event.inputs.code_type == 'true'
+      run: sed -i "s/_ROOMTYPE_/custom-tourney/g" Development/Agones/actionRunnerConfig.yaml
 
 # Build Version
       
