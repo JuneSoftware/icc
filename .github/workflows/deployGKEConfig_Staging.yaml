@@ -149,7 +149,7 @@ jobs:
 
     - name: Replace _GAMEMODE_ in yaml template if tdm
       if: github.event.inputs.gamemodetype == 'tdm'
-      run: sed -i "s/_GAMEMODE_/3/g" Staging/Agones/actionRunnerConfig.yaml
+      run: sed -i "s/_GAMEMODE_/5/g" Staging/Agones/actionRunnerConfig.yaml
       
 
     - name: Replace _MAP_ in yaml template if BR - Virlok
