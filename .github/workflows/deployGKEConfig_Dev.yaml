@@ -56,7 +56,7 @@ on:
         type: boolean
         default: false
 
-run-name: Edit Config and Deploy to GKE - Dev - ${{ github.event.inputs.version }}
+run-name: Edit Config and Deploy to GKE - Dev - ${{ github.event.inputs.gamemodetype }} - ${{ github.event.inputs.version }}
 jobs:
   update_yaml:
     permissions:
@@ -103,7 +103,7 @@ jobs:
       run: |
           VERSION=$(echo "${{ github.event.inputs.version }}" | rev | cut -c 1-7 | rev)
           sed -i "s/_BUILD_NUMBER_/$VERSION/g" Development/Agones/actionRunnerConfig.yaml
-  
+
     - name: Replace _ROOMTYPE_ in Fleet Name if empty string
       if: github.event.inputs.roomname == 'empty'
       run: sed -i "s/_ROOMTYPE_/public/g" Development/Agones/actionRunnerConfig.yaml
@@ -206,7 +206,6 @@ jobs:
     - name: Replace _MM_MODE_ in yaml template if True
       if: ${{ github.event.inputs.mm_mode == 'true' }}
       run: sed -i "s/_MM_MODE_/1/g" Development/Agones/actionRunnerConfig.yaml
-      
 
     - name: Commit and push changes
       run: |
