@@ -12,7 +12,7 @@ on:
         type: choice
         options:
           - br
-          - hotdrop
+          - minibr
           - tutorial
           - tdm
       gamemodemap:
@@ -21,17 +21,17 @@ on:
         type: choice
         options:
           - br - virlok
-          - hotdrop - foundry
-          - hotdrop - lok terminal
+          - minibr - foundry
+          - minibr - lok terminal
           - tdm - refinery
       teamSize:
         description: 'Max Team Size'
         required: true
         type: choice
         options:
-          - quads
-          - duos
-          - solos
+          - quad
+          - duo
+          - solo
       enableBots:
         description: 'Enable Bots Backfill'
         required: false
