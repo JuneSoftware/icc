@@ -96,7 +96,7 @@ jobs:
       run: sed -i "s/_TEAMSIZENAME_/${{github.event.inputs.teamSize}}/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _TEAMSIZENAME_ in Fleet Name
-      if: github.event.inputs.gamemodetype == 'hotdrop'
+      if: github.event.inputs.gamemodetype == 'minibr'
       run: sed -i "s/_TEAMSIZENAME_/solo/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _BUILD_NUMBER_ in Fleet Name
@@ -139,8 +139,8 @@ jobs:
       if: github.event.inputs.gamemodetype == 'br'
       run: sed -i "s/_GAMEMODE_/0/g" Staging/Agones/actionRunnerConfig.yaml
 
-    - name: Replace _GAMEMODE_ in yaml template if hotdrop
-      if: github.event.inputs.gamemodetype == 'hotdrop'
+    - name: Replace _GAMEMODE_ in yaml template if minibr
+      if: github.event.inputs.gamemodetype == 'minibr'
       run: sed -i "s/_GAMEMODE_/1/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _GAMEMODE_ in yaml template if tdm
@@ -156,12 +156,12 @@ jobs:
       if: github.event.inputs.gamemodemap == 'br - virlok'
       run: sed -i "s/_MAP_/0/g" Staging/Agones/actionRunnerConfig.yaml
 
-    - name: Replace _MAP_ in yaml template if hotdrop - foundry
-      if: github.event.inputs.gamemodemap == 'hotdrop - foundry'
+    - name: Replace _MAP_ in yaml template if minibr - foundry
+      if: github.event.inputs.gamemodemap == 'minibr - foundry'
       run: sed -i "s/_MAP_/1/g" Staging/Agones/actionRunnerConfig.yaml
 
-    - name: Replace _MAP_ in yaml template if hotdrop - lok terminal
-      if: github.event.inputs.gamemodemap == 'hotdrop - lok terminal'
+    - name: Replace _MAP_ in yaml template if minibr - lok terminal
+      if: github.event.inputs.gamemodemap == 'minibr - lok terminal'
       run: sed -i "s/_MAP_/2/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _MAP_ in yaml template if tdm - refinery
@@ -169,20 +169,20 @@ jobs:
       run: sed -i "s/_MAP_/3/g" Staging/Agones/actionRunnerConfig.yaml
 
  
-    - name: Replace _TEAM_SIZE_ in yaml template if QUADS
-      if: github.event.inputs.teamSize == 'Quads' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm')
+    - name: Replace _TEAM_SIZE_ in yaml template if quad
+      if: github.event.inputs.teamSize == 'quad' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm')
       run: sed -i "s/_TEAM_SIZE_/2/g" Staging/Agones/actionRunnerConfig.yaml
       
-    - name: Replace _TEAM_SIZE_ in yaml template if DUOS
-      if: github.event.inputs.teamSize == 'Duos' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm')
+    - name: Replace _TEAM_SIZE_ in yaml template if duo
+      if: github.event.inputs.teamSize == 'duo' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm')
       run: sed -i "s/_TEAM_SIZE_/1/g" Staging/Agones/actionRunnerConfig.yaml
 
-    - name: Replace _TEAM_SIZE_ in yaml template if SOLOs
-      if: github.event.inputs.teamSize == 'Solos' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm')
+    - name: Replace _TEAM_SIZE_ in yaml template if solo
+      if: github.event.inputs.teamSize == 'solo' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm')
       run: sed -i "s/_TEAM_SIZE_/0/g" Staging/Agones/actionRunnerConfig.yaml
 
-    - name: Replace _TEAM_SIZE_ in yaml template if hotdrop
-      if: github.event.inputs.gamemodetype == 'hotdrop'
+    - name: Replace _TEAM_SIZE_ in yaml template if minibr
+      if: github.event.inputs.gamemodetype == 'minibr'
       run: sed -i "s/_TEAM_SIZE_/0/g" Staging/Agones/actionRunnerConfig.yaml
 
       
