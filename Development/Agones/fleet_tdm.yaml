@@ -123,7 +123,7 @@ spec:
               - name: GAMEMODE
                 value: "2"     # 0 = BR, 1 = MiniBR, 2 = TDM
               - name: MAP
-                value: "3"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 3 = TDM Refinery
+                value: "5"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 5 = TDM Refinery
               - name: TEAM
                 value: "2"
               - name: BOTS
