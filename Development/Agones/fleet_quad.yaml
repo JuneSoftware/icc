@@ -111,7 +111,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "raja_br_quad_Hidden"
+                value: "raja_br_quadHidden"
               - name: REGION
                 value: "asia"
               - name: LOBBY
