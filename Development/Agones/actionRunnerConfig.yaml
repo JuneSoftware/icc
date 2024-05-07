@@ -113,7 +113,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "room2_br_quadHidden"
+                value: "room2Hidden_br_quadHidden"
               - name: REGION
                 value: "asia"
               - name: LOBBY
@@ -127,7 +127,7 @@ spec:
               - name: TEAM
                 value: "2"
               - name: BOTS
-                value: "60"
+                value: "50"
               - name: PORT
                 value: "27015"
               - name: MASTER_CLIENT
