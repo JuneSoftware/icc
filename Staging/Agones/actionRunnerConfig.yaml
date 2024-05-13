@@ -113,7 +113,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "inferno_br_quad_Hidden"
+                value: "rajsoni_br_quad_Hidden"
               - name: REGION
                 value: "asia"
               - name: LOBBY
@@ -127,13 +127,13 @@ spec:
               - name: TEAM
                 value: "2"
               - name: BOTS
-                value: "60"
+                value: "57"
               - name: PORT
                 value: "27015"
               - name: MASTER_CLIENT
                 value: "1"
               - name: BOTS_FILLMODE
-                value: "0"
+                value: "1"
               - name: MM
                 value: "0"
               volumeMounts:
