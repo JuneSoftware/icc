@@ -113,7 +113,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "NRGL542_br_quad_Hidden"
+                value: "PPLK457_br_quad_Hidden"
               - name: REGION
                 value: "asia"
               - name: LOBBY
