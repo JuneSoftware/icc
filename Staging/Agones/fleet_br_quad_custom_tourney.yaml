@@ -114,7 +114,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "HAM702_br_quad_Hidden"
+                value: "FINREG73_br_quad_Hidden"
               - name: REGION
                 value: "asia"
               - name: LOBBY
