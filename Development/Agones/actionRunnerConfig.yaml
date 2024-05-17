@@ -5,7 +5,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gameserver-fleet-br-quad-3265000-custom-tourney
+  name: indus-gameserver-fleet-br-quad-3327000-public
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 1
@@ -102,7 +102,7 @@ spec:
           terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.36.21_3265000
+              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.36.12_3327000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
@@ -113,7 +113,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "12345_br_quad_Hidden"
+                value: "empty"
               - name: REGION
                 value: "asia"
               - name: LOBBY
@@ -133,9 +133,9 @@ spec:
               - name: MASTER_CLIENT
                 value: "1"
               - name: BOTS_FILLMODE
-                value: "0"
+                value: "1"
               - name: MM
-                value: "0"
+                value: "1"
               volumeMounts:
               - name: ca-cert-volume
                 mountPath: /etc/ssl/certs/ca-certificates.crt
