@@ -114,7 +114,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "K4R4NOP_br_quad_Hidden"
+                value: "HLMKP234_br_quad_Hidden"
               - name: REGION
                 value: "asia"
               - name: LOBBY
