@@ -114,7 +114,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "LKSL567_br_quad_Hidden"
+                value: "JPLM357_br_quad_Hidden"
               - name: REGION
                 value: "asia"
               - name: LOBBY
