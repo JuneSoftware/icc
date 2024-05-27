@@ -125,7 +125,10 @@ jobs:
 
     - name: Replace _ROOMNAME_ in yaml template if any Room Name of Tournament Type is provided
       if: github.event.inputs.code_type == 'true' && github.event.inputs.roomname != 'empty'
-      run: sed -i "s/_ROOMNAME_/${{ github.event.inputs.roomname }}_${{ github.event.inputs.gamemodetype }}_${{ github.event.inputs.teamSize }}_Hidden/g" Development/Agones/actionRunnerConfig.yaml
+      run: |
+        VERSIONS=$(echo "${{ github.event.inputs.version }}" | rev | cut -c 1-7 | rev)
+        echo "VERSIONS=$VERSIONS" >> $GITHUB_ENV
+        sed -i "s/_ROOMNAME_/${{ github.event.inputs.roomname }}_${{ github.event.inputs.gamemodetype }}_${{ github.event.inputs.teamSize }}_${VERSIONS}_Hidden/g" Development/Agones/actionRunnerConfig.yaml
       
     - name: Replace _ROOMNAME_ in yaml template if no Room Name nor of Tournament Type is provided
       if: github.event.inputs.code_type == 'false'
@@ -216,7 +219,6 @@ jobs:
         git push
 
 # GCloud CLI Executions
-
     - name: GCP Cloud Auth
       id: 'gcp-cloud-auth'
       uses: 'google-github-actions/auth@v2'
