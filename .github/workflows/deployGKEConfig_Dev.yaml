@@ -207,7 +207,7 @@ jobs:
       run: sed -i "s/_MM_MODE_/0/g" Development/Agones/actionRunnerConfig.yaml
 
     - name: Replace _MM_MODE_ in yaml template if True
-      if: github.event.inputs.mm_mode == 'true'
+      if: github.event.inputs.mm_mode == 'true' && github.event.inputs.roomname == 'empty'
       run: sed -i "s/_MM_MODE_/1/g" Development/Agones/actionRunnerConfig.yaml
 
     - name: Commit and push changes
