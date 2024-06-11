@@ -23,7 +23,7 @@ on:
           - br - virlok
           - minibr - foundry
           - minibr - lok terminal
-          - tdm - refinery
+          - tdm - saaplok
       teamSize:
         description: 'Max Team Size'
         required: true
@@ -110,11 +110,11 @@ jobs:
       
     - name: Replace _ROOMTYPE_ in Fleet Name if server name but not tourney
       if: github.event.inputs.roomname != 'empty' && github.event.inputs.code_type == 'false'
-      run: sed -i "s/_ROOMTYPE_/custom-dev/g" Staging/Agones/actionRunnerConfig.yaml
+      run: sed -i "s/_ROOMTYPE_/custom-dev-${{ github.event.inputs.roomname }}/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _ROOMTYPE_ in Fleet Name if server name and tourney
       if: github.event.inputs.roomname != 'empty' && github.event.inputs.code_type == 'true'
-      run: sed -i "s/_ROOMTYPE_/custom-tourney/g" Staging/Agones/actionRunnerConfig.yaml
+      run: sed -i "s/_ROOMTYPE_/custom-tourney-${{ github.event.inputs.roomname }}/g" Staging/Agones/actionRunnerConfig.yaml
 
 # Build Version
       
@@ -164,8 +164,8 @@ jobs:
       if: github.event.inputs.gamemodemap == 'minibr - lok terminal'
       run: sed -i "s/_MAP_/2/g" Staging/Agones/actionRunnerConfig.yaml
 
-    - name: Replace _MAP_ in yaml template if tdm - refinery
-      if: github.event.inputs.gamemodemap == 'tdm - refinery'
+    - name: Replace _MAP_ in yaml template if tdm - saaplok
+      if: github.event.inputs.gamemodemap == 'tdm - saaplok'
       run: sed -i "s/_MAP_/3/g" Staging/Agones/actionRunnerConfig.yaml
 
  
@@ -200,11 +200,11 @@ jobs:
 
 
     - name: Replace _MM_MODE_ in yaml template if False
-      if: ${{ github.event.inputs.mm_mode == 'false' }}
+      if: github.event.inputs.mm_mode == 'false' || github.event.inputs.roomname != 'empty'
       run: sed -i "s/_MM_MODE_/0/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _MM_MODE_ in yaml template if True
-      if: ${{ github.event.inputs.mm_mode == 'true' }}
+      if: github.event.inputs.mm_mode == 'true' || github.event.inputs.roomname == 'empty'
       run: sed -i "s/_MM_MODE_/1/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Commit and push changes
