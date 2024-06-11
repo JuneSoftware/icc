@@ -110,11 +110,11 @@ jobs:
       
     - name: Replace _ROOMTYPE_ in Fleet Name if server name but not tourney
       if: github.event.inputs.roomname != 'empty' && github.event.inputs.code_type == 'false'
-      run: sed -i "s/_ROOMTYPE_/custom-dev_${{ github.event.inputs.roomname }}/g" Development/Agones/actionRunnerConfig.yaml
+      run: sed -i "s/_ROOMTYPE_/custom-dev-${{ github.event.inputs.roomname }}/g" Development/Agones/actionRunnerConfig.yaml
 
     - name: Replace _ROOMTYPE_ in Fleet Name if server name and tourney
       if: github.event.inputs.roomname != 'empty' && github.event.inputs.code_type == 'true'
-      run: sed -i "s/_ROOMTYPE_/custom-tourney_${{ github.event.inputs.roomname }}/g" Development/Agones/actionRunnerConfig.yaml
+      run: sed -i "s/_ROOMTYPE_/custom-tourney-${{ github.event.inputs.roomname }}/g" Development/Agones/actionRunnerConfig.yaml
 
 # Build Version
       
