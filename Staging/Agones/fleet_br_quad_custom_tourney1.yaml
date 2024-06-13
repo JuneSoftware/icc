@@ -114,7 +114,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "ASOMK_br_quad_3433000_Hidden"
+                value: "ASOMK_br_quad_3541000_Hidden"
               - name: REGION
                 value: "asia"
               - name: LOBBY
