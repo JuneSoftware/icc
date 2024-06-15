@@ -116,7 +116,7 @@ spec:
               - name: SESSION
                 value: "profiler_br_quad_3561000_Hidden"
               - name: REGION
-                value: "asia"
+                value: "in"
               - name: LOBBY
                 value: "empty"
               - name: MODE
