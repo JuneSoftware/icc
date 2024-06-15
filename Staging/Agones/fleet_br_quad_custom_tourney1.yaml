@@ -114,7 +114,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "3561000_br_quad_3561000_Hidden"
+                value: "profiler_br_quad_3561000_Hidden"
               - name: REGION
                 value: "asia"
               - name: LOBBY
@@ -126,7 +126,7 @@ spec:
               - name: MAP
                 value: "0"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 3 = TDM Refinery
               - name: TEAM
-                value: "2"
+                value: "0"
               - name: BOTS
                 value: "42"
               - name: PORT
