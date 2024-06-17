@@ -5,7 +5,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gameserver-fleet-br-solo-3561000-custom-tourney-3561000
+  name: indus-gameserver-fleet-br-quad-3561000-custom-tourney-qwerty
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 1
@@ -113,7 +113,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "3561000_br_solo_Hidden"
+                value: "qwerty_br_quad_3561000_Hidden"
               - name: REGION
                 value: "asia"
               - name: LOBBY
@@ -125,9 +125,9 @@ spec:
               - name: MAP
                 value: "0"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 3 = TDM Refinery
               - name: TEAM
-                value: "0"
+                value: "2"
               - name: BOTS
-                value: "0"
+                value: "60"
               - name: PORT
                 value: "27015"
               - name: MASTER_CLIENT
