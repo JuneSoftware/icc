@@ -114,7 +114,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "abcd_tdm_quad_3561000_Hidden"
+                value: "abcd_br_quad_3574000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
