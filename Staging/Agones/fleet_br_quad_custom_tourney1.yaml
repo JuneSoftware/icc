@@ -116,7 +116,7 @@ spec:
               - name: SESSION
                 value: "12345_br_quad_3600000_Hidden"
               - name: REGION
-                value: "asia"
+                value: "in"
               - name: LOBBY
                 value: "empty"
               - name: MODE
