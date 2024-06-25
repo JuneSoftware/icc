@@ -114,7 +114,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "ZYX609_br_quad_3600000_Hidden"
+                value: "VKR946_br_quad_3600000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
