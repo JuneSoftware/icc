@@ -100,7 +100,7 @@ spec:
           terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: us-west2-docker.pkg.dev/indus-staging-mp/linux-containers-us/v0.35.0_2971000
+              image: us-west2-docker.pkg.dev/indus-staging-mp/linux-containers-us/v0.37.100_3777000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
