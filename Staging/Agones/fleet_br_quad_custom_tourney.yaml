@@ -114,7 +114,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "RFT420_br_quad_3815000_Hidden"
+                value: "SFR191_br_quad_3815000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
