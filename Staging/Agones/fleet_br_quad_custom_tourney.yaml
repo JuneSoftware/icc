@@ -114,7 +114,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "RHF654_br_quad_3955000_Hidden"
+                value: "DFM525_br_quad_3955000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
