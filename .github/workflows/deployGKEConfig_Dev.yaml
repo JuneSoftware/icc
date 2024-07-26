@@ -21,8 +21,8 @@ on:
         type: choice
         options:
           - br - virlok
-          - minibr - foundry
-          - minibr - lok terminal
+          - hotdrop - foundry
+          - hotdrop - lok terminal
           - tdm - saaplok
       teamSize:
         description: 'Max Team Size'
@@ -160,11 +160,11 @@ jobs:
       run: sed -i "s/_MAP_/0/g" Development/Agones/actionRunnerConfig.yaml
 
     - name: Replace _MAP_ in yaml template if minibr - foundry
-      if: github.event.inputs.gamemodemap == 'minibr - foundry'
+      if: github.event.inputs.gamemodemap == 'hotdrop - foundry'
       run: sed -i "s/_MAP_/1/g" Development/Agones/actionRunnerConfig.yaml
 
     - name: Replace _MAP_ in yaml template if minibr - lok terminal
-      if: github.event.inputs.gamemodemap == 'minibr - lok terminal'
+      if: github.event.inputs.gamemodemap == 'hotdrop - lok terminal'
       run: sed -i "s/_MAP_/2/g" Development/Agones/actionRunnerConfig.yaml
 
     - name: Replace _MAP_ in yaml template if tdm - saaplok
