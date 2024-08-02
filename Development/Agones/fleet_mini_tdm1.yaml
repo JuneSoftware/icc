@@ -126,7 +126,7 @@ spec:
               - name: MAP
                 value: "7"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 5 = TDM Refinery, 7= mini TDM
               - name: TEAM
-                value: "2"
+                value: "1"
               - name: BOTS
                 value: "0"
               - name: PORT
