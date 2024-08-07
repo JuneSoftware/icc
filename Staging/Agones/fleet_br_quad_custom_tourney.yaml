@@ -114,7 +114,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "FGS445_br_quad_3955000_Hidden"
+                value: "KDG475_br_quad_3955000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
