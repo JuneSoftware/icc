@@ -9,7 +9,7 @@ metadata:
   name: indus-gameserver-fleet-mini-tdm-4172000-polish
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
-  replicas: 0
+  replicas: 1
   # defines how GameServers are organised across the cluster.
   # Options include:
   # "Packed" (default) is aimed at dynamic Kubernetes clusters, such as cloud providers, wherein we want to bin pack
