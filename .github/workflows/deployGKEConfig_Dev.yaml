@@ -15,6 +15,7 @@ on:
           - minibr
           - tutorial
           - tdm
+          - minitdm
       gamemodemap:
         description: 'Game Mode - Map to Deploy'
         required: true
@@ -24,6 +25,7 @@ on:
           - hotdrop - foundry
           - hotdrop - lok terminal
           - tdm - saaplok
+          - minitdm - cache
       teamSize:
         description: 'Max Team Size'
         required: true
@@ -154,6 +156,10 @@ jobs:
       if: github.event.inputs.gamemodetype == 'tdm'
       run: sed -i "s/_GAMEMODE_/3/g" Development/Agones/actionRunnerConfig.yaml
       
+    - name: Replace _GAMEMODE_ in yaml template if minitdm
+      if: github.event.inputs.gamemodetype == 'minitdm'
+      run: sed -i "s/_GAMEMODE_/4/g" Development/Agones/actionRunnerConfig.yaml  
+
 
     - name: Replace _MAP_ in yaml template if BR - Virlok
       if: github.event.inputs.gamemodemap == 'br - virlok'
@@ -170,6 +176,10 @@ jobs:
     - name: Replace _MAP_ in yaml template if tdm - saaplok
       if: github.event.inputs.gamemodemap == 'tdm - saaplok'
       run: sed -i "s/_MAP_/5/g" Development/Agones/actionRunnerConfig.yaml
+      
+    - name: Replace _MAP_ in yaml template if minitdm - cache
+      if: github.event.inputs.gamemodemap == 'minitdm - cache'
+      run: sed -i "s/_MAP_/6/g" Development/Agones/actionRunnerConfig.yaml
 
  
     - name: Replace _TEAM_SIZE_ in yaml template if quad
@@ -187,6 +197,10 @@ jobs:
     - name: Replace _TEAM_SIZE_ in yaml template if minibr
       if: github.event.inputs.gamemodetype == 'minibr'
       run: sed -i "s/_TEAM_SIZE_/0/g" Development/Agones/actionRunnerConfig.yaml
+      
+    - name: Replace _TEAM_SIZE_ in yaml template if minitdm
+      if: github.event.inputs.gamemodetype == 'minitdm'
+      run: sed -i "s/_TEAM_SIZE_/1/g" Development/Agones/actionRunnerConfig.yaml
 
       
     - name: Replace _BOTS_BACKFILL_ENABLE_ in yaml template if False
