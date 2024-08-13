@@ -179,7 +179,7 @@ jobs:
       
     - name: Replace _MAP_ in yaml template if minitdm - cache
       if: github.event.inputs.gamemodemap == 'minitdm - cache'
-      run: sed -i "s/_MAP_/6/g" Development/Agones/actionRunnerConfig.yaml
+      run: sed -i "s/_MAP_/7/g" Development/Agones/actionRunnerConfig.yaml
 
  
     - name: Replace _TEAM_SIZE_ in yaml template if quad
