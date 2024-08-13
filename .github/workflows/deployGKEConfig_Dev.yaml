@@ -100,7 +100,12 @@ jobs:
     - name: Replace _TEAMSIZENAME_ in Fleet Name
       if: github.event.inputs.gamemodetype == 'minibr'
       run: sed -i "s/_TEAMSIZENAME_/solo/g" Development/Agones/actionRunnerConfig.yaml
-
+      
+    - name: Replace _TEAMSIZENAME_ in Fleet Name
+      if: github.event.inputs.gamemodetype == 'minitdm'
+      run: sed -i "s/_TEAMSIZENAME_/duo/g" Development/Agones/actionRunnerConfig.yaml
+      
+      
     - name: Replace _BUILD_NUMBER_ in Fleet Name
       run: |
           VERSION=$(echo "${{ github.event.inputs.version }}" | rev | cut -c 1-7 | rev)
