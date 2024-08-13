@@ -25,7 +25,7 @@
 apiVersion: "autoscaling.agones.dev/v1"
 kind: FleetAutoscaler
 metadata:
-  name: indus-fleet-autoscaler-minibr-solos-foundry-4162000
+  name: indus-fleet-autoscaler-minibr-solos-foundry-4248000
 spec:
   # The name of the fleet to attach to and control. Must be an existing Fleet in the same namespace
   # as this FleetAutoscaler
@@ -47,7 +47,7 @@ spec:
       minReplicas: 3
       # maximum fleet size that can be set by this FleetAutoscaler
       # required
-      maxReplicas: 15
+      maxReplicas: 50
   # [Stage:Beta]
   # [FeatureFlag:CustomFasSyncInterval]
   # The autoscaling sync strategy
