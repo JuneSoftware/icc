@@ -15,6 +15,7 @@ on:
           - minibr
           - tutorial
           - tdm
+          - minitdm
       gamemodemap:
         description: 'Game Mode - Map to Deploy'
         required: true
@@ -24,6 +25,7 @@ on:
           - minibr - foundry
           - minibr - lok terminal
           - tdm - saaplok
+          - minitdm - cache
       teamSize:
         description: 'Max Team Size'
         required: true
@@ -98,7 +100,11 @@ jobs:
     - name: Replace _TEAMSIZENAME_ in Fleet Name
       if: github.event.inputs.gamemodetype == 'minibr'
       run: sed -i "s/_TEAMSIZENAME_/solo/g" Staging/Agones/actionRunnerConfig.yaml
-
+      
+    - name: Replace _TEAMSIZENAME_ in Fleet Name
+      if: github.event.inputs.gamemodetype == 'minitdm'
+      run: sed -i "s/_TEAMSIZENAME_/duo/g" Staging/Agones/actionRunnerConfig.yaml
+      
     - name: Replace _BUILD_NUMBER_ in Fleet Name
       run: |
           VERSION=$(echo "${{ github.event.inputs.version }}" | rev | cut -c 1-7 | rev)
@@ -154,6 +160,9 @@ jobs:
       if: github.event.inputs.gamemodetype == 'tdm'
       run: sed -i "s/_GAMEMODE_/3/g" Staging/Agones/actionRunnerConfig.yaml
       
+    - name: Replace _GAMEMODE_ in yaml template if minitdm
+      if: github.event.inputs.gamemodetype == 'minitdm'
+      run: sed -i "s/_GAMEMODE_/4/g" Staging/Agones/actionRunnerConfig.yaml 
 
     - name: Replace _MAP_ in yaml template if BR - Virlok
       if: github.event.inputs.gamemodemap == 'br - virlok'
@@ -170,7 +179,10 @@ jobs:
     - name: Replace _MAP_ in yaml template if tdm - saaplok
       if: github.event.inputs.gamemodemap == 'tdm - saaplok'
       run: sed -i "s/_MAP_/5/g" Staging/Agones/actionRunnerConfig.yaml
-
+      
+    - name: Replace _MAP_ in yaml template if minitdm - cache
+      if: github.event.inputs.gamemodemap == 'minitdm - cache'
+      run: sed -i "s/_MAP_/7/g" Staging/Agones/actionRunnerConfig.yaml
  
     - name: Replace _TEAM_SIZE_ in yaml template if quad
       if: github.event.inputs.teamSize == 'quad' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm')
@@ -187,7 +199,10 @@ jobs:
     - name: Replace _TEAM_SIZE_ in yaml template if minibr
       if: github.event.inputs.gamemodetype == 'minibr'
       run: sed -i "s/_TEAM_SIZE_/0/g" Staging/Agones/actionRunnerConfig.yaml
-
+      
+    - name: Replace _TEAM_SIZE_ in yaml template if minitdm
+      if: github.event.inputs.gamemodetype == 'minitdm'
+      run: sed -i "s/_TEAM_SIZE_/1/g" Staging/Agones/actionRunnerConfig.yaml
       
     - name: Replace _BOTS_BACKFILL_ENABLE_ in yaml template if False
       if: ${{ github.event.inputs.enableBots == 'false' }}
