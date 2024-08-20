@@ -1,3 +1,4 @@
+
 # Copyright 2018 Google LLC All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,11 +25,11 @@
 apiVersion: "autoscaling.agones.dev/v1"
 kind: FleetAutoscaler
 metadata:
-  name: indus-fleetautoscaler--mini-tdm-4162000
+  name: indus-fleet-autoscaler-minibr-solos-foundry-4263000
 spec:
   # The name of the fleet to attach to and control. Must be an existing Fleet in the same namespace
   # as this FleetAutoscaler
-  fleetName: indus-gameserver-fleet-mini-tdm-4162000-polish
+  fleetName: indus-gameserver-fleet-minibr-foundry-solo-4263000
   # The autoscaling policy
   policy:
     # type of the policy. Buffer or Webhook types are available
@@ -46,7 +47,7 @@ spec:
       minReplicas: 3
       # maximum fleet size that can be set by this FleetAutoscaler
       # required
-      maxReplicas: 40
+      maxReplicas: 20
   # [Stage:Beta]
   # [FeatureFlag:CustomFasSyncInterval]
   # The autoscaling sync strategy
@@ -56,4 +57,4 @@ spec:
     # parameters of the fixedInterval sync
     fixedInterval:
       # the time in seconds between each auto scaling
-      seconds: 10
+      seconds: 30

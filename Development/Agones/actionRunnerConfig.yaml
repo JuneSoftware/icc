@@ -102,7 +102,7 @@ spec:
           terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.39.1_4204000
+              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.39.14_4261000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
@@ -121,9 +121,9 @@ spec:
               - name: MODE
                 value: "agones"
               - name: GAMEMODE
-                value: "4"     # 0 = BR, 1 = MiniBR, 2 = TDM
+                value: "3"     # 0 = BR, 1 = MiniBR, 2 = TDM
               - name: MAP
-                value: "7"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 3 = TDM Refinery
+                value: "5"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 3 = TDM Refinery
               - name: TEAM
                 value: "1"
               - name: BOTS
