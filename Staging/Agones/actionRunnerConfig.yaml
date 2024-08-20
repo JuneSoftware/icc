@@ -121,11 +121,11 @@ spec:
               - name: MODE
                 value: "agones"
               - name: GAMEMODE
-                value: "3"     # 0 = BR, 1 = MiniBR, 2 = TDM
+                value: "4"     # 0 = BR, 1 = MiniBR, 2 = TDM
               - name: MAP
-                value: "5"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 3 = TDM Refinery
+                value: "7"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 3 = TDM Refinery
               - name: TEAM
-                value: "2"
+                value: "1"
               - name: BOTS
                 value: "60"
               - name: PORT
