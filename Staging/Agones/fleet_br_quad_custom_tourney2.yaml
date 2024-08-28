@@ -114,7 +114,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "GWDG48_br_quad_4364000_Hidden"
+                value: "GWGE92_br_quad_4364000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
