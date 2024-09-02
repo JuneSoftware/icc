@@ -114,7 +114,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "EGR538_br_quad_4419000_Hidden"
+                value: "CWT572_br_quad_4419000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
