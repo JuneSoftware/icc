@@ -114,7 +114,7 @@ spec:
                   memory: "2000Mi"
               env:
               - name: SESSION
-                value: "GDT485_br_quad_4364000_Hidden"
+                value: "FSD485_br_quad_4364000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
