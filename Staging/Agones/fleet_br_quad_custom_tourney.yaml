@@ -107,11 +107,11 @@ spec:
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
-                  cpu: "500m"
-                  memory: "1500Mi"
-                limits:
-                  cpu: "850m"
+                  cpu: "1500m"
                   memory: "2000Mi"
+                limits:
+                  cpu: "2000m"
+                  memory: "2500Mi"
               env:
               - name: SESSION
                 value: "GWGA743_br_quad_4419000_Hidden"
