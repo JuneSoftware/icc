@@ -114,7 +114,7 @@ spec:
                   memory: "2500Mi"
               env:
               - name: SESSION
-                value: "HBD101_br_quad_4495000_Hidden"
+                value: "HYT345_br_quad_4495000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
