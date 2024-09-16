@@ -107,10 +107,10 @@ spec:
               resources: # Resource requests and limits
                 requests:
                   cpu: "300m"
-                  memory: "1100Mi"
+                  memory: "1700Mi"
                 limits:
                   cpu: "500m"
-                  memory: "1300Mi"
+                  memory: "2000Mi"
               env:
               - name: SESSION
                 value: "empty"

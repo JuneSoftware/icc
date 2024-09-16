@@ -104,11 +104,11 @@ spec:
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
-                  cpu: "1300m"
-                  memory: "2000Mi"
+                  cpu: "700m"
+                  memory: "1600Mi"
                 limits:
-                  cpu: "1600m"
-                  memory: "2500Mi"
+                  cpu: "900m"
+                  memory: "1800Mi"
               env:
               - name: SESSION
                 value: "empty"
