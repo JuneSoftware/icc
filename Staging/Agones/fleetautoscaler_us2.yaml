@@ -24,11 +24,11 @@
 apiVersion: "autoscaling.agones.dev/v1"
 kind: FleetAutoscaler
 metadata:
-  name: indus-fleet-autoscaler-quad-2971000
+  name: indus-fleet-autoscaler-quad-4666000
 spec:
   # The name of the fleet to attach to and control. Must be an existing Fleet in the same namespace
   # as this FleetAutoscaler
-  fleetName: indus-gameserver-fleets-quad-2971000
+  fleetName: indus-gameserver-fleet-quads-br-4666000
   # The autoscaling policy
   policy:
     # type of the policy. Buffer or Webhook types are available
@@ -46,7 +46,7 @@ spec:
       minReplicas: 2
       # maximum fleet size that can be set by this FleetAutoscaler
       # required
-      maxReplicas: 10
+      maxReplicas: 20
   # [Stage:Beta]
   # [FeatureFlag:CustomFasSyncInterval]
   # The autoscaling sync strategy
