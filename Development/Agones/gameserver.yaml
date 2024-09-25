@@ -70,7 +70,7 @@ spec:
     #  - "Debug" The SDK server will output all messages including debug messages
     #  - "Error" The SDK server will only output error messages
     logLevel: Info
-    # grpcPort and httpPort control what ports the sdkserver listens on.
+    # grpcPort and httpPort control what ports the sdkserver listens on. Something new
     # Starting with Agones 1.2 the default grpcPort is 9357 and the default
     # httpPort is 9358. In earlier releases, the defaults were 59357 and 59358
     # respectively but as these were in the ephemeral port range they could
