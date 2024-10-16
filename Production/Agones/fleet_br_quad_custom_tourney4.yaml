@@ -114,7 +114,7 @@ spec:
                   memory: "2500Mi"
               env:
               - name: SESSION
-                value: "KJI890_br_quad_4917000_Hidden"
+                value: "DSR453_br_quad_4917000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
