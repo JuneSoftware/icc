@@ -40,10 +40,10 @@ spec:
       # as instances are being allocated or terminated.
       # Note that "reserved" game servers could not be scaled down.
       # It can be specified either in absolute (i.e. 5) or percentage format (i.e. 5%)
-      bufferSize: 40
+      bufferSize: 25
       # minimum fleet size to be set by this FleetAutoscaler. 
       # if not specified, the actual minimum fleet size will be bufferSize
-      minReplicas: 40
+      minReplicas: 25
       # maximum fleet size that can be set by this FleetAutoscaler
       # required
       maxReplicas: 100000
