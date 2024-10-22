@@ -5080,7 +5080,7 @@ spec:
                          enum:
                          - Packed
                          - Distributed
-                       health:
+                 health:
                          type: object
                          title: Health checking for the running game server
                          properties:
@@ -10140,7 +10140,7 @@ spec:
                  enum:
                  - Packed
                  - Distributed
-               health:
+         health:
                  type: object
                  title: Health checking for the running game server
                  properties:
@@ -15345,7 +15345,7 @@ spec:
                           enum:
                           - Packed
                           - Distributed
-                        health:
+                  health:
                           type: object
                           title: Health checking for the running game server
                           properties:
