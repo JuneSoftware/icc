@@ -254,18 +254,18 @@ jobs:
       id: 'gcp-cloud-auth'
       uses: 'google-github-actions/auth@v1'
       with:
-        credentials_json: '${{ secrets.SERVICE_ACCOUNT_KEY_Production }}'
+        credentials_json: '${{ secrets.SERVICE_ACCOUNT_KEY_PROD }}'
     - name: Create Service Account File
       uses: 'fertrig/create-file-action@1.0.2'
       with:
         file: 'GCP_SA.json'
-        content: ${{ secrets.SERVICE_ACCOUNT_KEY_Production }}
+        content: ${{ secrets.SERVICE_ACCOUNT_KEY_PROD }}
     - name: GKE Auth
       id: 'get-credentials'
       uses: 'google-github-actions/get-gke-credentials@v2'
       with:
-        cluster_name: 'agones-cluster'
-        location: 'asia-south1-a'
+        cluster_name: 'agones-gameserver-delhi-a'
+        location: 'asia-south2-a'
       env:
         GOOGLE_APPLICATION_CREDENTIALS: 'GCP_SA.json'
     - id: 'get-pods'
@@ -273,4 +273,4 @@ jobs:
     - name: Apply the Configuration
       run: kubectl create -f https://raw.githubusercontent.com/JuneSoftware/icc/main/Production/Agones/actionRunnerConfig.yaml
       env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_Production }}
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_PROD }}
