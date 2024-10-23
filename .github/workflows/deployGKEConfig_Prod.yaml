@@ -79,7 +79,7 @@ jobs:
 
     - name: Check if Custom Lobby Only
       run: |
-        if [[ $github.event.inputs.roomname != "empty" ]]; then
+        if [[ "${{ github.event.inputs.roomname }}" != "empty" ]]; then
           echo "Only Custom Lobbies are allowed to be Deployed on Production Environment."
           exit 1
         else
