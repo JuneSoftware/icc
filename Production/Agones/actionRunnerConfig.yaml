@@ -5,7 +5,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gameserver-fleet-br-quad-4917000-custom-dev-testxo
+  name: indus-gameserver-fleet-br-quad-5064000-custom-dev-testfp
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 1
@@ -102,7 +102,7 @@ spec:
           terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-prod-mp/linux-containers/v1.0.0_4917000
+              image: asia-south1-docker.pkg.dev/indus-prod-mp/linux-containers/v1.0.1_5064000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
@@ -113,7 +113,7 @@ spec:
                   memory: "1800Mi"
               env:
               - name: SESSION
-                value: "TESTXO_br_quad_4917000_Hidden"
+                value: "TESTFP_br_quad_5064000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
@@ -127,7 +127,7 @@ spec:
               - name: TEAM
                 value: "2"
               - name: BOTS
-                value: "23"
+                value: "25"
               - name: PORT
                 value: "27015"
               - name: MASTER_CLIENT
