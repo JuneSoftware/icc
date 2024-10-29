@@ -24,11 +24,11 @@
 apiVersion: "autoscaling.agones.dev/v1"
 kind: FleetAutoscaler
 metadata:
-  name: indus-fleet-autoscaler-br-solos-5093000
+  name: indus-fleet-autoscaler-br-solos-5102000
 spec:
   # The name of the fleet to attach to and control. Must be an existing Fleet in the same namespace
   # as this FleetAutoscaler
-  fleetName: indus-gameserver-fleet-solos-br-5093000
+  fleetName: indus-gameserver-fleet-solos-br-5102000
   # The autoscaling policy
   policy:
     # type of the policy. Buffer or Webhook types are available
