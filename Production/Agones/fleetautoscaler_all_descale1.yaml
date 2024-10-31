@@ -25,11 +25,11 @@
 apiVersion: "autoscaling.agones.dev/v1"
 kind: FleetAutoscaler
 metadata:
-  name: indus-fleetautoscaler-mini-tdm-5115000
+  name: indus-fleetautoscaler-br-quad-5115000
 spec:
   # The name of the fleet to attach to and control. Must be an existing Fleet in the same namespace
   # as this FleetAutoscaler
-  fleetName: indus-gameserver-fleet-mini-tdm-5115000-polish
+  fleetName: indus-gameserver-fleet-quads-br-5115000
   # The autoscaling policy
   policy:
     # type of the policy. Buffer or Webhook types are available
@@ -41,10 +41,10 @@ spec:
       # as instances are being allocated or terminated.
       # Note that "reserved" game servers could not be scaled down.
       # It can be specified either in absolute (i.e. 5) or percentage format (i.e. 5%)
-      bufferSize: 3
+      bufferSize: 2
       # minimum fleet size to be set by this FleetAutoscaler. 
       # if not specified, the actual minimum fleet size will be bufferSize
-      minReplicas: 3
+      minReplicas: 2
       # maximum fleet size that can be set by this FleetAutoscaler
       # required
       maxReplicas: 40
