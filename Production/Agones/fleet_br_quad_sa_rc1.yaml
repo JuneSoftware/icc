@@ -3,7 +3,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gameserver-fleet-quads-br-4666000
+  name: indus-gameserver-fleet-quads-br-5128000
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 0
@@ -100,7 +100,7 @@ spec:
           terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: southamerica-east1-docker.pkg.dev/indus-prod-mp/linux-containers-sa/v0.39.100_4666000
+              image: southamerica-east1-docker.pkg.dev/indus-prod-mp/linux-containers-sa/v1.1.1_5128000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
