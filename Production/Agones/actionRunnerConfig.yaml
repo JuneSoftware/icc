@@ -5,7 +5,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gameserver-fleet-br-quad-5102000-custom-dev-zqs531
+  name: indus-gameserver-fleet-br-quad-5102000-custom-dev-zms531
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 1
@@ -113,7 +113,7 @@ spec:
                   memory: "1800Mi"
               env:
               - name: SESSION
-                value: "ZQS531_br_quad_5102000_Hidden"
+                value: "ZMS531_br_quad_5102000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
