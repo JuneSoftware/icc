@@ -126,7 +126,7 @@ jobs:
       run: sed -i "s/_ROOMTYPE_/public/g" Production/Agones/actionRunnerConfig.yaml
 
     - name: Replace _ROOMTYPE_ in Fleet Name if server name but not tourney
-      if: github.event.inputs.roomname != 'empty' && github.event.inputs.code_type == 'true'
+      if: github.event.inputs.roomname != 'empty' && github.event.inputs.code_type == 'false'
       run: |
           LOWERCASE_ROOMNAME=$(echo "${{ github.event.inputs.roomname }}" | tr '[:upper:]' '[:lower:]')
           sed -i "s/_ROOMTYPE_/custom-dev-${LOWERCASE_ROOMNAME}/g" Production/Agones/actionRunnerConfig.yaml
