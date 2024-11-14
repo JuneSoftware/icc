@@ -12,9 +12,9 @@ jobs:
     permissions:
       contents: 'write'
       id-token: 'write'
-
-# GCloud CLI Executions
-
+    name: Yaml Updater
+    runs-on: ubuntu-latest
+    steps:
     - name: GCP Cloud Auth
       id: 'gcp-cloud-auth'
       uses: 'google-github-actions/auth@v1'
