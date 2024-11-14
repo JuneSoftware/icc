@@ -1,4 +1,4 @@
-﻿name: Remote Custom Tourney Rooms
+name: Remote Custom Tourney Rooms
 
 on:
   workflow_dispatch:
@@ -38,7 +38,7 @@ jobs:
       run: 'kubectl get fleets --all-namespaces | grep "custom-tourney"'
       
     - name: Delete All Custom Tourney
-      run: 'kubectl get fleets --all-namespaces | grep "custom-tourney" | awk '{print $1, $2}' | xargs -n 2 sh -c 'kubectl delete fleet -n $0 $1''
+      run: "kubectl get fleets --all-namespaces | grep 'custom-tourney' | awk '{print \$1, \$2}' | xargs -n 2 sh -c 'kubectl delete fleet -n \$0 \$1'"
       shell: bash
       env:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_PROD }}
