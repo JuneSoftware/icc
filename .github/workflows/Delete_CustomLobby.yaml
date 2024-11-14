@@ -33,11 +33,12 @@ jobs:
         location: 'asia-south2-a'
       env:
         GOOGLE_APPLICATION_CREDENTIALS: 'GCP_SA.json'
-    - id: 'get-pods'
+        
+    - id: 'Get-Custom-Tourney'
       run: 'kubectl get fleets --all-namespaces | grep "custom-tourney"'
       
-    - name: Apply the Configuration
-      run: kubectl get fleets
+    - name: Delete All Custom Tourney
+      run: 'kubectl get fleets --all-namespaces | grep "custom-tourney" | awk '{print $1, $2}' | xargs -n 2 sh -c 'kubectl delete fleet -n $0 $1''
       shell: bash
       env:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_PROD }}
