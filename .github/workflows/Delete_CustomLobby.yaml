@@ -1,11 +1,9 @@
 name: Remote Custom Tourney Rooms
-
 on:
   workflow_dispatch:
     inputs:
       version:
         description: 'Delete All Custom Tourney Rooms'
-
 run-name: Delete All Custom Tournament Rooms
 jobs:
   update_yaml:
@@ -20,11 +18,13 @@ jobs:
       uses: 'google-github-actions/auth@v1'
       with:
         credentials_json: '${{ secrets.SERVICE_ACCOUNT_KEY_PROD }}'
+    
     - name: Create Service Account File
       uses: 'fertrig/create-file-action@1.0.2'
       with:
         file: 'GCP_SA.json'
         content: ${{ secrets.SERVICE_ACCOUNT_KEY_PROD }}
+    
     - name: GKE Auth
       id: 'get-credentials'
       uses: 'google-github-actions/get-gke-credentials@v2'
@@ -38,7 +38,10 @@ jobs:
       run: 'kubectl get fleets --all-namespaces | grep "custom-tourney"'
       
     - name: Delete All Custom Tourney
-      run: "kubectl get fleets --all-namespaces | grep 'custom-tourney' | awk '{print \$1, \$2}' | xargs -n 2 sh -c 'kubectl delete fleet -n \$0 \$1'"
+      run: |
+        kubectl get fleets --all-namespaces | grep "custom-tourney" | while read -r namespace fleet rest; do
+          kubectl delete fleet -n "$namespace" "$fleet"
+        done
       shell: bash
       env:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_PROD }}
