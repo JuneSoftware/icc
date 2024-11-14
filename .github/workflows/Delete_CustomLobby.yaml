@@ -4,59 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version for the release. Eg: 0.31.0_1735'
-        required: true
-      gamemodetype:
-        description: 'Game Mode to Deploy'
-        required: true
-        type: choice
-        options:
-          - br
-          - minibr
-          - tutorial
-          - tdm
-          - minitdm
-      gamemodemap:
-        description: 'Game Mode - Map to Deploy'
-        required: true
-        type: choice
-        options:
-          - br - virlok
-          - minibr - foundry
-          - minibr - lok terminal
-          - tdm - saaplok
-          - minitdm - cache
-      teamSize:
-        description: 'Max Team Size'
-        required: true
-        type: choice
-        options:
-          - quad
-          - duo
-          - solo
-      enableBots:
-        description: 'Enable Bots Backfill'
-        required: false
-        type: boolean
-        default: false
-      botsBackfillLimit:
-        description: 'Add Bots Backfill Limit'
-        required: true
-        default: '60'
-      mm_mode:
-        description: 'Enable Backend MM'
-        required: true
-        type: boolean
-        default: true
-      roomname:
-        description: 'Room Name if any'
-        required: false
-        default: 'empty'
-      code_type:
-        description: 'Is tournament room'
-        required: false
-        type: boolean
-        default: false
+        description: 'Delete All Custom Tourney Rooms'
 
 run-name: Edit Config and Deploy to GKE - Stage - ${{ github.event.inputs.gamemodetype }} - ${{ github.event.inputs.version }}
 jobs:
@@ -76,166 +24,6 @@ jobs:
           exit 1
         fi
       shell: bash
-    - name: Check out repository
-      uses: actions/checkout@v3
-
-    - name: Delete Config
-      run: rm Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Copy File Content
-      run: cp Staging/Agones/actionRunnerConfigTemplate.yaml Staging/Agones/actionRunnerConfig.yaml
-
-# Fleet Name Updates
-
-    - name: Replace _GAMEMODENAME_ in Fleet Name
-      run: sed -i "s/_GAMEMODENAME_/${{github.event.inputs.gamemodetype}}/g" Staging/Agones/actionRunnerConfig.yaml
-      
-    - name: Replace _GAMEMODEMAP_ in Fleet Name
-      run: sed -i "s/_GAMEMODEMAP_/${{github.event.inputs.gamemodemap}}/g" Staging/Agones/actionRunnerConfig.yaml
-      
-    - name: Replace _TEAMSIZENAME_ in Fleet Name
-      if: github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm'
-      run: sed -i "s/_TEAMSIZENAME_/${{github.event.inputs.teamSize}}/g" Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Replace _TEAMSIZENAME_ in Fleet Name
-      if: github.event.inputs.gamemodetype == 'minibr'
-      run: sed -i "s/_TEAMSIZENAME_/solo/g" Staging/Agones/actionRunnerConfig.yaml
-      
-    - name: Replace _TEAMSIZENAME_ in Fleet Name
-      if: github.event.inputs.gamemodetype == 'minitdm'
-      run: sed -i "s/_TEAMSIZENAME_/duo/g" Staging/Agones/actionRunnerConfig.yaml
-      
-    - name: Replace _BUILD_NUMBER_ in Fleet Name
-      run: |
-          VERSION=$(echo "${{ github.event.inputs.version }}" | rev | cut -c 1-7 | rev)
-          sed -i "s/_BUILD_NUMBER_/$VERSION/g" Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Replace _ROOMTYPE_ in Fleet Name if empty string
-      if: github.event.inputs.roomname == 'empty'
-      run: sed -i "s/_ROOMTYPE_/public/g" Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Replace _ROOMTYPE_ in Fleet Name if server name but not tourney
-      if: github.event.inputs.roomname != 'empty' && github.event.inputs.code_type == 'true'
-      run: |
-          LOWERCASE_ROOMNAME=$(echo "${{ github.event.inputs.roomname }}" | tr '[:upper:]' '[:lower:]')
-          sed -i "s/_ROOMTYPE_/custom-dev-${LOWERCASE_ROOMNAME}/g" Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Replace _ROOMTYPE_ in Fleet Name if server name and tourney
-      if: github.event.inputs.roomname != 'empty' && github.event.inputs.code_type == 'true'
-      run: |
-          LOWERCASE_ROOMNAME=$(echo "${{ github.event.inputs.roomname }}" | tr '[:upper:]' '[:lower:]')
-          sed -i "s/_ROOMTYPE_/custom-tourney-${LOWERCASE_ROOMNAME}/g" Staging/Agones/actionRunnerConfig.yaml
-
-# Build Version
-      
-    - name: Replace _VERSION_ in yaml template
-      run: sed -i "s/_VERSION_/${{github.event.inputs.version}}/g" Staging/Agones/actionRunnerConfig.yaml
-
-# Env Variables
-
-    - name: Replace _ROOMNAME_ in yaml template if any Room Name of Tournament Type is provided
-      if: github.event.inputs.code_type == 'true' && github.event.inputs.roomname != 'empty'
-      run: |
-        VERSIONS=$(echo "${{ github.event.inputs.version }}" | rev | cut -c 1-7 | rev)
-        echo "VERSIONS=$VERSIONS" >> $GITHUB_ENV
-        sed -i "s/_ROOMNAME_/${{ github.event.inputs.roomname }}_${{ github.event.inputs.gamemodetype }}_${{ github.event.inputs.teamSize }}_${VERSIONS}_Hidden/g" Staging/Agones/actionRunnerConfig.yaml
-      
-    - name: Replace _ROOMNAME_ in yaml template if no Room Name nor of Tournament Type is provided
-      if: github.event.inputs.code_type == 'false'
-      run: sed -i "s/_ROOMNAME_/${{ github.event.inputs.roomname }}/g" Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Replace _ROOMNAME_ in yaml template if no Room Name but Tournament Type is provided by mistake
-      if: github.event.inputs.code_type == 'true' && github.event.inputs.roomname == 'empty'
-      run: sed -i "s/_ROOMNAME_/${{ github.event.inputs.roomname }}/g" Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Replace _GAMEMODE_ in yaml template if BR
-      if: github.event.inputs.gamemodetype == 'br'
-      run: sed -i "s/_GAMEMODE_/0/g" Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Replace _GAMEMODE_ in yaml template if minibr
-      if: github.event.inputs.gamemodetype == 'minibr'
-      run: sed -i "s/_GAMEMODE_/1/g" Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Replace _GAMEMODE_ in yaml template if tdm
-      if: github.event.inputs.gamemodetype == 'tutorial'
-      run: sed -i "s/_GAMEMODE_/2/g" Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Replace _GAMEMODE_ in yaml template if tdm
-      if: github.event.inputs.gamemodetype == 'tdm'
-      run: sed -i "s/_GAMEMODE_/3/g" Staging/Agones/actionRunnerConfig.yaml
-      
-    - name: Replace _GAMEMODE_ in yaml template if minitdm
-      if: github.event.inputs.gamemodetype == 'minitdm'
-      run: sed -i "s/_GAMEMODE_/4/g" Staging/Agones/actionRunnerConfig.yaml 
-
-    - name: Replace _MAP_ in yaml template if BR - Virlok
-      if: github.event.inputs.gamemodemap == 'br - virlok'
-      run: sed -i "s/_MAP_/0/g" Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Replace _MAP_ in yaml template if minibr - foundry
-      if: github.event.inputs.gamemodemap == 'minibr - foundry'
-      run: sed -i "s/_MAP_/1/g" Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Replace _MAP_ in yaml template if minibr - lok terminal
-      if: github.event.inputs.gamemodemap == 'minibr - lok terminal'
-      run: sed -i "s/_MAP_/2/g" Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Replace _MAP_ in yaml template if tdm - saaplok
-      if: github.event.inputs.gamemodemap == 'tdm - saaplok'
-      run: sed -i "s/_MAP_/5/g" Staging/Agones/actionRunnerConfig.yaml
-      
-    - name: Replace _MAP_ in yaml template if minitdm - cache
-      if: github.event.inputs.gamemodemap == 'minitdm - cache'
-      run: sed -i "s/_MAP_/7/g" Staging/Agones/actionRunnerConfig.yaml
- 
-    - name: Replace _TEAM_SIZE_ in yaml template if quad
-      if: github.event.inputs.teamSize == 'quad' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm')
-      run: sed -i "s/_TEAM_SIZE_/2/g" Staging/Agones/actionRunnerConfig.yaml
-      
-    - name: Replace _TEAM_SIZE_ in yaml template if duo
-      if: github.event.inputs.teamSize == 'duo' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm')
-      run: sed -i "s/_TEAM_SIZE_/1/g" Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Replace _TEAM_SIZE_ in yaml template if solo
-      if: github.event.inputs.teamSize == 'solo' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm')
-      run: sed -i "s/_TEAM_SIZE_/0/g" Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Replace _TEAM_SIZE_ in yaml template if minibr
-      if: github.event.inputs.gamemodetype == 'minibr'
-      run: sed -i "s/_TEAM_SIZE_/0/g" Staging/Agones/actionRunnerConfig.yaml
-      
-    - name: Replace _TEAM_SIZE_ in yaml template if minitdm
-      if: github.event.inputs.gamemodetype == 'minitdm'
-      run: sed -i "s/_TEAM_SIZE_/1/g" Staging/Agones/actionRunnerConfig.yaml
-      
-    - name: Replace _BOTS_BACKFILL_ENABLE_ in yaml template if False
-      if: ${{ github.event.inputs.enableBots == 'false' }}
-      run: sed -i "s/_BOTS_BACKFILL_ENABLE_/0/g" Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Replace _BOTS_BACKFILL_ENABLE_ in yaml template if True
-      if: ${{ github.event.inputs.enableBots == 'true' }}
-      run: sed -i "s/_BOTS_BACKFILL_ENABLE_/1/g" Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Replace _BACKFILL_SIZE_ in yaml template
-      run: sed -i "s/_BACKFILL_SIZE_/${{github.event.inputs.botsBackfillLimit}}/g" Staging/Agones/actionRunnerConfig.yaml
-
-
-
-    - name: Replace _MM_MODE_ in yaml template if False
-      if: github.event.inputs.mm_mode == 'false' || github.event.inputs.roomname != 'empty'
-      run: sed -i "s/_MM_MODE_/0/g" Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Replace _MM_MODE_ in yaml template if True
-      if: github.event.inputs.mm_mode == 'true' || github.event.inputs.roomname == 'empty'
-      run: sed -i "s/_MM_MODE_/1/g" Staging/Agones/actionRunnerConfig.yaml
-
-    - name: Commit and push changes
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add Staging/Agones/actionRunnerConfig.yaml
-        git commit -m "Update Staging config in actionRunnerConfig.yaml"
-        git push
 
 # GCloud CLI Executions
 
@@ -243,23 +31,25 @@ jobs:
       id: 'gcp-cloud-auth'
       uses: 'google-github-actions/auth@v1'
       with:
-        credentials_json: '${{ secrets.SERVICE_ACCOUNT_KEY_STAGING }}'
+        credentials_json: '${{ secrets.SERVICE_ACCOUNT_KEY_PROD }}'
     - name: Create Service Account File
       uses: 'fertrig/create-file-action@1.0.2'
       with:
         file: 'GCP_SA.json'
-        content: ${{ secrets.SERVICE_ACCOUNT_KEY_STAGING }}
+        content: ${{ secrets.SERVICE_ACCOUNT_KEY_PROD }}
     - name: GKE Auth
       id: 'get-credentials'
       uses: 'google-github-actions/get-gke-credentials@v2'
       with:
-        cluster_name: 'agones-cluster'
-        location: 'asia-south1-a'
+        cluster_name: 'agones-gameserver-delhi-a'
+        location: 'asia-south2-a'
       env:
         GOOGLE_APPLICATION_CREDENTIALS: 'GCP_SA.json'
     - id: 'get-pods'
-      run: 'kubectl get fleets'
+      run: 'kubectl get fleets --all-namespaces | grep "custom-tourney"'
+      
     - name: Apply the Configuration
-      run: kubectl create -f https://raw.githubusercontent.com/JuneSoftware/icc/main/Staging/Agones/actionRunnerConfig.yaml
+      run: kubectl get fleets
+      shell: bash
       env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_STAGING }}
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_PROD }}
