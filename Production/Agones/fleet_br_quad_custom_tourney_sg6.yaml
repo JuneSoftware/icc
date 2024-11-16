@@ -114,7 +114,7 @@ spec:
                   memory: "2500Mi"
               env:
               - name: SESSION
-                value: "GET644_br_quad_5115000_Hidden"
+                value: "GWF644_br_quad_5115000_Hidden"
               - name: REGION
                 value: "asia"
               - name: LOBBY
