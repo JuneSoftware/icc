@@ -111,7 +111,7 @@ spec:
                   memory: "2500Mi"
               env:
               - name: SESSION
-                value: "YGG867_br_quad_5115000_Hidden"
+                value: "YGG867_br_quad_5251000_Hidden"
               - name: REGION
                 value: "asia"
               - name: LOBBY
