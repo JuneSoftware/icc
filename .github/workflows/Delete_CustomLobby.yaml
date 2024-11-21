@@ -39,7 +39,7 @@ jobs:
       
     - name: Delete All Custom Tourney
       run: |
-        kubectl get fleets --all-namespaces | grep "custom-tourney" | while read -r namespace fleet rest; do
+        kubectl get fleets --all-namespaces | grep "custm-torny" | while read -r namespace fleet rest; do
           kubectl delete fleet -n "$namespace" "$fleet"
         done
       shell: bash
