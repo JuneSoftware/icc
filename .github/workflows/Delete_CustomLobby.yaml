@@ -35,7 +35,7 @@ jobs:
         GOOGLE_APPLICATION_CREDENTIALS: 'GCP_SA.json'
         
     - id: 'Get-Custom-Tourney'
-      run: 'kubectl get fleets --all-namespaces | grep "custom-tourney"'
+      run: 'kubectl get fleets --all-namespaces | grep "custm-torny"'
       
     - name: Delete All Custom Tourney
       run: |
