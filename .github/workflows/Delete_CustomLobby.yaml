@@ -1,4 +1,4 @@
-name: Remote Custom Tourney Rooms
+name: Delete All Custom Tourney Rooms - Delhi
 on:
   workflow_dispatch:
     inputs:

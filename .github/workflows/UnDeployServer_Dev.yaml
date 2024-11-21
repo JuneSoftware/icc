@@ -1,4 +1,4 @@
-﻿name: Read Config and UnDeploy GameServer - Development
+﻿name: DONT USE - NOT FUNCTIONAL
 
 on:
   workflow_dispatch:
