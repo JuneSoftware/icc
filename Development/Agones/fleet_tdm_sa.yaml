@@ -115,7 +115,7 @@ spec:
               - name: SESSION
                 value: "empty"
               - name: REGION
-                value: "in"
+                value: "sa"
               - name: LOBBY
                 value: "empty"
               - name: MODE
