@@ -136,6 +136,8 @@ spec:
                 value: "1"
               - name: MM
                 value: "1"
+              - name: BOTS_BT_INDEX
+                value: "1"
               volumeMounts:
               - name: ca-cert-volume
                 mountPath: /etc/ssl/certs/ca-certificates.crt
