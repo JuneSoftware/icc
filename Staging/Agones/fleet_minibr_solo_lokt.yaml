@@ -133,7 +133,9 @@ spec:
               - name: BOTS_FILLMODE
                 value: "0"
               - name: MM
-                value: "1"     # 0 = Use Photon RandomRoom, 1 = Use IndusGO MM
+                value: "1"
+              - name: BOTS_BT_INDEX
+                value: "0"     # 0 = Normal BR, 1 = FTUE Bots     # 0 = Use Photon RandomRoom, 1 = Use IndusGO MM
               volumeMounts:
               - name: ca-cert-volume
                 mountPath: /etc/ssl/certs/ca-certificates.crt

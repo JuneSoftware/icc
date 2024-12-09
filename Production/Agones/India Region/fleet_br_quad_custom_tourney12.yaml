@@ -137,6 +137,8 @@ spec:
                 value: "0"
               - name: MM
                 value: "0"
+              - name: BOTS_BT_INDEX
+                value: "0"     # 0 = Normal BR, 1 = FTUE Bots
               volumeMounts:
               - name: ca-cert-volume
                 mountPath: /etc/ssl/certs/ca-certificates.crt
