@@ -3,7 +3,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gs-fleet-quads-br-4666000
+  name: indus-gs-fleet-quads-br-5524000-sa
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 0
@@ -39,22 +39,22 @@ spec:
       # Array of ports that can be exposed as direct connections to the game server container
       ports:
         # name is a descriptive name for the port
-        - name: default
-          # portPolicy has three options:
-          # - "Dynamic" (default) the system allocates a free hostPort for the gameserver, for game clients to connect to
-          # - "Static", user defines the hostPort that the game client will connect to. Then onus is on the user to ensure that the
-          # port is available. When static is the policy specified, `hostPort` is required to be populated
-          # - "Passthrough" dynamically sets the `containerPort` to the same value as the dynamically selected hostPort.
-          #      This will mean that users will need to lookup what port has been opened through the server side SDK.
-          portPolicy: Passthrough
-          # The name of the container to open the port on. Defaults to the game server container if omitted or empty.
-          container: indus-gameserver
-          # # the port that is being opened on the game server process
-          #         containerPort: 27015
-          # the port exposed on the host, only required when `portPolicy` is "Static". Overwritten when portPolicy is "Dynamic".
-          #         hostPort: 27015
-          # protocol being used. Defaults to UDP. TCP and TCPUDP are other options
-          protocol: TCPUDP
+      - name: default
+        # portPolicy has three options:
+        # - "Dynamic" (default) the system allocates a free hostPort for the gameserver, for game clients to connect to
+        # - "Static", user defines the hostPort that the game client will connect to. Then onus is on the user to ensure that the
+        # port is available. When static is the policy specified, `hostPort` is required to be populated
+        # - "Passthrough" dynamically sets the `containerPort` to the same value as the dynamically selected hostPort.
+        #      This will mean that users will need to lookup what port has been opened through the server side SDK.
+        portPolicy: Passthrough
+        # The name of the container to open the port on. Defaults to the game server container if omitted or empty.
+        container: indus-gameserver
+        # # the port that is being opened on the game server process
+#         containerPort: 27015
+        # the port exposed on the host, only required when `portPolicy` is "Static". Overwritten when portPolicy is "Dynamic".
+#         hostPort: 27015
+        # protocol being used. Defaults to UDP. TCP and TCPUDP are other options
+        protocol: TCPUDP
       # Health checking for the running game server
       health:
         # Disable health checking. defaults to false, but can be set to true
@@ -100,7 +100,7 @@ spec:
           terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: southamerica-east1-docker.pkg.dev/indus-staging-mp/linux-containers-sa/v0.39.100_4666000
+              image: asia-south1-docker.pkg.dev/indus-staging-mp/linux-containers/v1.3.0_5524000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
@@ -110,41 +110,43 @@ spec:
                   cpu: "900m"
                   memory: "1800Mi"
               env:
-                - name: SESSION
-                  value: "empty"
-                - name: REGION
-                  value: "sa"
-                - name: LOBBY
-                  value: "empty"
-                - name: MODE
-                  value: "agones"
-                - name: GAMEMODE
-                  value: "0"     # 0 = BR, 1 = MiniBR
-                - name: MAP
-                  value: "0"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal,
-                - name: TEAM
-                  value: "2"
-                - name: BOTS
-                  value: "48"
-                - name: PORT
-                  value: "27015"
-                - name: MASTER_CLIENT
-                  value: "1"
-                - name: BOTS_FILLMODE
-                  value: "1"
-                - name: MM
-                  value: "1"
+              - name: SESSION
+                value: "empty"
+              - name: REGION
+                value: "sa"
+              - name: LOBBY
+                value: "empty"
+              - name: MODE
+                value: "agones"
+              - name: GAMEMODE
+                value: "2"     # 0 = BR, 1 = MiniBR
+              - name: MAP
+                value: "0"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 
+              - name: TEAM
+                value: "2"
+              - name: BOTS
+                value: "48"
+              - name: PORT
+                value: "27015"
+              - name: MASTER_CLIENT
+                value: "1"
+              - name: BOTS_FILLMODE
+                value: "1"
+              - name: MM
+                value: "1"
+              - name: BOTS_BT_INDEX
+                value: "1"     # 0 = Normal BR, 1 = FTUE Bots
               volumeMounts:
-                - name: ca-cert-volume
-                  mountPath: /etc/ssl/certs/ca-certificates.crt
-                  subPath: ca-certificates.crt
+              - name: ca-cert-volume
+                mountPath: /etc/ssl/certs/ca-certificates.crt
+                subPath: ca-certificates.crt
           volumes:
-            - name: ca-cert-volume
-              configMap:
-                name: ca-cert
-                items:
-                  - key: ca-certificates.crt
-                    path: ca-certificates.crt
+          - name: ca-cert-volume
+            configMap:
+              name: ca-cert
+              items:
+              - key: ca-certificates.crt
+                path: ca-certificates.crt
           # nodeSelector is a label that can be used to tell Kubernetes which host
           # OS to use. For Windows game servers uncomment the nodeSelector
           # definition below.
