@@ -125,7 +125,7 @@ spec:
               - name: TEAM
                 value: "2"
               - name: BOTS
-                value: "48"
+                value: "55"
               - name: PORT
                 value: "27015"
               - name: MASTER_CLIENT
