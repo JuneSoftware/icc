@@ -3,7 +3,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gs-fleet-quads-br-5552000-ftue
+  name: indus-gs-fleet-quads-br-5552000-tpp
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 1
@@ -119,7 +119,7 @@ spec:
               - name: MODE
                 value: "agones"
               - name: GAMEMODE
-                value: "2"     # 0 = BR, 1 = MiniBR
+                value: "0"     # 0 = BR, 1 = MiniBR
               - name: MAP
                 value: "0"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 
               - name: TEAM
@@ -135,7 +135,7 @@ spec:
               - name: MM
                 value: "1"
               - name: BOTS_BT_INDEX
-                value: "1"     # 0 = Normal BR, 1 = FTUE Bots
+                value: "0"     # 0 = Normal BR, 1 = FTUE Bots
               volumeMounts:
               - name: ca-cert-volume
                 mountPath: /etc/ssl/certs/ca-certificates.crt
