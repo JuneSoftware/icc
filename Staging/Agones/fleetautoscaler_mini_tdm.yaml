@@ -24,11 +24,11 @@
 apiVersion: "autoscaling.agones.dev/v1"
 kind: FleetAutoscaler
 metadata:
-  name: indus-fleetautoscaler--mini-tdm-5561000
+  name: indus-fleetautoscaler--mini-tdm-5567000
 spec:
   # The name of the fleet to attach to and control. Must be an existing Fleet in the same namespace
   # as this FleetAutoscaler
-  fleetName: indus-gs-fleet-mini-tdm-5561000-polish
+  fleetName: indus-gs-fleet-mini-tdm-5567000-polish
   # The autoscaling policy
   policy:
     # type of the policy. Buffer or Webhook types are available
