@@ -1,10 +1,10 @@
-﻿name: Edit Config and Deploy to GKE - Staging
+name: Edit Config and Deploy to GKE - Staging
 
 on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version for the release. Eg: 0.31.0_1735'
+        description: 'Version for the release. Eg: 0.31.0_1735000'
         required: true
       gamemodetype:
         description: 'Game Mode to Deploy'
@@ -76,6 +76,17 @@ jobs:
           exit 1
         fi
       shell: bash
+
+    - name: Check if Custom Lobby Only
+      run: |
+        if [[ "${{ github.event.inputs.roomname }}" == "empty" ]]; then
+          echo "Only Custom Lobbies are allowed to be Deployed on Production Environment."
+          exit 1
+        else
+          echo "Custom Lobby check passed"
+        fi
+      shell: bash
+
     - name: Check out repository
       uses: actions/checkout@v3
 
@@ -115,7 +126,7 @@ jobs:
       run: sed -i "s/_ROOMTYPE_/public/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _ROOMTYPE_ in Fleet Name if server name but not tourney
-      if: github.event.inputs.roomname != 'empty' && github.event.inputs.code_type == 'true'
+      if: github.event.inputs.roomname != 'empty' && github.event.inputs.code_type == 'false'
       run: |
           LOWERCASE_ROOMNAME=$(echo "${{ github.event.inputs.roomname }}" | tr '[:upper:]' '[:lower:]')
           sed -i "s/_ROOMTYPE_/custom-dev-${LOWERCASE_ROOMNAME}/g" Staging/Agones/actionRunnerConfig.yaml
