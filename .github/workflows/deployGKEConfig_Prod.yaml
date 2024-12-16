@@ -90,25 +90,27 @@ jobs:
 
     - name: Process Multiple Room Names
       run: |
-        ROOMNAMES="${{ github.event.inputs.roomname }}"
+        ROOMNAMES="AAAAA, BBBBB, CCCCC,DDDD"
         IFS=',' read -r -a ROOMNAME_ARRAY <<< "$ROOMNAMES"
+        
         for ROOM in "${ROOMNAME_ARRAY[@]}"; do
+          ROOM=$(echo "$ROOM" | xargs) # Trim leading and trailing spaces
           LOWERCASE_ROOM=$(echo "$ROOM" | tr '[:upper:]' '[:lower:]')
           
           # Create a copy of the template for each room
-          cp Production/Agones/actionRunnerConfigTemplate.yaml Production/Agones/actionRunnerConfig_$LOWERCASE_ROOM.yaml
+          cp Production/Agones/actionRunnerConfigTemplate.yaml "Production/Agones/actionRunnerConfig_${LOWERCASE_ROOM}.yaml"
           
           # Perform replacements for this room
-          sed -i "s/_ROOMTYPE_/custom-dev-${LOWERCASE_ROOM}/g" Production/Agones/actionRunnerConfig_$LOWERCASE_ROOM.yaml
-          sed -i "s/_ROOMNAME_/${LOWERCASE_ROOM}/g" Production/Agones/actionRunnerConfig_$LOWERCASE_ROOM.yaml
-          sed -i "s/_VERSION_/${{ github.event.inputs.version }}/g" Production/Agones/actionRunnerConfig_$LOWERCASE_ROOM.yaml
-          sed -i "s/_GAMEMODENAME_/${{ github.event.inputs.gamemodetype }}/g" Production/Agones/actionRunnerConfig_$LOWERCASE_ROOM.yaml
-          sed -i "s/_GAMEMODEMAP_/${{ github.event.inputs.gamemodemap }}/g" Production/Agones/actionRunnerConfig_$LOWERCASE_ROOM.yaml
-          sed -i "s/_TEAMSIZENAME_/${{ github.event.inputs.teamSize }}/g" Production/Agones/actionRunnerConfig_$LOWERCASE_ROOM.yaml
-          sed -i "s/_BOTS_BACKFILL_ENABLE_/$( [ "${{ github.event.inputs.enableBots }}" == 'true' ] && echo 1 || echo 0 )/g" Production/Agones/actionRunnerConfig_$LOWERCASE_ROOM.yaml
-          sed -i "s/_MM_MODE_/$( [ "${{ github.event.inputs.mm_mode }}" == 'true' ] && echo 1 || echo 0 )/g" Production/Agones/actionRunnerConfig_$LOWERCASE_ROOM.yaml
-          sed -i "s/_BACKFILL_SIZE_/${{ github.event.inputs.botsBackfillLimit }}/g" Production/Agones/actionRunnerConfig_$LOWERCASE_ROOM.yaml
-
+          sed -i "s/_ROOMTYPE_/custom-dev-${LOWERCASE_ROOM}/g" "Production/Agones/actionRunnerConfig_${LOWERCASE_ROOM}.yaml"
+          sed -i "s/_ROOMNAME_/${LOWERCASE_ROOM}/g" "Production/Agones/actionRunnerConfig_${LOWERCASE_ROOM}.yaml"
+          sed -i "s/_VERSION_/1.2.0_5250000/g" "Production/Agones/actionRunnerConfig_${LOWERCASE_ROOM}.yaml"
+          sed -i "s/_GAMEMODENAME_/br/g" "Production/Agones/actionRunnerConfig_${LOWERCASE_ROOM}.yaml"
+          sed -i "s/_GAMEMODEMAP_/br - virlok/g" "Production/Agones/actionRunnerConfig_${LOWERCASE_ROOM}.yaml"
+          sed -i "s/_TEAMSIZENAME_/quad/g" "Production/Agones/actionRunnerConfig_${LOWERCASE_ROOM}.yaml"
+          sed -i "s/_BOTS_BACKFILL_ENABLE_/$( [ "false" == 'true' ] && echo 1 || echo 0 )/g" "Production/Agones/actionRunnerConfig_${LOWERCASE_ROOM}.yaml"
+          sed -i "s/_MM_MODE_/$( [ "true" == 'true' ] && echo 1 || echo 0 )/g" "Production/Agones/actionRunnerConfig_${LOWERCASE_ROOM}.yaml"
+          sed -i "s/_BACKFILL_SIZE_/60/g" "Production/Agones/actionRunnerConfig_${LOWERCASE_ROOM}.yaml"
+          
           echo "Processed room: $ROOM"
         done
 
