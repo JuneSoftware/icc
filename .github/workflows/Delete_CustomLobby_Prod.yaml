@@ -1,4 +1,4 @@
-name: Delete All Custom Tourney Rooms - Delhi
+name: Delete All Custom Tourney Rooms - Prod Delhi
 on:
   workflow_dispatch:
     inputs:
