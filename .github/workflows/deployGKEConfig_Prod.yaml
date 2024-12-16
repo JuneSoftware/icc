@@ -48,8 +48,8 @@ on:
         required: true
         type: boolean
         default: true
-      roomname:
-        description: 'Room Name if any'
+      roomnames:
+        description: 'Room Names (comma-separated)'
         required: false
         default: 'empty'
       code_type:
@@ -66,6 +66,9 @@ jobs:
       id-token: 'write'
     name: Yaml Updater
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        roomname: ${{ fromJson(format('["{0}"]', contains(github.event.inputs.roomnames, ',') && join(split(github.event.inputs.roomnames, ','), '","') || github.event.inputs.roomnames) }}
     steps:
     - name: Validate Version Format
       run: |
@@ -79,7 +82,8 @@ jobs:
 
     - name: Check if Custom Lobby Only
       run: |
-        if [[ "${{ github.event.inputs.roomname }}" == "empty" ]]; then
+        ROOMNAMES="${{ matrix.roomname }}"
+        if [[ "$ROOMNAMES" == "empty" ]]; then
           echo "Only Custom Lobbies are allowed to be Deployed on Production Environment."
           exit 1
         else
@@ -122,19 +126,19 @@ jobs:
           sed -i "s/_BUILD_NUMBER_/$VERSION/g" Production/Agones/actionRunnerConfig.yaml
 
     - name: Replace _ROOMTYPE_ in Fleet Name if empty string
-      if: github.event.inputs.roomname == 'empty'
+      if: matrix.roomname == 'empty'
       run: sed -i "s/_ROOMTYPE_/public/g" Production/Agones/actionRunnerConfig.yaml
 
     - name: Replace _ROOMTYPE_ in Fleet Name if server name but not tourney
-      if: github.event.inputs.roomname != 'empty' && github.event.inputs.code_type == 'false'
+      if: matrix.roomname != 'empty' && github.event.inputs.code_type == 'false'
       run: |
-          LOWERCASE_ROOMNAME=$(echo "${{ github.event.inputs.roomname }}" | tr '[:upper:]' '[:lower:]')
+          LOWERCASE_ROOMNAME=$(echo "${{ matrix.roomname }}" | tr '[:upper:]' '[:lower:]' | tr -d ' ')
           sed -i "s/_ROOMTYPE_/custom-dev-${LOWERCASE_ROOMNAME}/g" Production/Agones/actionRunnerConfig.yaml
 
     - name: Replace _ROOMTYPE_ in Fleet Name if server name and tourney
-      if: github.event.inputs.roomname != 'empty' && github.event.inputs.code_type == 'true'
+      if: matrix.roomname != 'empty' && github.event.inputs.code_type == 'true'
       run: |
-          LOWERCASE_ROOMNAME=$(echo "${{ github.event.inputs.roomname }}" | tr '[:upper:]' '[:lower:]')
+          LOWERCASE_ROOMNAME=$(echo "${{ matrix.roomname }}" | tr '[:upper:]' '[:lower:]' | tr -d ' ')
           sed -i "s/_ROOMTYPE_/custm-torny-${LOWERCASE_ROOMNAME}/g" Production/Agones/actionRunnerConfig.yaml
 
 # Build Version
@@ -145,19 +149,19 @@ jobs:
 # Env Variables
 
     - name: Replace _ROOMNAME_ in yaml template if any Room Name of Tournament Type is provided
-      if: github.event.inputs.code_type == 'true' && github.event.inputs.roomname != 'empty'
+      if: github.event.inputs.code_type == 'true' && matrix.roomname != 'empty'
       run: |
         VERSIONS=$(echo "${{ github.event.inputs.version }}" | rev | cut -c 1-7 | rev)
-        echo "VERSIONS=$VERSIONS" >> $GITHUB_ENV
-        sed -i "s/_ROOMNAME_/${{ github.event.inputs.roomname }}_${{ github.event.inputs.gamemodetype }}_${{ github.event.inputs.teamSize }}_${VERSIONS}_Hidden/g" Production/Agones/actionRunnerConfig.yaml
+        NORMALIZED_ROOMNAME=$(echo "${{ matrix.roomname }}" | tr -d ' ' | tr '[:upper:]' '[:lower:]')
+        sed -i "s/_ROOMNAME_/${NORMALIZED_ROOMNAME}_${{ github.event.inputs.gamemodetype }}_${{ github.event.inputs.teamSize }}_${VERSIONS}_Hidden/g" Production/Agones/actionRunnerConfig.yaml
       
     - name: Replace _ROOMNAME_ in yaml template if no Room Name nor of Tournament Type is provided
       if: github.event.inputs.code_type == 'false'
-      run: sed -i "s/_ROOMNAME_/${{ github.event.inputs.roomname }}/g" Production/Agones/actionRunnerConfig.yaml
+      run: sed -i "s/_ROOMNAME_/${{ matrix.roomname }}/g" Production/Agones/actionRunnerConfig.yaml
 
     - name: Replace _ROOMNAME_ in yaml template if no Room Name but Tournament Type is provided by mistake
-      if: github.event.inputs.code_type == 'true' && github.event.inputs.roomname == 'empty'
-      run: sed -i "s/_ROOMNAME_/${{ github.event.inputs.roomname }}/g" Production/Agones/actionRunnerConfig.yaml
+      if: github.event.inputs.code_type == 'true' && matrix.roomname == 'empty'
+      run: sed -i "s/_ROOMNAME_/${{ matrix.roomname }}/g" Production/Agones/actionRunnerConfig.yaml
 
     - name: Replace _GAMEMODE_ in yaml template if BR
       if: github.event.inputs.gamemodetype == 'br'
@@ -167,7 +171,7 @@ jobs:
       if: github.event.inputs.gamemodetype == 'minibr'
       run: sed -i "s/_GAMEMODE_/1/g" Production/Agones/actionRunnerConfig.yaml
 
-    - name: Replace _GAMEMODE_ in yaml template if tdm
+    - name: Replace _GAMEMODE_ in yaml template if tutorial
       if: github.event.inputs.gamemodetype == 'tutorial'
       run: sed -i "s/_GAMEMODE_/2/g" Production/Agones/actionRunnerConfig.yaml
 
@@ -230,14 +234,12 @@ jobs:
     - name: Replace _BACKFILL_SIZE_ in yaml template
       run: sed -i "s/_BACKFILL_SIZE_/${{github.event.inputs.botsBackfillLimit}}/g" Production/Agones/actionRunnerConfig.yaml
 
-
-
     - name: Replace _MM_MODE_ in yaml template if False
-      if: github.event.inputs.mm_mode == 'false' || github.event.inputs.roomname != 'empty'
+      if: github.event.inputs.mm_mode == 'false' || matrix.roomname != 'empty'
       run: sed -i "s/_MM_MODE_/0/g" Production/Agones/actionRunnerConfig.yaml
 
     - name: Replace _MM_MODE_ in yaml template if True
-      if: github.event.inputs.mm_mode == 'true' || github.event.inputs.roomname == 'empty'
+      if: github.event.inputs.mm_mode == 'true' || matrix.roomname == 'empty'
       run: sed -i "s/_MM_MODE_/1/g" Production/Agones/actionRunnerConfig.yaml
 
     - name: Commit and push changes
@@ -245,7 +247,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add Production/Agones/actionRunnerConfig.yaml
-        git commit -m "Update Production config in actionRunnerConfig.yaml"
+        git commit -m "Update Production config for room: ${{ matrix.roomname }}"
         git push
 
 # GCloud CLI Executions
