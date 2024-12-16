@@ -1,0 +1,47 @@
+name: Delete All Custom Tourney Rooms - Staging
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Delete All Custom Tourney Rooms'
+run-name: Delete All Custom Tournament Rooms
+jobs:
+  update_yaml:
+    permissions:
+      contents: 'write'
+      id-token: 'write'
+    name: Yaml Updater
+    runs-on: ubuntu-latest
+    steps:
+    - name: GCP Cloud Auth
+      id: 'gcp-cloud-auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.SERVICE_ACCOUNT_KEY_PROD }}'
+    
+    - name: Create Service Account File
+      uses: 'fertrig/create-file-action@1.0.2'
+      with:
+        file: 'GCP_SA.json'
+        content: ${{ secrets.SERVICE_ACCOUNT_KEY_PROD }}
+    
+    - name: GKE Auth
+      id: 'get-credentials'
+      uses: 'google-github-actions/get-gke-credentials@v2'
+      with:
+        cluster_name: 'agones-cluster'
+        location: 'asia-south1-a'
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: 'GCP_SA.json'
+        
+    - id: 'Get-Custom-Tourney'
+      run: 'kubectl get fleets --namespace=default | grep "custm-torny"'
+      
+    - name: Delete All Custom Tourney
+      run: |
+        kubectl get fleets --all-namespaces | grep "custm-torny" | while read -r namespace fleet rest; do
+          kubectl delete fleet -n "$namespace" "$fleet"
+        done
+      shell: bash
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_STAGING }}
