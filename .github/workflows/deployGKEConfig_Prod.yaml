@@ -67,8 +67,17 @@ jobs:
     name: Yaml Updater
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        roomname: ${{ fromJson(format('["{0}"]', contains(github.event.inputs.roomnames, ',') && join(split(github.event.inputs.roomnames, ','), '","') || github.event.inputs.roomnames) }}
+        matrix:
+          roomname: ${{ 
+            github.event.inputs.roomnames == 'empty' 
+            && fromJson('["empty"]') 
+            || fromJson(format('[{0}]', 
+                github.event.inputs.roomnames 
+                | split(',') 
+                | map(fromJson) 
+                | join(', ')
+            )) 
+          }}
     steps:
     - name: Validate Version Format
       run: |
