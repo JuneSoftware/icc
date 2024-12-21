@@ -5,7 +5,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gs-fleet-br-quad-5250000-custm-torny-dxi907
+  name: indus-gs-fleet-br-quad-5634000-custm-torny-ymz385
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 1
@@ -102,7 +102,7 @@ spec:
           terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-prod-mp/linux-containers/v1.2.0_5250000
+              image: asia-south1-docker.pkg.dev/indus-prod-mp/linux-containers/v1.3.0_5634000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
@@ -113,7 +113,7 @@ spec:
                   memory: "1800Mi"
               env:
               - name: SESSION
-                value: "DXI907_br_quad_5250000_Hidden"
+                value: "YMZ385_br_quad_5634000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
@@ -127,7 +127,7 @@ spec:
               - name: TEAM
                 value: "2"
               - name: BOTS
-                value: "60"
+                value: "49"
               - name: PORT
                 value: "27015"
               - name: MASTER_CLIENT
