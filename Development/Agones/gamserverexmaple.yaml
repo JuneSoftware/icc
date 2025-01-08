@@ -1,0 +1,74 @@
+apiVersion: "agones.dev/v1"
+kind: GameServer
+metadata:
+  generateName: "indus-gameserver-"
+spec:
+  ports:
+  - name: default
+    portPolicy: Passthrough
+    container: indus-gameserver
+    protocol: UDP
+  health:
+    disabled: false
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    failureThreshold: 3
+  sdkServer:
+    logLevel: Info
+    grpcPort: 9357
+    httpPort: 9358
+  template:
+    metadata:
+      labels:
+        myspeciallabel: myspecialvalue
+    spec:
+      terminationGracePeriodSeconds: 15
+      volumes:    # Moved inside spec.template.spec
+      - name: ca-cert-volume
+        configMap:
+          name: ca-cert
+          items:
+          - key: ca-certificates.crt
+            path: ca-certificates.crt
+      containers:
+      - name: indus-gameserver
+        image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.41.85_5621000
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "700m"
+            memory: "1600Mi"
+          limits:
+            cpu: "900m"
+            memory: "1800Mi"
+        env:
+        - name: SESSION
+          value: "AAR533_br_quad_5621000_Hidden"
+        - name: REGION
+          value: "in"
+        - name: LOBBY
+          value: "empty"
+        - name: MODE
+          value: "agones"
+        - name: GAMEMODE
+          value: "0"
+        - name: MAP
+          value: "0"
+        - name: TEAM
+          value: "2"
+        - name: BOTS
+          value: "60"
+        - name: PORT
+          value: "27015"
+        - name: MASTER_CLIENT
+          value: "1"
+        - name: BOTS_FILLMODE
+          value: "1"
+        - name: MM
+          value: "1"
+        - name: BOTS_BT_INDEX
+          value: "0"
+        volumeMounts:
+        - name: ca-cert-volume
+          mountPath: /etc/ssl/certs/ca-certificates.crt
+          subPath: ca-certificates.crt
