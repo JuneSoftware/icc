@@ -15,7 +15,7 @@ spec:
   # resources
   # "Distributed" is aimed at static Kubernetes clusters, wherein we want to distribute resources across the entire
   # cluster
-  scheduling: Distributed
+  scheduling: Packed
   # a GameServer template - see:
   # https://agones.dev/site/docs/reference/gameserver/ for all the options
   strategy:
@@ -36,6 +36,8 @@ spec:
       generateName: "indus-gameserver-" # generate a unique name, with the given prefix
     # GameServer specification
     spec:
+      eviction:
+        safe: Always
       # if there is more than one container, specify which one is the game server
       container: indus-gameserver
       # Array of ports that can be exposed as direct connections to the game server container
@@ -147,6 +149,13 @@ spec:
               items:
               - key: ca-certificates.crt
                 path: ca-certificates.crt
+          nodeSelector:
+            game-server: "true"
+          tolerations:
+            - key: "game-server"
+              operator: "Equal"
+              value: "true"
+              effect: "NoSchedule"
           # nodeSelector is a label that can be used to tell Kubernetes which host
           # OS to use. For Windows game servers uncomment the nodeSelector
           # definition below.
