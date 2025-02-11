@@ -133,7 +133,7 @@ spec:
               - name: BOTS_FILLMODE
                 value: "1"
               - name: MM
-                value: "1"
+                value: "0"
               - name: BOTS_BT_INDEX
                 value: "0"     # 0 = Normal BR, 1 = FTUE Bots
               volumeMounts:
