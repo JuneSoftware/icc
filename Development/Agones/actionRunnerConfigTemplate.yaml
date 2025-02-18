@@ -36,8 +36,6 @@ spec:
       generateName: "indus-gameserver-" # generate a unique name, with the given prefix
     # GameServer specification
     spec:
-      eviction:
-        safe: Always
       # if there is more than one container, specify which one is the game server
       container: indus-gameserver
       # Array of ports that can be exposed as direct connections to the game server container
@@ -99,6 +97,7 @@ spec:
         metadata:
           labels:
             myspeciallabel: myspecialvalue
+            app: game-server
         # Pod Specification
         spec:
           terminationGracePeriodSeconds: 15
