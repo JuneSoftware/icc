@@ -137,6 +137,10 @@ spec:
                   value: "_BOTS_BACKFILL_ENABLE_"
                 - name: MM
                   value: "_MM_MODE_"
+                - name: BOTS_BT_INDEX
+                  value: "0"     # 0 = Normal BR, 1 = FTUE Bots
+                - name: RESPAWN
+                  value: "1" 
               volumeMounts:
                 - name: ca-cert-volume
                   mountPath: /etc/ssl/certs/ca-certificates.crt
