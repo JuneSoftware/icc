@@ -16,7 +16,7 @@ spec:
   # resources
   # "Distributed" is aimed at static Kubernetes clusters, wherein we want to distribute resources across the entire
   # cluster
-  scheduling: Distributed
+  scheduling: Packed
   # a GameServer template - see:
   # https://agones.dev/site/docs/reference/gameserver/ for all the options
   strategy:
@@ -98,6 +98,7 @@ spec:
         metadata:
           labels:
             myspeciallabel: myspecialvalue
+            app: game-server
         # Pod Specification
         spec:
           terminationGracePeriodSeconds: 15
@@ -152,6 +153,13 @@ spec:
               items:
               - key: ca-certificates.crt
                 path: ca-certificates.crt
+          nodeSelector:
+            game-server: "true"
+            tolerations:
+              - key: "game-server"
+                operator: "Equal"
+                value: "true"
+                effect: "NoSchedule"
           # nodeSelector is a label that can be used to tell Kubernetes which host
           # OS to use. For Windows game servers uncomment the nodeSelector
           # definition below.
