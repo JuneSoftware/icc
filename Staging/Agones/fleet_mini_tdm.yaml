@@ -150,6 +150,13 @@ spec:
               items:
               - key: ca-certificates.crt
                 path: ca-certificates.crt
+          nodeSelector:
+            game-server: "true"
+          tolerations:
+            - key: "game-server"
+              operator: "Equal"
+              value: "true"
+              effect: "NoSchedule"
           # nodeSelector is a label that can be used to tell Kubernetes which host
           # OS to use. For Windows game servers uncomment the nodeSelector
           # definition below.
