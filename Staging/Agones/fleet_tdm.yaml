@@ -152,7 +152,7 @@ spec:
                 path: ca-certificates.crt
           nodeSelector:
             game-server: "true"
-            tolerations:
+          tolerations:
               - key: "game-server"
                 operator: "Equal"
                 value: "true"
