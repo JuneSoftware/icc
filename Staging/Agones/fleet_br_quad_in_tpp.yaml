@@ -95,6 +95,7 @@ spec:
         metadata:
           labels:
             myspeciallabel: myspecialvalue
+            app: game-server
         # Pod Specification
         spec:
           terminationGracePeriodSeconds: 15
