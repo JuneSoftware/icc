@@ -15,7 +15,7 @@ spec:
   # resources
   # "Distributed" is aimed at static Kubernetes clusters, wherein we want to distribute resources across the entire
   # cluster
-  scheduling: Packed
+  scheduling: Distributed
   # a GameServer template - see:
   # https://agones.dev/site/docs/reference/gameserver/ for all the options
   strategy:
