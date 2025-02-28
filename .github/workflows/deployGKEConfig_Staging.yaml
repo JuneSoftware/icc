@@ -106,7 +106,7 @@ jobs:
       run: sed -i "s/_GAMEMODEMAP_/${{github.event.inputs.gamemodemap}}/g" Staging/Agones/actionRunnerConfig.yaml
       
     - name: Replace _TEAMSIZENAME_ in Fleet Name
-      if: github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm'
+      if: github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm' || github.event.inputs.gamemodetype == 'respawnbr'
       run: sed -i "s/_TEAMSIZENAME_/${{github.event.inputs.teamSize}}/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _TEAMSIZENAME_ in Fleet Name
