@@ -168,8 +168,11 @@ jobs:
       
     - name: Replace _GAMEMODE_ in yaml template if minitdm
       if: github.event.inputs.gamemodetype == 'minitdm'
-      run: sed -i "s/_GAMEMODE_/4/g" Development/Agones/actionRunnerConfig.yaml  
+      run: sed -i "s/_GAMEMODE_/4/g" Development/Agones/actionRunnerConfig.yaml
 
+    - name: Replace _GAMEMODE_ in yaml template if respawn BR
+      if: github.event.inputs.gamemodetype == 'respawnbr'
+      run: sed -i "s/_GAMEMODE_/6/g" Development/Agones/actionRunnerConfig.yaml
 
     - name: Replace _MAP_ in yaml template if BR - Virlok
       if: github.event.inputs.gamemodemap == 'br - virlok'
