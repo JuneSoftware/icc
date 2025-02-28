@@ -201,7 +201,7 @@ jobs:
       run: sed -i "s/_MAP_/7/g" Staging/Agones/actionRunnerConfig.yaml
  
     - name: Replace _TEAM_SIZE_ in yaml template if quad
-      if: github.event.inputs.teamSize == 'quad' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm')
+      if: github.event.inputs.teamSize == 'quad' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm' || github.event.inputs.gamemodetype == 'respawnbr')
       run: sed -i "s/_TEAM_SIZE_/2/g" Staging/Agones/actionRunnerConfig.yaml
       
     - name: Replace _TEAM_SIZE_ in yaml template if duo
