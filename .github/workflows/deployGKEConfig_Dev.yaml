@@ -16,6 +16,7 @@ on:
           - tutorial
           - tdm
           - minitdm
+          - respawnbr
       gamemodemap:
         description: 'Game Mode - Map to Deploy'
         required: true
