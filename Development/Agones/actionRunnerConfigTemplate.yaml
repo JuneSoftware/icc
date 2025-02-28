@@ -140,7 +140,7 @@ spec:
                 - name: BOTS_BT_INDEX
                   value: "0"     # 0 = Normal BR, 1 = FTUE Bots
                 - name: RESPAWN
-                  value: "1" 
+                  value: "_RESPAWN_"
               volumeMounts:
                 - name: ca-cert-volume
                   mountPath: /etc/ssl/certs/ca-certificates.crt

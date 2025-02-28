@@ -16,6 +16,7 @@ on:
           - tutorial
           - tdm
           - minitdm
+          - respawnbr
       gamemodemap:
         description: 'Game Mode - Map to Deploy'
         required: true
@@ -239,6 +240,14 @@ jobs:
     - name: Replace _MM_MODE_ in yaml template if True
       if: github.event.inputs.mm_mode == 'true' || github.event.inputs.roomname == 'empty'
       run: sed -i "s/_MM_MODE_/1/g" Staging/Agones/actionRunnerConfig.yaml
+
+    - name: Replace _RESPAWN_ in yaml template if respawnbr
+      if: github.event.inputs.gamemodetype == 'respawnbr' || github.event.inputs.gamemodetype == 'minitdm' || github.event.inputs.gamemodetype == 'tdm'
+      run: sed -i "s/_RESPAWN_/1/g" Staging/Agones/actionRunnerConfig.yaml
+
+    - name: Replace _RESPAWN_ in yaml template if br
+      if: github.event.inputs.gamemodetype == 'br'
+      run: sed -i "s/_RESPAWN_/0/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Commit and push changes
       run: |
