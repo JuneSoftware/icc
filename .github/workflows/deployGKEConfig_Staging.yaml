@@ -80,7 +80,7 @@ jobs:
 
     - name: Check if Custom Lobby Only
       run: |
-        if [[ "${{ github.event.inputs.roomname }}" == "empty" ]]; then
+        if [[ "${{ github.event.inputs.roomname }}" != "empty" ]]; then
           echo "Only Custom Lobbies are allowed to be Deployed on Production Environment."
           exit 1
         else
@@ -106,7 +106,7 @@ jobs:
       run: sed -i "s/_GAMEMODEMAP_/${{github.event.inputs.gamemodemap}}/g" Staging/Agones/actionRunnerConfig.yaml
       
     - name: Replace _TEAMSIZENAME_ in Fleet Name
-      if: github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm'
+      if: github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm' || github.event.inputs.gamemodetype == 'respawnbr'
       run: sed -i "s/_TEAMSIZENAME_/${{github.event.inputs.teamSize}}/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _TEAMSIZENAME_ in Fleet Name
@@ -178,7 +178,11 @@ jobs:
       
     - name: Replace _GAMEMODE_ in yaml template if minitdm
       if: github.event.inputs.gamemodetype == 'minitdm'
-      run: sed -i "s/_GAMEMODE_/4/g" Staging/Agones/actionRunnerConfig.yaml 
+      run: sed -i "s/_GAMEMODE_/4/g" Staging/Agones/actionRunnerConfig.yaml
+
+    - name: Replace _GAMEMODE_ in yaml template if respawmbr
+      if: github.event.inputs.gamemodetype == 'respawmbr'
+      run: sed -i "s/_GAMEMODE_/6/g" Staging/Agones/actionRunnerConfig.yaml 
 
     - name: Replace _MAP_ in yaml template if BR - Virlok
       if: github.event.inputs.gamemodemap == 'br - virlok'
@@ -201,7 +205,7 @@ jobs:
       run: sed -i "s/_MAP_/7/g" Staging/Agones/actionRunnerConfig.yaml
  
     - name: Replace _TEAM_SIZE_ in yaml template if quad
-      if: github.event.inputs.teamSize == 'quad' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm')
+      if: github.event.inputs.teamSize == 'quad' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm' || github.event.inputs.gamemodetype == 'respawnbr')
       run: sed -i "s/_TEAM_SIZE_/2/g" Staging/Agones/actionRunnerConfig.yaml
       
     - name: Replace _TEAM_SIZE_ in yaml template if duo
