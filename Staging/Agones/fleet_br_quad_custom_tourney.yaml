@@ -123,7 +123,7 @@ spec:
               - name: MODE
                 value: "agones"
               - name: GAMEMODE
-                value: "0"     # 0 = BR, 1 = MiniBR, 2 = TDM
+                value: "6"     # 0 = BR, 1 = MiniBR, 2 = TDM
               - name: MAP
                 value: "0"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 3 = TDM Refinery
               - name: TEAM
@@ -141,7 +141,7 @@ spec:
               - name: BOTS_BT_INDEX
                 value: "0"    # 0 = Normal BR, 1 = FTUE Bots
               - name: RESPAWN
-                value: "0"   
+                value: "1"   
               volumeMounts:
               - name: ca-cert-volume
                 mountPath: /etc/ssl/certs/ca-certificates.crt
