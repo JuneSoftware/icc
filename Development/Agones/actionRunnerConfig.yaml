@@ -5,7 +5,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gs-fleet-respawnbr-quad-7008000-public
+  name: indus-gs-fleet-brrebirth-quad-7008000-custom-dev-rs123
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 1
@@ -103,7 +103,7 @@ spec:
           terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.50.12_7008000
+              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.50.10_7008000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
@@ -114,7 +114,7 @@ spec:
                   memory: "1800Mi"
               env:
                 - name: SESSION
-                  value: "empty"
+                  value: "RS123_brrebirth_quad_7008000_Hidden"
                 - name: REGION
                   value: "in"
                 - name: LOBBY
@@ -136,7 +136,7 @@ spec:
                 - name: BOTS_FILLMODE
                   value: "1"
                 - name: MM
-                  value: "1"
+                  value: "0"
                 - name: BOTS_BT_INDEX
                   value: "0"     # 0 = Normal BR, 1 = FTUE Bots
                 - name: RESPAWN
