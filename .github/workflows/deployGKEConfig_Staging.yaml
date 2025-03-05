@@ -16,7 +16,7 @@ on:
           - tutorial
           - tdm
           - minitdm
-          - respawnbr
+          - brrebirth
       gamemodemap:
         description: 'Game Mode - Map to Deploy'
         required: true
@@ -106,7 +106,7 @@ jobs:
       run: sed -i "s/_GAMEMODEMAP_/${{github.event.inputs.gamemodemap}}/g" Staging/Agones/actionRunnerConfig.yaml
       
     - name: Replace _TEAMSIZENAME_ in Fleet Name
-      if: github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm' || github.event.inputs.gamemodetype == 'respawnbr'
+      if: github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm' || github.event.inputs.gamemodetype == 'brrebirth'
       run: sed -i "s/_TEAMSIZENAME_/${{github.event.inputs.teamSize}}/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _TEAMSIZENAME_ in Fleet Name
@@ -180,8 +180,8 @@ jobs:
       if: github.event.inputs.gamemodetype == 'minitdm'
       run: sed -i "s/_GAMEMODE_/4/g" Staging/Agones/actionRunnerConfig.yaml
 
-    - name: Replace _GAMEMODE_ in yaml template if respawmbr
-      if: github.event.inputs.gamemodetype == 'respawmbr'
+    - name: Replace _GAMEMODE_ in yaml template if brrebirth
+      if: github.event.inputs.gamemodetype == 'brrebirth'
       run: sed -i "s/_GAMEMODE_/6/g" Staging/Agones/actionRunnerConfig.yaml 
 
     - name: Replace _MAP_ in yaml template if BR - Virlok
@@ -205,15 +205,15 @@ jobs:
       run: sed -i "s/_MAP_/7/g" Staging/Agones/actionRunnerConfig.yaml
  
     - name: Replace _TEAM_SIZE_ in yaml template if quad
-      if: github.event.inputs.teamSize == 'quad' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm' || github.event.inputs.gamemodetype == 'respawnbr')
+      if: github.event.inputs.teamSize == 'quad' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm' || github.event.inputs.gamemodetype == 'brrebirth')
       run: sed -i "s/_TEAM_SIZE_/2/g" Staging/Agones/actionRunnerConfig.yaml
       
     - name: Replace _TEAM_SIZE_ in yaml template if duo
-      if: github.event.inputs.teamSize == 'duo' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm')
+      if: github.event.inputs.teamSize == 'duo' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm' || github.event.inputs.gamemodetype == 'brrebirth')
       run: sed -i "s/_TEAM_SIZE_/1/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _TEAM_SIZE_ in yaml template if solo
-      if: github.event.inputs.teamSize == 'solo' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm')
+      if: github.event.inputs.teamSize == 'solo' && (github.event.inputs.gamemodetype == 'br' || github.event.inputs.gamemodetype == 'tdm' || github.event.inputs.gamemodetype == 'brrebirth')
       run: sed -i "s/_TEAM_SIZE_/0/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _TEAM_SIZE_ in yaml template if minibr
@@ -245,8 +245,8 @@ jobs:
       if: github.event.inputs.mm_mode == 'true' || github.event.inputs.roomname == 'empty'
       run: sed -i "s/_MM_MODE_/1/g" Staging/Agones/actionRunnerConfig.yaml
 
-    - name: Replace _RESPAWN_ in yaml template if respawnbr
-      if: github.event.inputs.gamemodetype == 'respawnbr' || github.event.inputs.gamemodetype == 'minitdm' || github.event.inputs.gamemodetype == 'tdm'
+    - name: Replace _RESPAWN_ in yaml template if brrebirth
+      if: github.event.inputs.gamemodetype == 'brrebirth' || github.event.inputs.gamemodetype == 'minitdm' || github.event.inputs.gamemodetype == 'tdm'
       run: sed -i "s/_RESPAWN_/1/g" Staging/Agones/actionRunnerConfig.yaml
 
     - name: Replace _RESPAWN_ in yaml template if br
