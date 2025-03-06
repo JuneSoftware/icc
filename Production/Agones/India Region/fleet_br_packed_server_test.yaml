@@ -116,7 +116,7 @@ spec:
                   memory: "2500Mi"
               env:
               - name: SESSION
-                value: "DL100_br_quad_6225000_Hidden"
+                value: "DL100_br_quad_6255000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
