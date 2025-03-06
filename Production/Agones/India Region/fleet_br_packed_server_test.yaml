@@ -7,7 +7,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gs-fleet-br-quad-6255-server-test
+  name: indus-gs-fleet-br-quad-6255-server-test2
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 1
@@ -116,7 +116,7 @@ spec:
                   memory: "2500Mi"
               env:
               - name: SESSION
-                value: "SL420_br_quad_6225000_Hidden"
+                value: "DL100_br_quad_6225000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
