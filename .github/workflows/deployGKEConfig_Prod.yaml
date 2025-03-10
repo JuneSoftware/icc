@@ -16,7 +16,6 @@ on:
           - tutorial
           - tdm
           - minitdm
-          - brrebirth
       gamemodemap:
         description: 'Game Mode - Map to Deploy'
         required: true

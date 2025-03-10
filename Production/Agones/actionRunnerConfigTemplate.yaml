@@ -137,7 +137,7 @@ spec:
               - name: MM
                 value: "_MM_MODE_"
               - name: RESPAWN
-                value: "_RESPAWN_"
+                value: "0"
               volumeMounts:
               - name: ca-cert-volume
                 mountPath: /etc/ssl/certs/ca-certificates.crt
