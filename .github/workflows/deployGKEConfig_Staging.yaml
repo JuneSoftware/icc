@@ -277,8 +277,8 @@ jobs:
       id: 'get-credentials'
       uses: 'google-github-actions/get-gke-credentials@v2'
       with:
-        cluster_name: 'agones-cluster-asia-south2'
-        location: 'asia-south2-a'
+        cluster_name: 'agones-cluster-custom-tourney'
+        location: 'asia-south1-a'
       env:
         GOOGLE_APPLICATION_CREDENTIALS: 'GCP_SA.json'
     - id: 'get-pods'
