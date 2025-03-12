@@ -78,15 +78,15 @@ jobs:
         fi
       shell: bash
 
-    - name: Check if Custom Lobby Only
-      run: |
-        if [[ "${{ github.event.inputs.roomname }}" != "empty" ]]; then
-          echo "Only Custom Lobbies are allowed to be Deployed on Production Environment."
-          exit 1
-        else
-          echo "Custom Lobby check passed"
-        fi
-      shell: bash
+    #- name: Check if Custom Lobby Only
+    # run: |
+    #   if [[ "${{ github.event.inputs.roomname }}" != "empty" ]]; then
+    #     echo "Only Custom Lobbies are allowed to be Deployed on Production Environment."
+    #     exit 1
+    #   else
+    #     echo "Custom Lobby check passed"
+    #   fi
+    # shell: bash
 
     - name: Check out repository
       uses: actions/checkout@v3
