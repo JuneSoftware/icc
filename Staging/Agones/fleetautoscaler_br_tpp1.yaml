@@ -24,11 +24,11 @@
 apiVersion: "autoscaling.agones.dev/v1"
 kind: FleetAutoscaler
 metadata:
-  name: indus-fleet-autoscaler-quads-br-7188000
+  name: indus-fleet-autoscaler-quads-brrebirth-7188000
 spec:
   # The name of the fleet to attach to and control. Must be an existing Fleet in the same namespace
   # as this FleetAutoscaler
-  fleetName: indus-gs-fleet-br-quad-7188000-public
+  fleetName: indus-gs-fleet-brrebirth-quad-7188000-public
   # The autoscaling policy
   policy:
     # type of the policy. Buffer or Webhook types are available
