@@ -3,7 +3,7 @@ kind: PodDisruptionBudget
 metadata:
   name: game-server-pdb
 spec:
-  minAvailable: 7
+  minAvailable: 20
   selector:
     matchLabels:
       app: game-server
