@@ -112,7 +112,7 @@ spec:
                   memory: "1800Mi"
               env:
               - name: SESSION
-                value: "BOOM_br_quad_7212000_Hidden"
+                value: "ZOOM_br_quad_7212000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
