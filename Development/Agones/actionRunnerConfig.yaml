@@ -103,7 +103,7 @@ spec:
           terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.50.26_7117000
+              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.50.25_7117000
               imagePullPolicy: IfNotPresent
               resources: # Resource requests and limits
                 requests:
@@ -134,7 +134,7 @@ spec:
                 - name: MASTER_CLIENT
                   value: "1"
                 - name: BOTS_FILLMODE
-                  value: "0"
+                  value: "1"
                 - name: MM
                   value: "1"
                 - name: BOTS_BT_INDEX
