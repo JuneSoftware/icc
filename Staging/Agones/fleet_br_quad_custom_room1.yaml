@@ -115,7 +115,7 @@ spec:
                   memory: "2500Mi"
               env:
               - name: SESSION
-                value: "AR111_br_quad_7286000_Hidden"
+                value: "AR222_br_quad_7286000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
@@ -135,7 +135,7 @@ spec:
               - name: MASTER_CLIENT
                 value: "1"
               - name: BOTS_FILLMODE
-                value: "1"
+                value: "0"
               - name: MM
                 value: "0"
               - name: BOTS_BT_INDEX
