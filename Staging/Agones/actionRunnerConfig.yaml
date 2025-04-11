@@ -5,7 +5,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gs-fleet-br-quad-7286000-custm-torny-olm182
+  name: indus-gs-fleet-br-quad-7286000-custm-torny-iiy488
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 1
@@ -114,7 +114,7 @@ spec:
                   memory: "1800Mi"
               env:
               - name: SESSION
-                value: "OLM182_br_quad_7286000_Hidden"
+                value: "IIY488_br_quad_7286000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
