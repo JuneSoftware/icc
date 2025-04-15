@@ -181,7 +181,7 @@ jobs:
 
     - name: Replace _MAP_ in yaml template if BR - Brazil
       if: github.event.inputs.gamemodemap == 'br - brazil'
-      run: sed -i "s/_MAP_/8/g" Development/Agones/actionRunnerConfig.yaml
+      run: sed -i "s/_MAP_/9/g" Development/Agones/actionRunnerConfig.yaml
 
     - name: Replace _MAP_ in yaml template if minibr - foundry
       if: github.event.inputs.gamemodemap == 'hotdrop - foundry'
