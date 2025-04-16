@@ -6,7 +6,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gs-fleet-mini-tdm-7291000-polish
+  name: indus-gs-fleet-mini-tdm-7336000-polish
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 0
@@ -16,7 +16,7 @@ spec:
   # resources
   # "Distributed" is aimed at static Kubernetes clusters, wherein we want to distribute resources across the entire
   # cluster
-  scheduling: Distributed
+  scheduling: Packed
   # a GameServer template - see:
   # https://agones.dev/site/docs/reference/gameserver/ for all the options
   strategy:
@@ -104,7 +104,7 @@ spec:
           terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-staging-mp/linux-containers/v1.9.0_7291000
+              image: asia-south1-docker.pkg.dev/indus-staging-mp/linux-containers/v1.9.0_7336000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
@@ -153,6 +153,13 @@ spec:
               items:
               - key: ca-certificates.crt
                 path: ca-certificates.crt
+          nodeSelector:
+            game-server: "true"
+          tolerations:
+            - key: "game-server"
+              operator: "Equal"
+              value: "true"
+              effect: "NoSchedule"
           # nodeSelector is a label that can be used to tell Kubernetes which host
           # OS to use. For Windows game servers uncomment the nodeSelector
           # definition below.
