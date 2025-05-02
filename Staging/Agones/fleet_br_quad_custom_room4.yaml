@@ -134,9 +134,9 @@ metadata:
               - name: MASTER_CLIENT
                 value: "1"
               - name: BOTS_FILLMODE
-                value: "0"
+                value: "1"
               - name: MM
-                value: "0"
+                value: "1"
               - name: BOTS_BT_INDEX
                 value: "0"    # 0 = Normal BR, 1 = FTUE Bots
               - name: RESPAWN
