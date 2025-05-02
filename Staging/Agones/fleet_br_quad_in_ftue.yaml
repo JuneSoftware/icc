@@ -126,9 +126,10 @@ spec:
               - name: TEAM
                 value: "2"
               - name: BOTS
-                value: "56"
+                value: "60"
               - name: PORT
                 value: "27015"
+              - name: MASTER_CLIENT
                 value: "1"
               - name: BOTS_FILLMODE
                 value: "1"
