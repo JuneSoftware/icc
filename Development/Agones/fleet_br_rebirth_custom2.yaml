@@ -16,7 +16,7 @@ spec:
   # resources
   # "Distributed" is aimed at static Kubernetes clusters, wherein we want to distribute resources across the entire
   # cluster
-  scheduling: Distributed
+  scheduling: Packed
   # a GameServer template - see:
   # https://agones.dev/site/docs/reference/gameserver/ for all the options
   strategy:
@@ -125,7 +125,7 @@ spec:
               - name: GAMEMODE
                 value: "6"     # 0 = BR, 1 = MiniBR, 2 = TDM
               - name: MAP
-                value: "0"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 3 = TDM Refinery
+                value: "9"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 3 = TDM Refinery
               - name: TEAM
                 value: "2"
               - name: BOTS
