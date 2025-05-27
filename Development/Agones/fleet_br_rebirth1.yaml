@@ -114,7 +114,7 @@ spec:
                   memory: "1800Mi"
               env:
                 - name: SESSION
-                  value: "SURO13_brrebirth_quad_7655000_Hidden"
+                  value: "SURO12_brrebirth_quad_7655000_Hidden"
                 - name: REGION
                   value: "in"
                 - name: LOBBY
@@ -138,8 +138,10 @@ spec:
                 - name: MM
                   value: "1"
                 - name: BOTS_BT_INDEX
-                  value: "0"     # 0 = Normal BR, 1 = FTUE Bots
-              volumeMounts:
+                value: "0"    # 0 = Normal BR, 1 = FTUE Bots
+                - name: RESPAWN
+                value: "1"     # 0 = Normal BR, 1 = FTUE Bots
+                volumeMounts:
                 - name: ca-cert-volume
                   mountPath: /etc/ssl/certs/ca-certificates.crt
                   subPath: ca-certificates.crt
