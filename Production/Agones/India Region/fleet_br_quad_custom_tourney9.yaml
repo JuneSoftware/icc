@@ -3,7 +3,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gs-fleet-quads-br-7765000-customroom
+  name: indus-gs-fleet-quads-br-7939000-room11
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 1
@@ -101,7 +101,7 @@ spec:
           terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-prod-mp/linux-containers/v1.11.0_7765000
+              image: asia-south1-docker.pkg.dev/indus-prod-mp/linux-containers/v1.12.0_7939000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
@@ -112,7 +112,7 @@ spec:
                   memory: "1800Mi"
               env:
               - name: SESSION
-                value: "ROOM43_br_quad_7765000_Hidden"
+                value: "ROOM11_br_quad_7939000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
