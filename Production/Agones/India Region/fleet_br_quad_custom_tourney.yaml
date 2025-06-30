@@ -112,7 +112,7 @@ spec:
                   memory: "1800Mi"
               env:
               - name: SESSION
-                value: "_ROOM11_br_quad_7939000_Hidden"
+                value: "_ROOM12_br_quad_7939000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
