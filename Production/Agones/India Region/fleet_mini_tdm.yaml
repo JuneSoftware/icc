@@ -143,7 +143,7 @@ spec:
               - name: RESPAWN
                 value: "1"
               - name: ABILITIES
-                value: "1"  # 0  = ABILITIES Off, 1 = ABILITIES ON          
+                value: "0"  # 0  = ABILITIES Off, 1 = ABILITIES ON          
               volumeMounts:
               - name: ca-cert-volume
                 mountPath: /etc/ssl/certs/ca-certificates.crt
