@@ -6,17 +6,17 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gs-fleet-mini-tdm-5634000-sa
+  name: indus-gs-fleet-mini-tdm-8070000
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
-  replicas: 0
+  replicas: 4
   # defines how GameServers are organised across the cluster.
   # Options include:
   # "Packed" (default) is aimed at dynamic Kubernetes clusters, such as cloud providers, wherein we want to bin pack
   # resources
   # "Distributed" is aimed at static Kubernetes clusters, wherein we want to distribute resources across the entire
   # cluster
-  scheduling: Distributed
+  scheduling: Packed
   # a GameServer template - see:
   # https://agones.dev/site/docs/reference/gameserver/ for all the options
   strategy:
@@ -98,25 +98,26 @@ spec:
         metadata:
           labels:
             myspeciallabel: myspecialvalue
+            app: game-server
         # Pod Specification
         spec:
           terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: southamerica-east1-docker.pkg.dev/indus-prod-mp/linux-containers-sa/v1.3.0_5634000
+              image: southamerica-east1-docker.pkg.dev/indus-prod-mp/linux-containers-sa/v2.0.0_8070000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
-                  cpu: "300m"
-                  memory: "1700Mi"
+                  cpu: "180m"
+                  memory: "1150Mi"
                 limits:
-                  cpu: "500m"
-                  memory: "2000Mi"
+                  cpu: "200m"
+                  memory: "1200Mi"
               env:
               - name: SESSION
                 value: "empty"
               - name: REGION
-                value: "sa"
+                value: "in"
               - name: LOBBY
                 value: "empty"
               - name: MODE
@@ -139,6 +140,10 @@ spec:
                 value: "1"
               - name: BOTS_BT_INDEX
                 value: "0"     # 0 = Normal BR, 1 = FTUE Bots
+              - name: RESPAWN
+                value: "1"
+              - name: ABILITIES
+                value: "0"  # 0  = ABILITIES Off, 1 = ABILITIES ON          
               volumeMounts:
               - name: ca-cert-volume
                 mountPath: /etc/ssl/certs/ca-certificates.crt
@@ -150,6 +155,13 @@ spec:
               items:
               - key: ca-certificates.crt
                 path: ca-certificates.crt
+          nodeSelector:
+            game-server: "true"
+          tolerations:
+            - key: "game-server"
+              operator: "Equal"
+              value: "true"
+              effect: "NoSchedule"
           # nodeSelector is a label that can be used to tell Kubernetes which host
           # OS to use. For Windows game servers uncomment the nodeSelector
           # definition below.
