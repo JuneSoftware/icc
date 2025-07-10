@@ -6,7 +6,7 @@ metadata:
   name: indus-gs-fleet-quads-br-8070000
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
-  replicas: 1
+  replicas: 3
   # defines how GameServers are organised across the cluster.
   # Options include:
   # "Packed" (default) is aimed at dynamic Kubernetes clusters, such as cloud providers, wherein we want to bin pack
@@ -152,13 +152,6 @@ spec:
               items:
               - key: ca-certificates.crt
                 path: ca-certificates.crt
-          nodeSelector:
-            game-server: "true"
-          tolerations:
-            - key: "game-server"
-              operator: "Equal"
-              value: "true"
-              effect: "NoSchedule"
           # nodeSelector is a label that can be used to tell Kubernetes which host
           # OS to use. For Windows game servers uncomment the nodeSelector
           # definition below.
