@@ -24,11 +24,11 @@
 apiVersion: "autoscaling.agones.dev/v1"
 kind: FleetAutoscaler
 metadata:
-  name: indus-fleetautoscaler-mini-tdm-5634000-sa
+  name: indus-minitdm-duo-8083000-scale
 spec:
   # The name of the fleet to attach to and control. Must be an existing Fleet in the same namespace
   # as this FleetAutoscaler
-  fleetName: indus-gs-fleet-mini-tdm-5634000-sa
+  fleetName: indus-gs-fleet-minitdm-duo-8083000-public-sa
   # The autoscaling policy
   policy:
     # type of the policy. Buffer or Webhook types are available
@@ -40,13 +40,13 @@ spec:
       # as instances are being allocated or terminated.
       # Note that "reserved" game servers could not be scaled down.
       # It can be specified either in absolute (i.e. 5) or percentage format (i.e. 5%)
-      bufferSize: 20
+      bufferSize: 2
       # minimum fleet size to be set by this FleetAutoscaler. 
       # if not specified, the actual minimum fleet size will be bufferSize
-      minReplicas: 20
+      minReplicas: 2
       # maximum fleet size that can be set by this FleetAutoscaler
       # required
-      maxReplicas: 100000
+      maxReplicas: 30
   # [Stage:Beta]
   # [FeatureFlag:CustomFasSyncInterval]
   # The autoscaling sync strategy
@@ -56,4 +56,4 @@ spec:
     # parameters of the fixedInterval sync
     fixedInterval:
       # the time in seconds between each auto scaling
-      seconds: 10
+      seconds: 5
