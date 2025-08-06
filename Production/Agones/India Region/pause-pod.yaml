@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pause-pods
+  namespace: default
+spec:
+  replicas: 3  # Adjust based on expected cluster capacity needs
+  selector:
+    matchLabels:
+      app: game-server
+  template:
+    metadata:
+      labels:
+        app: game-server
+    spec:
+      priorityClassName: low-priority  # This links to the PriorityClass
+      containers:
+        - name: pause
+          image: registry.k8s.io/pause:3.9
+          resources:
+            requests:
+              cpu: "3600m" # according to machine cpu capacity
+              memory: "500Mi"
+      nodeSelector:
+        game-server: "true"
+      tolerations:
+        - key: "game-server"
+          operator: "Equal"
+          value: "true"
+          effect: "NoSchedule"
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: low-priority
+value: -10
+globalDefault: false
+description: "Lowest priority class for pause pods"

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: image-prepull
+spec:
+  selector:
+    matchLabels:
+      name: image-prepull
+  template:
+    metadata:
+      labels:
+        name: image-prepull
+    spec:
+      containers:
+        - name: prepull
+          image: asia-south1-docker.pkg.dev/indus-prod-mp/linux-containers/v2.1.0_8277000
+          command: [ "sleep", "900" ]  # Just sleep to keep the container running
+      nodeSelector:
+        game-server: "true"
+      tolerations:
+        - key: "game-server"
+          operator: "Equal"
+          value: "true"
+          effect: "NoSchedule"
