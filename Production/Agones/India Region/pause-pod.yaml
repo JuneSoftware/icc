@@ -4,7 +4,7 @@ metadata:
   name: pause-pods
   namespace: default
 spec:
-  replicas: 3  # Adjust based on expected cluster capacity needs
+  replicas: 2  # Adjust based on expected cluster capacity needs
   selector:
     matchLabels:
       app: game-server
