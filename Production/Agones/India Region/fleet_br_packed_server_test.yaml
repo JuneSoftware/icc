@@ -143,6 +143,10 @@ spec:
                 value: "0"     # 0 = Normal BR, 1 = FTUE Bots
               - name: RESPAWN
                 value: "0"  # 0  = Respawn Off, 1 = Respawn ON
+              - name: FORCE_AIM_ASSIST_OFF
+                value: "0"
+              - name: FORCE_AUTO_FIRE_OFF
+                value: "0"
               volumeMounts:
               - name: ca-cert-volume
                 mountPath: /etc/ssl/certs/ca-certificates.crt

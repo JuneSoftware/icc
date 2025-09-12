@@ -136,6 +136,10 @@ spec:
                 value: "1"
               - name: BOTS_BT_INDEX
                 value: "0"     # 0 = Normal BR, 1 = FTUE Bots     # 0 = Use Photon RandomRoom, 1 = Use IndusGO MM
+              - name: FORCE_AIM_ASSIST_OFF
+                value: "0"
+              - name: FORCE_AUTO_FIRE_OFF
+                value: "0"
               volumeMounts:
               - name: ca-cert-volume
                 mountPath: /etc/ssl/certs/ca-certificates.crt
