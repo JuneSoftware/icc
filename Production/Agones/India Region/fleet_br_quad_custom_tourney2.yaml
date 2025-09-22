@@ -112,7 +112,7 @@ spec:
                   memory: "1800Mi"
               env:
               - name: SESSION
-                value: "_PRX444_br_quad_8706000_Hidden"
+                value: "_PRX123_br_quad_8706000_Hidden"
               - name: REGION
                 value: "in"
               - name: LOBBY
