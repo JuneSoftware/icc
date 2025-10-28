@@ -112,7 +112,7 @@ spec:
                   memory: "1800Mi"
               env:
               - name: SESSION
-                value: "_ASP123_brx_quad_8962000_Hidden"
+                value: "_ASP123_br_quad_8962000_Hidden"
               - name: REGION
                 value: "sa"
               - name: LOBBY
