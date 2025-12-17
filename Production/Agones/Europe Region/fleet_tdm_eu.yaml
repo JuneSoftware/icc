@@ -6,10 +6,10 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gs-fleet-tdm-9538000
+  name: indus-gs-fleet-tdm-9542000
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
-  replicas: 2
+  replicas: 4
   # defines how GameServers are organised across the cluster.
   # Options include:
   # "Packed" (default) is aimed at dynamic Kubernetes clusters, such as cloud providers, wherein we want to bin pack
@@ -103,7 +103,7 @@ spec:
           terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: europe-west4-docker.pkg.dev/indus-prod-mp/linux-containers-eu/v2.5.0_9538000
+              image: europe-west4-docker.pkg.dev/indus-prod-mp/linux-containers-eu/v2.6.0_9542000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
