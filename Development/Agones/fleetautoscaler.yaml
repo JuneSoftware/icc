@@ -24,11 +24,11 @@
 apiVersion: "autoscaling.agones.dev/v1"
 kind: FleetAutoscaler
 metadata:
-  name: indus-fleet-autoscaler-duo-brx-7440000-sa
+  name: indus-fleet-autoscaler-primerush-mini-tdm-favela-9888000
 spec:
   # The name of the fleet to attach to and control. Must be an existing Fleet in the same namespace
   # as this FleetAutoscaler
-  fleetName: indus-gs-fleet-duo-brx-7440000-sa
+  fleetName: indus-gs-fleet-primerush-mini-tdm-favela-9888000
   # The autoscaling policy
   policy:
     # type of the policy. Buffer or Webhook types are available
@@ -43,10 +43,10 @@ spec:
       bufferSize: 2
       # minimum fleet size to be set by this FleetAutoscaler. 
       # if not specified, the actual minimum fleet size will be bufferSize
-      minReplicas: 2
+      minReplicas: 7
       # maximum fleet size that can be set by this FleetAutoscaler
       # required
-      maxReplicas: 10
+      maxReplicas: 100
   # [Stage:Beta]
   # [FeatureFlag:CustomFasSyncInterval]
   # The autoscaling sync strategy
