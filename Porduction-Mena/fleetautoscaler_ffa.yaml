@@ -25,11 +25,11 @@
 apiVersion: "autoscaling.agones.dev/v1"
 kind: FleetAutoscaler
 metadata:
-  name: indus-fleetautoscaler-primerush-gungame-10868000
+  name: indus-fleetautoscaler-control-point-10984000
 spec:
   # The name of the fleet to attach to and control. Must be an existing Fleet in the same namespace
   # as this FleetAutoscaler
-  fleetName: indus-gs-fleet-primerush-gungame-10868000
+  fleetName: indus-gs-fleet-control-point-10984000
   # The autoscaling policy
   policy:
     # type of the policy. Buffer or Webhook types are available
