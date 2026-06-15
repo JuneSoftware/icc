@@ -3,7 +3,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gs-fleet-primerush-br-quad-11104000
+  name: indus-gs-fleet-primerush-br-quad-11121000
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 4
@@ -101,7 +101,7 @@ spec:
           terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-prod-mp/linux-containers/v2.11.0_11104000
+              image: me-central1-docker.pkg.dev/prime-rush/linux-containers-doha/v0.58.58_11121000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
@@ -114,7 +114,7 @@ spec:
               - name: SESSION
                 value: "empty"
               - name: REGION
-                value: "in"
+                value: "uae"
               - name: LOBBY
                 value: "empty"
               - name: MODE
@@ -122,7 +122,7 @@ spec:
               - name: GAMEMODE
                 value: "0"     # 0 = BR, 1 = MiniBR, 6 = Rebirth
               - name: MAP
-                value: "9"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 
+                value: "0"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 
               - name: TEAM
                 value: "2"
               - name: BOTS
