@@ -104,7 +104,7 @@ spec:
           terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: image: me-central1-docker.pkg.dev/prime-rush/linux-containers-doha/v0.5.0_1121000
+              image: me-central1-docker.pkg.dev/prime-rush/linux-containers-doha/v0.5.0_1121000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
