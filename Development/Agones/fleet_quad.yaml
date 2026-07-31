@@ -6,7 +6,7 @@ metadata:
   name: indus-gs-fleet-br-quad-11371000
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
-  replicas: 4
+  replicas: 1
   # defines how GameServers are organised across the cluster.
   # Options include:
   # "Packed" (default) is aimed at dynamic Kubernetes clusters, such as cloud providers, wherein we want to bin pack
@@ -122,7 +122,7 @@ spec:
               - name: GAMEMODE
                 value: "0"     # 0 = BR, 1 = MiniBR, 6 = Rebirth
               - name: MAP
-                value: "9"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 
+                value: "0"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 
               - name: TEAM
                 value: "2"
               - name: BOTS
