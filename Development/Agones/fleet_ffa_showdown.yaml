@@ -7,7 +7,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gs-fleet-primerush-vip-10850000
+  name: indus-gs-fleet-primerush-showdown-11433000
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 2
@@ -105,7 +105,7 @@ spec:
           terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v0.58.47_10850000
+              image: asia-south1-docker.pkg.dev/indus-staging-v1/linux-containers/v1.12.0_11433000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
@@ -124,19 +124,19 @@ spec:
               - name: MODE
                 value: "agones"
               - name: GAMEMODE
-                value: "14"     # 0 = BR, 1 = MiniBR, 2 = Tutorial , 3 = TDM , 4= mini TDM
+                value: "15"     # 0 = BR, 1 = MiniBR, 2 = Tutorial , 3 = TDM , 4= mini TDM
               - name: MAP
-                value: "5"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 5 = TDM Refinery, 7 = mini TDM, 10 = Favela
+                value: "13"     # 0 = Virlok BR Map, 1 = MiniBR Foundry, 2 = MiniBR Lok Terminal, 5 = TDM Refinery, 7 = mini TDM, 10 = Favela
               - name: TEAM
-                value: "2"
+                value: "0"
               - name: BOTS
-                value: "60"
+                value: "0"
               - name: PORT
                 value: "27015"
               - name: MASTER_CLIENT
                 value: "1"
               - name: BOTS_FILLMODE
-                value: "2"
+                value: "0"
               - name: MM
                 value: "1"
               - name: BOTS_BT_INDEX
@@ -150,7 +150,7 @@ spec:
               - name: FORCE_AIM_ASSIST_OFF
                 value: "0"
               - name: FORCE_AUTO_FIRE_OFF
-                value: "1"
+                value: "0"
               volumeMounts:
               - name: ca-cert-volume
                 mountPath: /etc/ssl/certs/ca-certificates.crt
