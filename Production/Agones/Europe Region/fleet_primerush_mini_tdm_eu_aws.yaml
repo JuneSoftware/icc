@@ -104,7 +104,7 @@ spec:
           terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: 196591916132.dkr.ecr.sa-east-1.amazonaws.com/linux-containers-sa-east-1:v2.16.0_11531000
+              image: 196591916132.dkr.ecr.eu-central-1.amazonaws.com/linux-containers-eu-central-1:v2.16.0_11531000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
