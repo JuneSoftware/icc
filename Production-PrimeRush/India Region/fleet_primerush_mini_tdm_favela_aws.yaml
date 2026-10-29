@@ -101,7 +101,7 @@ spec:
             app: game-server
         # Pod Specification
         spec:
-          terminationGracePeriodSeconds: 60
+          terminationGracePeriodSeconds: 300
           containers:
             - name: indus-gameserver
               image: 196591916132.dkr.ecr.ap-south-1.amazonaws.com/linux-containers:v2.18.0_11717000
