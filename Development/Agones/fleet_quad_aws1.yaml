@@ -3,7 +3,7 @@ kind: Fleet
 # Fleet Metadata
 # https://v1-22.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta
 metadata:
-  name: indus-gs-fleet-primerush-br-quad-11711000
+  name: indus-gs-fleet-primerush-br-quad-11719000
 spec:
   # the number of GameServers to keep Ready or Allocated in this Fleet
   replicas: 2
@@ -101,7 +101,7 @@ spec:
           terminationGracePeriodSeconds: 15
           containers:
             - name: indus-gameserver
-              image: 437603324524.dkr.ecr.ap-south-1.amazonaws.com/linux-containers:v1.16.0_11711000
+              image: 437603324524.dkr.ecr.ap-south-1.amazonaws.com/linux-containers:v2.18.0_11719000
               imagePullPolicy: Always
               resources: # Resource requests and limits
                 requests:
@@ -150,7 +150,7 @@ spec:
               - name: FORCE_AUTO_FIRE_OFF
                 value: "0"
               - name: PLAYERDIAG
-                value: "0"
+                value: "1"
               volumeMounts:
               - name: ca-cert-volume
                 mountPath: /etc/ssl/certs/ca-certificates.crt
