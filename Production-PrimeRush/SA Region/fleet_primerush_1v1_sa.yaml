@@ -152,7 +152,7 @@ spec:
               - name: FORCE_AUTO_FIRE_OFF
                 value: "0"
               - name: PLAYERDIAG
-                value: "0"
+                value: "1"
               volumeMounts:
               - name: ca-cert-volume
                 mountPath: /etc/ssl/certs/ca-certificates.crt
